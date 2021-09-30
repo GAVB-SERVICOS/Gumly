@@ -7,30 +7,25 @@ def move_files(source_dir: str, dest_dir: str):
     """
     moves the files from source_dir to dest_dir.
     
-    :param source_dir:  
+    :param source_dir: the source directory where are the files initially located  
     :type: Str
-    :param dest_dir:
+    :param dest_dir: the destiny directory where the files will be located
     :type: Str
-    :return:    
-    :rtype: str
+        
 
     """
     create_dir(dest_dir)
 
     for file in os.listdir(source_dir):
         shutil.copy(source_dir + file, dest_dir)
-        
 
 
-
-def create_dir(save_dir: str): 
+def create_dir(save_dir: str):
     """
     Creates directoy if doesn't exist.
-    :param path
+    :param save_dir: path directory where the files will be save
     :type: str
-    :raise FileExistsError: File already exists
-    :return: 
-    :rtype: str  
+    :raise FileExistsError: file already exists 
    
     """
     try:

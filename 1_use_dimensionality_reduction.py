@@ -3,9 +3,14 @@ import numpy as np
 from sklearn.decomposition import PCA
 from scipy.sparse.linalg import svds
 
-# TODO: make argument explained_variance works in PCA. 
-# One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack' 
-def dimensionality_reduction(df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None):
+# TODO: make argument explained_variance works in PCA.
+# One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack'
+def dimensionality_reduction(
+    df_input,
+    decomposition_method: str = None,
+    k: int = None,
+    explained_variance: float = None,
+):
     """
     Implements methods for dimensionality reduction.
     
@@ -29,29 +34,30 @@ def dimensionality_reduction(df_input, decomposition_method: str = None, k: int 
 
     """
     if k is None and explained_variance is None:
-        raise ValueError(f"k or explained_variance must be defined") 
-    
-    if decomposition_method == 'SVD':
-        # Implements SVD for reducing dimensionality 
+        raise ValueError(f"k or explained_variance must be defined")
+
+    if decomposition_method == "SVD":
+        # Implements SVD for reducing dimensionality
         u, s, vt = svds(df_input, k=k)
         return u
 
-    elif decomposition_method == 'PCA':
+    elif decomposition_method == "PCA":
         if k is not None:
             # Implements PCA for reducing dimensionality
             u = PCA(k).fit_transform(df_input.values)
         elif explained_variance is not None:
-            
+
             if not isinstance(explained_variance, float):
-                raise TypeError(f"explained_variance must be a float, but its value passed was {explained_variance}.")
+                raise TypeError(
+                    f"explained_variance must be a float, but its value passed was {explained_variance}."
+                )
             if explained_variance <= 0 or explained_variance >= 1:
                 raise ValueError(f"explained_variance must be in the interval (0..1)")
-            
-            u = PCA(explained_variance).fit_transform(df_input.values)   
+
+            u = PCA(explained_variance).fit_transform(df_input.values)
         return u
-                
+
     else:
-        raise  NotImplementedError("Model implemented yet. Available names: 'SVD', 'PCA'.")
-
-
-
+        raise NotImplementedError(
+            "Model implemented yet. Available names: 'SVD', 'PCA'."
+        )

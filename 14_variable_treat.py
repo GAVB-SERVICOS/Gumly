@@ -1,11 +1,12 @@
-
-#Função nova refatorada por Pedro Russo, me passada pelo Slack.
-def variable_treat(data,
-                   variables,
-                   lower: bool = False,
-                   lower_percentile: float = None,
-                   upper: bool = False,
-                   upper_percentile: float = None):
+# Função nova refatorada por Pedro Russo, me passada pelo Slack.
+def variable_treat(
+    data,
+    variables,
+    lower: bool = False,
+    lower_percentile: float = None,
+    upper: bool = False,
+    upper_percentile: float = None,
+):
 
     """
     Select the outliers list
@@ -30,27 +31,29 @@ def variable_treat(data,
 
     if lower is False and upper is False:
         raise NotImplementedError(f" One of those paramns must be True")
-    
+
     if type(variables) == str:
         variables = variables.split()
     rows_to_drop = set()
-    
+
     if lower:
-        lp = lower_percentile/100
+        lp = lower_percentile / 100
         for var in variables:
-            new_data = data.copy().sort_values(by = var)
-            new_data['New Column'] = range(1, 1 + new_data.shape[0])
-            rows_to_drop = rows_to_drop.union(set(new_data[new_data['New Column'] < 
-                                                  (lp * new_data.shape[0])].index))
-    
+            new_data = data.copy().sort_values(by=var)
+            new_data["New Column"] = range(1, 1 + new_data.shape[0])
+            rows_to_drop = rows_to_drop.union(
+                set(new_data[new_data["New Column"] < (lp * new_data.shape[0])].index)
+            )
+
     if upper:
-        up = upper_percentile/100
+        up = upper_percentile / 100
         for var in variables:
-            new_data = data.copy().sort_values(by = var)
-            new_data['New Column'] = range(1, 1 + new_data.shape[0])
-            rows_to_drop = rows_to_drop.union(set(new_data[new_data['New Column'] > 
-                                                  (up * new_data.shape[0])].index))
-    
+            new_data = data.copy().sort_values(by=var)
+            new_data["New Column"] = range(1, 1 + new_data.shape[0])
+            rows_to_drop = rows_to_drop.union(
+                set(new_data[new_data["New Column"] > (up * new_data.shape[0])].index)
+            )
+
     rows_to_drop = list(rows_to_drop)
-    
+
     return rows_to_drop
