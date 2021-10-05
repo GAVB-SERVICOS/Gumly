@@ -1,2 +1,2 @@
 # mlutils
-The GAVB Machine Learning Utility library!
+The GAVB Machine Learning Utility library to improve apps!
