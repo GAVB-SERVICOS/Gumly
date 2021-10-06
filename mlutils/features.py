@@ -2,9 +2,6 @@
 from sklearn.linear_model import LogisticRegression
 
 
-
-
-
 class classification:
     def __init__(self):
 
