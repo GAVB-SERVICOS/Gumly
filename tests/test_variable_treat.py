@@ -8,7 +8,7 @@ def test_vt():
     
     result = variable_treat(data, 'Condominio', lower = True, lower_percentile=1.0, upper=True, upper_percentile=90.0)
 
-    return print(result)
+    return result
 
 test_vt()
 
