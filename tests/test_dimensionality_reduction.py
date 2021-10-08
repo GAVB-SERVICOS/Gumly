@@ -22,13 +22,20 @@ def test_svd():
 test_svd()
 
 
-"""
+
+
 def test_pca():
 
-    df = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
-    u = PCA(n_components=2).fit_transform(df)
-    assert dimensionality_reduction(df,decomposition_method ='PCA', explained_variance=0.1) == [0.9924, 0.0075]
-    return u
+    df = np.array([[-1, -1, 2, -2], [-2, -1, 3, -1], [-3, -2, 5, 1], [1, 1, 6, 1], [2, 1, 7, 1], [3, 2, 8, 1]])
+    n_array = np.array([[-3.55416303, -2.01120392],
+       [-3.29181646, -0.37102401],
+       [-2.55517195,  2.67830462],
+       [ 1.76504972,  0.04940415],
+       [ 2.9974995 ,  0.00646722],
+       [ 4.63860223, -0.35194805]])
+    result = dimensionality_reduction(df, k=2, decomposition_method = 'PCA')
+    print(result)
+    assert np.array_equal(result, n_array )
 
 test_pca()
-"""
+
