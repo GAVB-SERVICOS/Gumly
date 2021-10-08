@@ -44,7 +44,7 @@ def dimensionality_reduction(
     elif decomposition_method == "PCA":
         if k is not None:
             # Implements PCA for reducing dimensionality
-            u = PCA(k).fit_transform(df_input.values)
+            u = PCA(k).fit_transform(df_input)
         elif explained_variance is not None:
 
             if not isinstance(explained_variance, float):
@@ -54,7 +54,7 @@ def dimensionality_reduction(
             if explained_variance <= 0 or explained_variance >= 1:
                 raise ValueError(f"explained_variance must be in the interval (0..1)")
 
-            u = PCA(explained_variance).fit_transform(df_input.values)
+            u = PCA(explained_variance).fit_transform(df_input)
         return u
 
     else:
