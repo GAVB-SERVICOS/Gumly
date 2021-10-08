@@ -22,10 +22,10 @@ def tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option
     :param parameters: Dict that contains all the threshold given for optimization testing
     :type: dict
     :param algorithm: Machine Learning algorithm used for fit the model
-    :type: str
+    :type: class
     :param metric: Metric used for the evaluation of the tests
-    :type: str
-    :param scoring_option: Maximization or minimization objectives
+    :type: function
+    :param scoring_option: Maximize or minimize objectives
     :type: str
     :param n_trials: The of trials that the framework must perform
     :type: int
@@ -34,11 +34,10 @@ def tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option
     :rtype: dict
 
     '''
-
-    x, y = select_data(df, target)
+    x, y = select_data(df=df, target=target)
 
     parameters_dict = {}
-    def objective(trial, metric):
+    def objective(trial=n_trials, parameters=parameters, metric=metric, x=x,y=y):
 
         if parameters:   
             for i, param in enumerate(parameters):
@@ -55,10 +54,10 @@ def tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option
                 else:
                     raise NotImplemented("Not implemented yet")
 
-
-        my_model = algorithm(parameters_dict)
+        print(algorithm)
+        my_model = algorithm(**parameters_dict)
         cv = KFold(shuffle= True, random_state=42)
-        metric_cv = cross_val_score(my_model, x, y, cv=cv, scoring=metric)
+        metric_cv = cross_val_score(my_model, x, y, cv=cv)
 
         metric = abs(metric_cv.mean())
     
