@@ -8,6 +8,8 @@ def test_vt():
     
     result = variable_treat(data, 'Condominio', lower = True, lower_percentile=1.0, upper=True, upper_percentile=90.0)
 
+    assert variable_treat(data, 'Condominio', lower = True, lower_percentile=1.0, upper=True, upper_percentile=90.0) == 1
+    
     return result
 
 test_vt()
