@@ -1,4 +1,3 @@
-import pytest
 from sklearn import datasets
 import pandas as pd
 from mlutils.feature_engineering import *
@@ -10,7 +9,7 @@ def test_feature_engineering():
 
     boston_data = datasets.load_boston()
     df_boston = pd.DataFrame(boston_data.data,columns=boston_data.feature_names)
-    df_boston['target'] = pd.Series(boston_data.target)
+    df_boston['target'] = boston_data.target
 
     x_reg, y_reg = select_data(df_boston, 'target')
     x_class, y_class = select_data(df_iris, 'target')
