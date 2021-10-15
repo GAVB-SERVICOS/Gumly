@@ -34,7 +34,7 @@ def dimensionality_reduction(
 
     """
     if k is None and explained_variance is None:
-        raise ValueError(f"k or explained_variance must be defined")
+        raise ValueError(f"k and explained_variance must be defined")
 
     if decomposition_method == "SVD":
         # Implements SVD for reducing dimensionality
