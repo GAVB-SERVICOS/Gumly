@@ -1,5 +1,6 @@
 
 from mlutils.weighted_mean_absolute_percentage_error import * 
+import pytest
 
 
 def test_wmap():
@@ -10,6 +11,14 @@ def test_wmap():
     resultado = weighted_mean_absolute_percentage_error(y_true, y_pred)
     
     assert weighted_mean_absolute_percentage_error(y_true, y_pred) == 0.17391304347826086
-    assert weighted_mean_absolute_percentage_error(y_true, y_pred) == 0.2
+    #assert weighted_mean_absolute_percentage_error(y_true, y_pred) == 0.2
 
     return resultado
+
+def test_wmap_notimplementederror():
+    with pytest.raises(NotImplementedError):
+        y_true = None
+        y_pred = None
+        weighted_mean_absolute_percentage_error(y_true,y_pred)
+
+

@@ -42,5 +42,17 @@ def test_dimensionality_reduction_valuerror():
         df = np.array([[-1, -1, 2, -2], [-2, -1, 3, -1], [-3, -2, 5, 1], [1, 1, 6, 1], [2, 1, 7, 1], [3, 2, 8, 1]], dtype=np.float32) 
         dimensionality_reduction(df, k= None, decomposition_method = 'PCA', explained_variance=None)
 
+def test_dimensionality_reduction_typeerror():
+    with pytest.raises(TypeError):
+        df = np.array([[-1, -1, 2, -2], [-2, -1, 3, -1], [-3, -2, 5, 1], [1, 1, 6, 1], [2, 1, 7, 1], [3, 2, 8, 1]], dtype=np.float32) 
+        dimensionality_reduction(df, k= None, decomposition_method = 'PCA', explained_variance=1)
 
+def test_dimensionality_reduction_valueerror():
+    with pytest.raises(ValueError):
+        df = np.array([[-1, -1, 2, -2], [-2, -1, 3, -1], [-3, -2, 5, 1], [1, 1, 6, 1], [2, 1, 7, 1], [3, 2, 8, 1]], dtype=np.float32) 
+        dimensionality_reduction(df, decomposition_method = 'PCA', explained_variance= 1.9)
 
+def test_dimensionality_reduction_notimplementederror():
+    with pytest.raises(NotImplementedError):
+        df = np.array([[-1, -1, 2, -2], [-2, -1, 3, -1], [-3, -2, 5, 1], [1, 1, 6, 1], [2, 1, 7, 1], [3, 2, 8, 1]], dtype=np.float32) 
+        dimensionality_reduction(df, decomposition_method = None, explained_variance= 0.2)

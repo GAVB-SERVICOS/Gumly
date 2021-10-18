@@ -13,13 +13,16 @@ def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
      :type: array-like of shape
      :param weights: weights to use when averaging
      :type: array-like of shape. default = None
+     :raise NotImplementedError: y_true and y_pred must be defined
      :return: float number
      :rtype: float
     
     """
+    if y_true is None and y_pred is None :
+        raise NotImplementedError(f"y_true and y_pred must be defined")
 
     if not weights:
-        weights = np.ones_like(y_true)  # trás uma série de valores 1 em um array
+        weights = np.ones_like(y_true) 
 
     y_true = np.asarray(y_true).reshape(-1)
     y_pred = np.asarray(y_pred).reshape(-1)

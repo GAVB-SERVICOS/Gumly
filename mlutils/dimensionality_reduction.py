@@ -25,6 +25,7 @@ def dimensionality_reduction(
         amount of variance that needs to be explained is greater than the percentage 
         specified by n_components
     :type: float, default = None
+    :raise ValueError: K and explained_variance must be defined.
     :raise TypeError: explained_variance must be a float.
     :raise ValueError : explained_variance must be in the interval (0..1) and k 
         or explained_variance must be defined
