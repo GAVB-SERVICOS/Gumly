@@ -18,7 +18,7 @@ test_vt()
 
 
 def test_passes():
-    with pytest.raises(NotImplementedError) as a:
+    with pytest.raises(NotImplementedError) as ex:
         df2 = pd.DataFrame(
             np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=["a", "b", "c"]
         )
@@ -30,4 +30,4 @@ def test_passes():
             upper=False,
             upper_percentile=90.0,
         )
-        assert a.message == "One of those paramns must be True"
+        assert ex.message == "One of those paramns must be True"
