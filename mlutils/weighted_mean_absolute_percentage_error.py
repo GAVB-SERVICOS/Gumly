@@ -18,8 +18,6 @@ def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
      :rtype: float
     
     """
-    if y_true is None and y_pred is None :
-        raise NotImplementedError(f"y_true and y_pred must be defined")
 
     if not weights:
         weights = np.ones_like(y_true) 

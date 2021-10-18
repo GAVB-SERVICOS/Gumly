@@ -15,9 +15,9 @@ def move_files(source_dir: str, dest_dir: str):
 
     """
     create_dir(dest_dir)
-
+    source_dir_path = Path(source_dir)
     for file in os.listdir(source_dir):
-        shutil.copy(source_dir + file, dest_dir)
+        shutil.copy(str(source_dir_path/file), dest_dir)
 
 
 def create_dir(save_dir: str):
