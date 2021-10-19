@@ -13,7 +13,11 @@ def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
      :type: array-like of shape
      :param weights: weights to use when averaging
      :type: array-like of shape. default = None
-     :raise NotImplementedError: y_true and y_pred must be defined
+     :raise AssertionError: Predicted and true values have different shapes
+     :raise AssertionError: Weights and true values have different shapes
+     :raise AssertionError: Weights and predicted values have different shapes
+     :raise AssertionError: Weights cannot be negative
+     :raise AssertionError: Weights cannot be all equal to zero
      :return: float number
      :rtype: float
     
