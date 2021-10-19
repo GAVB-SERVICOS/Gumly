@@ -34,7 +34,7 @@ class classification:
         try:
             for i in range(len(list_models)):
                 model_[i] = _train(self, list_models[i])
-                #TODO: terminar aqui
+                # TODO: terminar aqui
         except:
             print("Something went wrong at the run_train_models")
         else:

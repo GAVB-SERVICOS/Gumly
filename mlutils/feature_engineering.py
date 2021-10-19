@@ -17,6 +17,7 @@ import statsmodels.api as sm
 from sklearn.feature_selection import f_regression
 from sklearn.feature_selection import mutual_info_regression
 
+
 def select_data(df, target):
     """
     Select dataframe and the name of the target variable as input and return x,y.
@@ -70,6 +71,7 @@ def feature_selection_filter(df, target, num_feats):
 
     else:
         return chi_feature
+
 
 def feature_selection_wrapper(df, target, num_feats):
     """

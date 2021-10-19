@@ -20,7 +20,7 @@ def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
     """
 
     if not weights:
-        weights = np.ones_like(y_true) 
+        weights = np.ones_like(y_true)
 
     y_true = np.asarray(y_true).reshape(-1)
     y_pred = np.asarray(y_pred).reshape(-1)

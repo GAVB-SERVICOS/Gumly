@@ -10,9 +10,12 @@ from sklearn.metrics import mean_squared_log_error, median_absolute_error
 
 from mlutils.feature_engineering import *
 
-def tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option, n_trials):
 
-    '''
+def tuning_hyperparams(
+    df, target, parameters, algorithm, metric, scoring_option, n_trials
+):
+
+    """
     Perform hyperparameters optimization using optuna framework for the chosen technique.
 
     :param df: DataFrame pandas
@@ -33,38 +36,43 @@ def tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option
     :return: Best hyperparameter features chosen by the technique 
     :rtype: dict
 
-    '''
+    """
     x, y = select_data(df=df, target=target)
 
     parameters_dict = {}
-    def objective(trial=n_trials, parameters=parameters, metric=metric, x=x,y=y):
 
-        if parameters:   
+    def objective(trial=n_trials, parameters=parameters, metric=metric, x=x, y=y):
+
+        if parameters:
             for i, param in enumerate(parameters):
 
-                if param["type"] == "Real":  
-                    parameters_dict[param["name"]] = trial.suggest_uniform(name=param["name"], 
-                                                                                            low=param["low"], high=param["high"])
+                if param["type"] == "Real":
+                    parameters_dict[param["name"]] = trial.suggest_uniform(
+                        name=param["name"], low=param["low"], high=param["high"]
+                    )
                 elif param["type"] == "Categorical":
-                    parameters_dict[param["name"]] = trial.suggest_categorical(name=param["name"], choices=param["choices"])
+                    parameters_dict[param["name"]] = trial.suggest_categorical(
+                        name=param["name"], choices=param["choices"]
+                    )
 
                 elif param["type"] == "Integer":
-                    parameters_dict[param["name"]] = trial.suggest_int(name=param["name"], 
-                                                                                        low=param["low"], high=param["high"])
+                    parameters_dict[param["name"]] = trial.suggest_int(
+                        name=param["name"], low=param["low"], high=param["high"]
+                    )
                 else:
                     raise NotImplemented("Not implemented yet")
 
         print(algorithm)
         my_model = algorithm(**parameters_dict)
-        cv = KFold(shuffle= True, random_state=42)
+        cv = KFold(shuffle=True, random_state=42)
         metric_cv = cross_val_score(my_model, x, y, cv=cv)
 
         metric = abs(metric_cv.mean())
-    
+
         return metric
 
     study = optuna.create_study(direction=scoring_option)
     study.optimize(objective, n_trials=n_trials)
     trial = study.best_trial
-        
+
     return study.best_params
