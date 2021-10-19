@@ -37,12 +37,16 @@ def test_weighted_mean_absolute_percentage_error_predict_true_weights_shape():
         weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[1, 2])
         assert ex.message == "Weights and true values have different shapes."
 
+
 def test_weighted_mean_absolute_percentage_error_predict_true_weights_less_zero():
     with pytest.raises(AssertionError) as ex:
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8]
-        weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[-1, -2, -3, -4])
+        weighted_mean_absolute_percentage_error(
+            y_true, y_pred, weights=[-1, -2, -3, -4]
+        )
         assert ex.message == "Weights cannot be negative."
+
 
 def test_weighted_mean_absolute_percentage_error_predict_true_weights_equal_zero():
     with pytest.raises(AssertionError) as ex:
