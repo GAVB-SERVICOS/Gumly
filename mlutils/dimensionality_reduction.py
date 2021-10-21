@@ -1,10 +1,10 @@
-import pandas as pd
-import numpy as np
 from sklearn.decomposition import PCA
 from scipy.sparse.linalg import svds
 
 # TODO: make argument explained_variance works in PCA.
-# One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack'
+# One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack'.
+# If the model requires a DataFrame for PCA, must put ".values" after "df_input".
+# If the model requires a np.array for SVD, must put "dtype=np.float32" in the array end. 
 def dimensionality_reduction(
     df_input,
     decomposition_method: str = None,
