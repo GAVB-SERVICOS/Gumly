@@ -17,7 +17,6 @@ def test_dimensionality_reduction_svd():
             [2, 1, 7, 1],
             [3, 2, 8, 1],
         ],
-        dtype=np.float32,
     )
     n_array = np.array(
         [
@@ -72,7 +71,6 @@ def test_dimensionality_reduction_valuerror():
                 [2, 1, 7, 1],
                 [3, 2, 8, 1],
             ],
-            dtype=np.float32,
         )
         dimensionality_reduction(
             df, k=None, decomposition_method="PCA", explained_variance=None
@@ -92,7 +90,6 @@ def test_dimensionality_reduction_typeerror():
                 [2, 1, 7, 1],
                 [3, 2, 8, 1],
             ],
-            dtype=np.float32,
         )
         dimensionality_reduction(
             df,
@@ -117,7 +114,6 @@ def test_dimensionality_reduction_valueerror():
                 [2, 1, 7, 1],
                 [3, 2, 8, 1],
             ],
-            dtype=np.float32,
         )
         dimensionality_reduction(df, decomposition_method="PCA", explained_variance=1.9)
         assert ex.message == "explained_variance must be in the interval (0..1)"
@@ -134,7 +130,6 @@ def test_dimensionality_reduction_notimplementederror():
                 [2, 1, 7, 1],
                 [3, 2, 8, 1],
             ],
-            dtype=np.float32,
         )
         dimensionality_reduction(df, decomposition_method=None, explained_variance=0.2)
         assert ex.message == "Model implemented yet. Available names: 'SVD', 'PCA'."
