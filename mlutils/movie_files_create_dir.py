@@ -19,7 +19,6 @@ def move_files(source_dir: str, dest_dir: str):
     for file in os.listdir(source_dir):
         shutil.copy(str(source_dir_path / file), dest_dir)
 
-
 def create_dir(save_dir: str):
     """
     Creates directoy if doesn't exist.
@@ -33,4 +32,4 @@ def create_dir(save_dir: str):
     except FileExistsError:
         print("Folder already exists")
     else:
-        print("Folder was created")
+        print("Folder was created and file moved")
