@@ -1,8 +1,5 @@
 # Função nova refatorada por Pedro Russo, me passada pelo Slack.
 
-import pandas as pd
-
-
 def variable_treat(
     data,
     variables,

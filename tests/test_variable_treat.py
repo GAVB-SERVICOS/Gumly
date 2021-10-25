@@ -1,6 +1,7 @@
 from mlutils.variable_treat import *
 import numpy as np
 import pytest
+import pandas as pd
 
 
 def test_vt():
