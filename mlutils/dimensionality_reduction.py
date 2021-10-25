@@ -1,7 +1,5 @@
 from sklearn.decomposition import PCA
 from scipy.sparse.linalg import svds
-import numpy as np
-import pandas as pd
 
 # TODO: make argument explained_variance works in PCA.
 # One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack'.
