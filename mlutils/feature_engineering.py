@@ -96,9 +96,9 @@ def feature_selection_wrapper(df, target, num_feats):
         rfe_selector = RFE(
             estimator=LogisticRegression(), n_features_to_select=num_feats, step=10
         )
-        rfe_selector.fit(X_norm, y)
+        rfe_selector.fit(x, y)
         rfe_support = rfe_selector.get_support()
-        rfe_feature = X.loc[:, rfe_support].columns.tolist()
+        rfe_feature = x.loc[:, rfe_support].columns.tolist()
 
     except:
         print("An error occured during wrapper selection process")
@@ -107,7 +107,7 @@ def feature_selection_wrapper(df, target, num_feats):
         return rfe_feature
 
 
-def feature_selection_embedded(df, target, num_feats):
+def feature_selection_embedded(df, target, num_feats, n_estimators):
     """
     Feature selection using embedded technique and LightGBMClassifier.
     
@@ -116,6 +116,8 @@ def feature_selection_embedded(df, target, num_feats):
     :param target: target variable
     :type: str
     :param num_feats: The number of features that is wanted to remain after the process as max value
+    :type: int
+    :param n_estimators: The number of estimators for the training phase
     :type: int
     :raise exception: The LightGBMClassifier method couldn't be processed
     :return: features selected by the technique
@@ -126,11 +128,11 @@ def feature_selection_embedded(df, target, num_feats):
     x, y = select_data(df, target)
 
     try:
-        lgbc = LGBMClassifier(n_estimators=500)
+        lgbc = LGBMClassifier(n_estimators=n_estimators)
         embeded_lgb_selector = SelectFromModel(lgbc, max_features=num_feats)
-        embeded_lgb_selector.fit(X, y)
+        embeded_lgb_selector.fit(x, y)
         embeded_lgb_support = embeded_lgb_selector.get_support()
-        embeded_lgb_feature = X.loc[:, embeded_lgb_support].columns.tolist()
+        embeded_lgb_feature = x.loc[:, embeded_lgb_support].columns.tolist()
 
     except:
         print("An error occured during embedded selection process")
@@ -140,7 +142,7 @@ def feature_selection_embedded(df, target, num_feats):
 
 
 def feature_selection_stepwise(
-    df, target, threshold_in=0.01, threshold_out=0.05, verbose=True
+    df, target, threshold_in=0.01, threshold_out=0.05, verbose=False
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
@@ -158,6 +160,8 @@ def feature_selection_stepwise(
 
     """
     x, y = select_data(df, target)
+    
+    initial_list = []
 
     try:
         included = list(initial_list)
