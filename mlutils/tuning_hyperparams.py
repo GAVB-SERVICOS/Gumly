@@ -12,7 +12,7 @@ from mlutils.feature_engineering import *
 
 
 def tuning_hyperparams(
-    df, target, parameters, algorithm, metric, scoring_option, n_trials
+    df, target: str, parameters: dict, algorithm, metric: function, scoring_option: str, n_trials: int
 ):
 
     """

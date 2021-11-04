@@ -18,7 +18,7 @@ from sklearn.feature_selection import f_regression
 from sklearn.feature_selection import mutual_info_regression
 
 
-def select_data(df, target):
+def select_data(df, target: str):
     """
     Select dataframe and the name of the target variable as input and return x,y.
     
@@ -42,7 +42,7 @@ def select_data(df, target):
         return x, y
 
 
-def feature_selection_filter(df, target, num_feats):
+def feature_selection_filter(df, target: str, num_feats: int):
     """
     Feature selection using filter technique and chi2 values.
     
@@ -73,7 +73,7 @@ def feature_selection_filter(df, target, num_feats):
         return chi_feature
 
 
-def feature_selection_wrapper(df, target, num_feats):
+def feature_selection_wrapper(df, target: str, num_feats: int):
     """
     Feature selection using wrapper technique and LogisticRegression.
     
@@ -107,7 +107,7 @@ def feature_selection_wrapper(df, target, num_feats):
         return rfe_feature
 
 
-def feature_selection_embedded(df, target, num_feats, n_estimators):
+def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: int):
     """
     Feature selection using embedded technique and LightGBMClassifier.
     
@@ -142,7 +142,7 @@ def feature_selection_embedded(df, target, num_feats, n_estimators):
 
 
 def feature_selection_stepwise(
-    df, target, threshold_in=0.01, threshold_out=0.05, verbose=False
+    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
@@ -152,8 +152,11 @@ def feature_selection_stepwise(
     :param target: target variable
     :type: str
     :param threshold_in: include a feature if its p-value < threshold_in
+    :type: float
     :param threshold_out: exclude a feature if its p-value > threshold_out
+    :type: float
     :param verbose: whether to print the sequence of inclusions and exclusions
+    :type: bool
     :raise exception: The step wise method couldn't be processed
     :return: features selected by the technique
     :rtype: list
@@ -207,7 +210,7 @@ def feature_selection_stepwise(
         return included
 
 
-def feature_selection_f_regression(df, target, num_feats):
+def feature_selection_f_regression(df, target: str, num_feats: int):
     """ 
     Perform a f_regression feature selection based on p-value
 
@@ -238,7 +241,7 @@ def feature_selection_f_regression(df, target, num_feats):
         return f_feature
 
 
-def feature_selection_mutual_information(df, target, num_feats):
+def feature_selection_mutual_information(df, target: str, num_feats: int):
     """ 
     Perform a mutual_info_regression feature selection
 
