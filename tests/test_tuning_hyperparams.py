@@ -16,25 +16,20 @@ def test_tuning_hyperparams():
     df_iris = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
     df_iris["target"] = iris_data.target
 
-    boston_data = datasets.load_boston()
-    df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
-    df_boston["target"] = boston_data.target
-
     param_RF = [
         {"name": "min_samples_leaf", "type": "Integer", "low": 50, "high": 75},
         {"name": "max_depth", "type": "Integer", "low": 12, "high": 24},
     ]
+    #import pdb
+    #pdb.set_trace()
 
     # tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option, n_trials)
-    return tuning_hyperparams(
+    assert tuning_hyperparams(
         df=df_iris,
         target="target",
         parameters=param_RF,
         algorithm=RandomForestClassifier,
-        metric=None,
+        metric=r2_score,
         scoring_option="maximize",
         n_trials=10,
-    )
-
-
-test_tuning_hyperparams()
+    ) == {'min_samples_leaf': 57, 'max_depth': 18}
