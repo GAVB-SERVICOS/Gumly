@@ -73,7 +73,7 @@ def feature_selection_filter(df, target: str, num_feats: int):
         return chi_feature
 
 
-def feature_selection_wrapper(df, target: str, num_feats: int):
+def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     """
     Feature selection using wrapper technique and LogisticRegression.
     
@@ -82,6 +82,8 @@ def feature_selection_wrapper(df, target: str, num_feats: int):
     :param target: target variable
     :type: str
     :param num_feats: The number of features that is wanted to remain after the process
+    :type: int
+    :param step: The number steps
     :type: int
     :raise exception: The LogisticRegression method couldn't be processed
     :return: features selected by the technique
@@ -94,7 +96,9 @@ def feature_selection_wrapper(df, target: str, num_feats: int):
     try:
 
         rfe_selector = RFE(
-            estimator=LogisticRegression(), n_features_to_select=num_feats, step=10
+            estimator=LogisticRegression(max_iter=200),
+            n_features_to_select=num_feats,
+            step=step,  # ver com Lucas(estava 10)
         )
         rfe_selector.fit(x, y)
         rfe_support = rfe_selector.get_support()
@@ -142,7 +146,11 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
 
 
 def feature_selection_stepwise(
-    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False
+    df,
+    target: str,
+    threshold_in: float = 0.01,
+    threshold_out: float = 0.05,
+    verbose: bool = False,
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
@@ -163,7 +171,7 @@ def feature_selection_stepwise(
 
     """
     x, y = select_data(df, target)
-    
+
     initial_list = []
 
     try:

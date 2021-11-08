@@ -1,5 +1,6 @@
 # Função nova refatorada por Pedro Russo, me passada pelo Slack.
 
+
 def variable_treat(
     data,
     variables,
