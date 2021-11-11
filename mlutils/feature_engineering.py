@@ -1,6 +1,7 @@
 # ref: https://github.com/gavbdheiver/predictive-maintenance-accelerator-/blob/main/predictive-maintenance-accelerator/Feature%20selection/Feat_Selection_Com_Stepwise/RUL_OPTUNA_DB4_Stepwise_Regression.ipynb
 
 import pandas as pd
+import numpy as np
 
 
 from sklearn.feature_selection import SelectKBest
@@ -250,7 +251,7 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
         return f_feature
 
 
-def feature_selection_mutual_information(df, target: str, num_feats: int):
+def feature_selection_mutual_information(df, target: str, num_feats: int, random_state = None):
     """ 
     Perform a mutual_info_regression feature selection
 
@@ -265,17 +266,17 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     :rtype: list
 
     """
-
     x, y = select_data(df, target)
+    random_state = 0
 
-    try:
-        m_info = SelectKBest(mutual_info_regression, k=num_feats)
-        m_info.fit(x, y)
-        mi_support = m_info.get_support()
-        mi_feature = x.loc[:, mi_support].columns.tolist()
+   # try:
+    m_info = SelectKBest(mutual_info_regression(x, y, random_state=random_state), k=num_feats)
+    m_info.fit(x, y)
+    mi_support = m_info.get_support()
+    mi_feature = x.loc[:, mi_support].columns.tolist()
 
-    except:
-        print("An error occured during mutual_info_regression selection process")
+    #except:
+        #print("An error occured during mutual_info_regression selection process")
 
-    else:
-        return mi_feature
+    #else:
+    return mi_feature
