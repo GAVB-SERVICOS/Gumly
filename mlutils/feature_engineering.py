@@ -251,7 +251,7 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
         return f_feature
 
 
-def feature_selection_mutual_information(df, target: str, num_feats: int, random_state = 42):
+def feature_selection_mutual_information(df, target: str, num_feats: int):
     """ 
     Perform a mutual_info_regression feature selection
 
@@ -267,7 +267,8 @@ def feature_selection_mutual_information(df, target: str, num_feats: int, random
 
     """
     x, y = select_data(df, target)
-
+    random_state = 42
+    
     try:
         m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats)
         m_info.fit(x, y)
