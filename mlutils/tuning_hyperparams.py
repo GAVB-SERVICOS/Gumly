@@ -7,6 +7,8 @@ import optuna
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import explained_variance_score, max_error
 from sklearn.metrics import mean_squared_log_error, median_absolute_error
+from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, f1_score, recall_score
+
 
 from mlutils.feature_engineering import *
 
@@ -68,7 +70,6 @@ def tuning_hyperparams(
                 else:
                     raise NotImplemented("Not implemented yet")
 
-        print(algorithm)
         my_model = algorithm(**parameters_dict)
         cv = KFold(shuffle=True, random_state=42)
         metric_cv = cross_val_score(my_model, x, y, cv=cv)
