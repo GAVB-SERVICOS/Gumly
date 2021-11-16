@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import explained_variance_score, max_error
 from sklearn.metrics import mean_squared_log_error, median_absolute_error
+from sklearn.metrics import accuracy_score
 
 
 def test_tuning_hyperparams():
@@ -20,16 +21,14 @@ def test_tuning_hyperparams():
         {"name": "min_samples_leaf", "type": "Integer", "low": 50, "high": 75},
         {"name": "max_depth", "type": "Integer", "low": 12, "high": 24},
     ]
-    #import pdb
-    #pdb.set_trace()
 
-    # tuning_hyperparams(df, target, parameters, algorithm, metric, scoring_option, n_trials)
+
     assert tuning_hyperparams(
         df=df_iris,
         target="target",
         parameters=param_RF,
         algorithm=RandomForestClassifier,
-        metric=r2_score,
+        metric=accuracy_score,
         scoring_option="maximize",
         n_trials=10,
     ) == {'min_samples_leaf': 57, 'max_depth': 18}

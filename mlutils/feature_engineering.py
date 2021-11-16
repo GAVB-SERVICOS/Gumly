@@ -268,9 +268,14 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     """
     x, y = select_data(df, target)
     random_state = 42
-    
+
     try:
-        m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats)
+        m_info = SelectKBest(
+            score_func=lambda x, y: mutual_info_regression(
+                x, y, random_state=random_state
+            ),
+            k=num_feats,
+        )
         m_info.fit(x, y)
         mi_support = m_info.get_support()
         mi_feature = x.loc[:, mi_support].columns.tolist()

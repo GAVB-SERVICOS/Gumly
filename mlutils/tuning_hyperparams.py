@@ -1,16 +1,21 @@
-# ref: https://github.com/gavbdheiver/predictive-maintenance-accelerator-/blob/main/predictive-maintenance-accelerator/Feature%20selection/Feat_Selection_Com_Stepwise/RUL_OPTUNA_DB4_Stepwise_Regression.ipynb
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import RandomForestRegressor
 import optuna
+from optuna.samplers import RandomSampler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import explained_variance_score, max_error
 from sklearn.metrics import mean_squared_log_error, median_absolute_error
-from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, f1_score, recall_score
+from sklearn.metrics import (
+    accuracy_score,
+    roc_auc_score,
+    precision_score,
+    f1_score,
+    recall_score,
+)
 
-
-from mlutils.feature_engineering import *
+from mlutils.feature_engineering import select_data
 
 
 def tuning_hyperparams(
@@ -78,7 +83,9 @@ def tuning_hyperparams(
 
         return metric
 
-    study = optuna.create_study(direction=scoring_option)
+    study = optuna.create_study(
+        direction=scoring_option, sampler=RandomSampler(seed=42)
+    )
     study.optimize(objective, n_trials=n_trials)
     trial = study.best_trial
 
