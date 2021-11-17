@@ -28,7 +28,8 @@ A Lib foi construida para otimizar e acelerar os algorítimos de machine learnin
 ## **Como instalar/usar**
 
 
-```pip install 
+```
+pip install 
 ```
 
 
