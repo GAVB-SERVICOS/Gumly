@@ -1,4 +1,8 @@
 # **MLutils**
+
+[https://img.shields.io/apm/l/python?style=plastic](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/LICENSE)
+
+
 The GAVB Machine Learning Utility library to improve apps!
 
 
