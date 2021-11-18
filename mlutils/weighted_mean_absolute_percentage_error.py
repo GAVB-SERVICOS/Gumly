@@ -1,7 +1,5 @@
 import numpy as np
 
-
-# TODO: Alter the code to support automatic imputation of weights instead of leaving them hardcoded.
 def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
 
     """

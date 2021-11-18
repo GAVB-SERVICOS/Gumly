@@ -1,8 +1,7 @@
 from sklearn.decomposition import PCA
 from scipy.sparse.linalg import svds
 
-# TODO: make argument explained_variance works in PCA.
-# One possible way to solve this, is by using the argument from the Class PCA: svd_solver='arpack'.
+
 def dimensionality_reduction(
     df_input,
     decomposition_method: str = None,
@@ -36,14 +35,14 @@ def dimensionality_reduction(
         raise ValueError(f"k and explained_variance must be defined")
 
     if decomposition_method == "SVD":
-        # Implements SVD for reducing dimensionality
+
         df_input = df_input.astype(float)
         u, s, vt = svds(df_input, k=k)
         return u
 
     elif decomposition_method == "PCA":
         if k is not None:
-            # Implements PCA for reducing dimensionality
+
             u = PCA(k).fit_transform(df_input)
         elif explained_variance is not None:
 

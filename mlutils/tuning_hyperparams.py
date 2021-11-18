@@ -1,22 +1,7 @@
-from scipy.sparse.construct import random
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.metrics import explained_variance_score, max_error
-from sklearn.metrics import mean_squared_log_error, median_absolute_error
 from sklearn.metrics import make_scorer
-from sklearn.metrics import (
-    accuracy_score,
-    roc_auc_score,
-    precision_score,
-    f1_score,
-    recall_score,
-)
-
 from mlutils.feature_engineering import select_data
 
 
@@ -39,9 +24,9 @@ def tuning_hyperparams(
     :type: str
     :param parameters: Dict that contains all the threshold given for optimization testing
     :type: dict
-    :param algorithm: Machine Learning algorithm used for fit the model
+    :param algorithm: Machine Learning algorithm used for fit the model (eg: RandomForestClassifier, RandomForestRegressor)
     :type: class
-    :param metric: Metric used for the evaluation of the tests
+    :param metric: Metric used for the evaluation of the tests (eg: accuracy_score, r2)
     :type: function
     :param scoring_option: Maximize or minimize objectives
     :type: str
