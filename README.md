@@ -12,27 +12,25 @@ A Lib foi construida para otimizar e acelerar os algorítimos de machine learnin
 **A Lib está estruturada em :**
 
 **- Códigos fontes**
-    Os aceleradores de utilidade para os projetos de machine learning.
+Os aceleradores de utilidade para os projetos de machine learning.
 
 **- Testes**
-    Os testes dos aceleradores feito no pytest para uma melhor qualidade do código.
+Os testes dos aceleradores feito no pytest para uma melhor qualidade do código.
 
 **- Tutoriais**
-    Explicação com exemplos práticos o funcionamento de cada acelerador.
+Explicação com exemplos práticos o funcionamento de cada acelerador.
 
-    <a href="https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb">Dimensionality Reduction</a>
+[Dimensionality Reduction](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb)
 
-    
+[Feature Engineering](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/test_tutorial_feature_engineering_regression_hyperparams_tuning.ipynb)
 
-    [Feature Engineering] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/test_tutorial_feature_engineering_regression_hyperparams_tuning.ipynb)
+[Movie Files](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_movie_files_create_dir.ipynb)
 
-    [Movie Files] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_movie_files_create_dir.ipynb)
+[Tuning Hyperparams](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_tuning_hyperparams.ipynb)
 
-    [Tuning Hyperparams] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_tuning_hyperparams.ipynb)
+[Variable Treat](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_variable_treat.ipynb)
 
-    [Variable Treat] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_variable_treat.ipynb)
-
-    [Weighted Mean Absolute Percentage Error] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
+[Weighted Mean Absolute Percentage Error](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
 
 **Cada estutura está arquitetada em códigos de utilidade em :**
