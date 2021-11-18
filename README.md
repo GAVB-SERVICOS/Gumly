@@ -64,8 +64,8 @@ Abaixo segue o sumário dos parâmetros e cada método explicativo:
 
 
 
-|   Parameter   |  Description  |    Default    |       Type      |
-| :---         |     :---:      |         :---: |             ---:|
+|   Parameter   |  Description  |    Default    |    Type    |
+| :---         |     :---:      |         :---: |        ---:|
 | `df_input`   | Array to compute SVD and PCA on, of shape (M,N)  | None  | DataFrame |
 | `decomposition_method` | Choice of method might me PCA or SVD | None |    str    |
 | `K` | Number of singular values(SVD) and principal component analyis(PCA) to compute. Must be 1 <= k < min(A.shape) | None |    int    |
