@@ -52,9 +52,9 @@ pip install mlutils
 
 ## **Como usar**
 
-**Para o acelerador de redução de dimencionalidade**
+**Para o acelerador de redução de dimencionalidade:**
 
-para importar o acelerador:
+Importando o acelerador:
 
 ```
 from dimensionality_reduction import *
