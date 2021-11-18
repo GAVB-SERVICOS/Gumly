@@ -1,3 +1,4 @@
+from scipy.sparse.construct import random
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.ensemble import RandomForestClassifier
@@ -7,6 +8,7 @@ from optuna.samplers import RandomSampler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import explained_variance_score, max_error
 from sklearn.metrics import mean_squared_log_error, median_absolute_error
+from sklearn.metrics import make_scorer
 from sklearn.metrics import (
     accuracy_score,
     roc_auc_score,
@@ -76,17 +78,17 @@ def tuning_hyperparams(
                     raise NotImplemented("Not implemented yet")
 
         my_model = algorithm(**parameters_dict)
-        cv = KFold(shuffle=True, random_state=42)
-        metric_cv = cross_val_score(my_model, x, y, cv=cv)
+        cv = KFold(n_splits=10, shuffle=True, random_state=42)
+        metric_cv = cross_val_score(
+            estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv
+        )
+        result = abs(metric_cv.mean())
 
-        metric = abs(metric_cv.mean())
-
-        return metric
+        return result
 
     study = optuna.create_study(
         direction=scoring_option, sampler=RandomSampler(seed=42)
     )
     study.optimize(objective, n_trials=n_trials)
-    trial = study.best_trial
 
     return study.best_params
