@@ -62,7 +62,7 @@ from dimensionality_reduction import *
 ```
 Abaixo segue o sumário dos parâmetros e cada método explicativo:
 
-<br>
+
 
 |   Parameter   |  Description  |    Default    |
 | :---         |     :---:      |          ---: |
@@ -71,9 +71,8 @@ Abaixo segue o sumário dos parâmetros e cada método explicativo:
 | `K` | Number of singular values(SVD) and principal component analyis(PCA) to compute. Must be 1 <= k < min(A.shape) | None | 
 | `explained_variance` | 0 < n_components < 1, select the number of components such that the 
         amount of variance that needs to be explained is greater than the percentage specified by n_components | None | 
+| :---         | :---:          |           ---:|     
 
-
-<br>
 
 
 ## **Release Notes**
