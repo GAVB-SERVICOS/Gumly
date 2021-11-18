@@ -20,7 +20,9 @@ A Lib foi construida para otimizar e acelerar os algorítimos de machine learnin
 **- Tutoriais**
     Explicação com exemplos práticos o funcionamento de cada acelerador.
 
-    [Dimensionality Reduction] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb)
+    <a href="https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb">Dimensionality Reduction</a>
+
+    
 
     [Feature Engineering] (https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/test_tutorial_feature_engineering_regression_hyperparams_tuning.ipynb)
 
