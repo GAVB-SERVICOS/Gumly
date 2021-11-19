@@ -23,7 +23,7 @@ def test_tuning_hyperparams():
     ]
 
 
-    assert tuning_hyperparams(
+    assert type(tuning_hyperparams(
         df=df_iris,
         target="target",
         parameters=param_RF,
@@ -31,4 +31,4 @@ def test_tuning_hyperparams():
         metric=accuracy_score,
         scoring_option="maximize",
         n_trials=10,
-    ) == {'min_samples_leaf': 57, 'max_depth': 18}
+    )) == dict

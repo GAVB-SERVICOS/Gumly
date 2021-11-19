@@ -3,7 +3,8 @@ import optuna
 from optuna.samplers import RandomSampler
 from sklearn.metrics import make_scorer
 from mlutils.feature_engineering import select_data
-
+from sklearn.ensemble import *
+from sklearn.metrics import *
 
 def tuning_hyperparams(
     df,

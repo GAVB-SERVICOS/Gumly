@@ -1,24 +1,9 @@
-# ref: https://github.com/gavbdheiver/predictive-maintenance-accelerator-/blob/main/predictive-maintenance-accelerator/Feature%20selection/Feat_Selection_Com_Stepwise/RUL_OPTUNA_DB4_Stepwise_Regression.ipynb
-
 import pandas as pd
-import numpy as np
-
-
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import chi2
+from sklearn.feature_selection import SelectKBest, chi2, RFE, SelectFromModel, f_regression, mutual_info_regression
 from sklearn.preprocessing import MinMaxScaler
-
-from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
-
-from sklearn.feature_selection import SelectFromModel
 from lightgbm import LGBMClassifier
-
 import statsmodels.api as sm
-
-from sklearn.feature_selection import f_regression
-from sklearn.feature_selection import mutual_info_regression
-
 
 def select_data(df, target: str):
     """
@@ -42,7 +27,6 @@ def select_data(df, target: str):
 
     else:
         return x, y
-
 
 def feature_selection_filter(df, target: str, num_feats: int):
     """
@@ -74,7 +58,6 @@ def feature_selection_filter(df, target: str, num_feats: int):
     else:
         return chi_feature
 
-
 def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     """
     Feature selection using wrapper technique and LogisticRegression.
@@ -100,7 +83,7 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
         rfe_selector = RFE(
             estimator=LogisticRegression(max_iter=200),
             n_features_to_select=num_feats,
-            step=step,  # ver com Lucas(estava 10)
+            step=step
         )
         rfe_selector.fit(x, y)
         rfe_support = rfe_selector.get_support()
@@ -111,7 +94,6 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
 
     else:
         return rfe_feature
-
 
 def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: int):
     """
@@ -152,7 +134,7 @@ def feature_selection_stepwise(
     target: str,
     threshold_in: float = 0.01,
     threshold_out: float = 0.05,
-    verbose: bool = False,
+    verbose: bool = False
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
@@ -249,7 +231,6 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
 
     else:
         return f_feature
-
 
 def feature_selection_mutual_information(df, target: str, num_feats: int):
     """ 

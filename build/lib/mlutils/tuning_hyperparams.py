@@ -1,23 +1,10 @@
-from scipy.sparse.construct import random
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.metrics import explained_variance_score, max_error
-from sklearn.metrics import mean_squared_log_error, median_absolute_error
-from sklearn.metrics import (
-    accuracy_score,
-    roc_auc_score,
-    precision_score,
-    f1_score,
-    recall_score,
-)
-
+from sklearn.metrics import make_scorer
 from mlutils.feature_engineering import select_data
-
+from sklearn.ensemble import *
+from sklearn.metrics import *
 
 def tuning_hyperparams(
     df,
@@ -38,9 +25,9 @@ def tuning_hyperparams(
     :type: str
     :param parameters: Dict that contains all the threshold given for optimization testing
     :type: dict
-    :param algorithm: Machine Learning algorithm used for fit the model
+    :param algorithm: Machine Learning algorithm used for fit the model (eg: RandomForestClassifier, RandomForestRegressor)
     :type: class
-    :param metric: Metric used for the evaluation of the tests
+    :param metric: Metric used for the evaluation of the tests (eg: accuracy_score, r2)
     :type: function
     :param scoring_option: Maximize or minimize objectives
     :type: str
@@ -78,8 +65,9 @@ def tuning_hyperparams(
 
         my_model = algorithm(**parameters_dict)
         cv = KFold(n_splits=10, shuffle=True, random_state=42)
-        metric_cv = cross_val_score(estimator=my_model(), x=x, y=y, scoring=metric, cv=cv)
-
+        metric_cv = cross_val_score(
+            estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv
+        )
         result = abs(metric_cv.mean())
 
         return result
