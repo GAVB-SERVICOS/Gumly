@@ -1,6 +1,6 @@
 # **MLutils**
 
-[![APM](https://img.shields.io/apm/l/python?style=plastic)](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/LICENSE)
+[![APM](https://img.shields.io/apm/l/python?style=plastic)](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/LICENSE)
 
 
 The GAVB Machine Learning Utility library to improve apps!
@@ -24,21 +24,21 @@ Os testes dos aceleradores feito no pytest para uma melhor qualidade do código.
 **- Tutoriais**
 Explicação com exemplos práticos o funcionamento de cada acelerador.
 
-[Dimensionality Reduction](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb)
+[Dimensionality Reduction](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering Classifier & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_fe_class_tuning.ipynb)
+[Feature Engineering Classifier & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_fe_class_tuning.ipynb)
 
-[Feature Engineering Regressor & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_fe_regr_tuning.ipynb)
+[Feature Engineering Regressor & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_fe_regr_tuning.ipynb)
 
 [Feature Engineering](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/lucas/tutorial/tutorial_feature_engineering.ipynb)
 
-[Movie Files](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_movie_files_create_dir.ipynb)
+[Movie Files](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_movie_files_create_dir.ipynb)
 
-[Tuning Hyperparams](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_tuning_hyperparams.ipynb)
+[Tuning Hyperparams](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_tuning_hyperparams.ipynb)
 
-[Variable Treat](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_variable_treat.ipynb)
+[Variable Treat](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_variable_treat.ipynb)
 
-[Weighted Mean Absolute Percentage Error](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
+[Weighted Mean Absolute Percentage Error](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
 
 **Cada estutura está arquitetada em códigos de utilidade em :**
