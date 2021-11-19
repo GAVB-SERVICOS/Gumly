@@ -26,7 +26,11 @@ Explicação com exemplos práticos o funcionamento de cada acelerador.
 
 [Dimensionality Reduction](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/test_tutorial_feature_engineering_regression_hyperparams_tuning.ipynb)
+[Feature Engineering Classifier & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_fe_class_tuning.ipynb)
+
+[Feature Engineering Regressor & Tuning](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_fe_regr_tuning.ipynb)
+
+[Feature Engineering](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/lucas/tutorial/tutorial_feature_engineering.ipynb)
 
 [Movie Files](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/diego/tutorial/tutorial_movie_files_create_dir.ipynb)
 
