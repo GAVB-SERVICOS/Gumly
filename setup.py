@@ -8,9 +8,9 @@ with open("requirements.txt", "r") as fp:
 setup(
     name="mlutils",
     packages=find_packages(include=["mlutils"]),
-    version="0.1.0",
-    description="My first Python library test",
-    author="GAVB",
+    version="1.0.0",
+    description="MLUtils release 1.0.0",
+    author="GAVB Servicos de Informatica LTDA",
     install_requires=reqs,
     setup_requires=["pytest_runner"],
     tests_require=["pytest== 6.2.4"],
