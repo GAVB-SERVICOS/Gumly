@@ -3,34 +3,38 @@
 [![APM](https://img.shields.io/apm/l/python?style=plastic)](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/LICENSE)
 
 
-The GAVB Machine Learning Utility library to improve apps!
+GAVB Machine Learning Utility library
+
+The library consists of a bunch of methods that can be used in order to help Data Scientists during the ML development reducing time spent and complexity of its codes.
 
 
 ## **Library Motivation and Description**
 
-The library was built inicialy by the GAVB internal acelerators and the purpose are to optimize the data science projects inside the GAVB, using the methods bring greater speed and standardization in work created by the team. 
-
+During the development of ML projects at GAVB, Data Scientists needs to coding some features for projects repeatedly. So, MLOps area identified the opportunity to create some standard functions that can be used many times by data science area in each different project.
+Thus, it is possible to work with this framework that brings basically two main advantages: 
+1 - Projects executed in less time than the usual, due to the code reusability;
+2 - Establishment of a standard coding structure for GAVB projects.
 
 ## **Functiocionality**
 
-[Dimensionality Reduction](/mlutils/blob/dev/tutorial/tutorial_dimensionality_reduction.ipynb)
+[Dimensionality Reduction](./tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering Classifier & Tuning](/mlutils/blob/dev/tutorial/tutorial_fe_class_tuning.ipynb)
+[Feature Engineering Classifier & Tuning](./tutorial_fe_class_tuning.ipynb)
 
-[Feature Engineering Regressor & Tuning](/mlutils/blob/dev/tutorial/tutorial_fe_regr_tuning.ipynb)
+[Feature Engineering Regressor & Tuning](./tutorial_fe_regr_tuning.ipynb)
 
 [Feature Engineering](mlutils/dev/tutorial/tutorial_feature_engineering.ipynb)
 
-[Movie Files](/mlutils/blob/dev/tutorial/tutorial_movie_files_create_dir.ipynb)
+[Movie Files](./tutorial_movie_files_create_dir.ipynb)
 
-[Tuning Hyperparams](/mlutils/blob/dev/tutorial_tuning_hyperparams.ipynb)
+[Tuning Hyperparams](./_tuning_hyperparams.ipynb)
 
-[Variable Treat](/mlutils/blob/dev/tutorial/tutorial_variable_treat.ipynb)
+[Variable Treat](./tutorial_variable_treat.ipynb)
 
-[Weighted Mean Absolute Percentage Error](/mlutils/blob/dev/tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
+[Weighted Mean Absolute Percentage Error](./tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
 
-## **How to install**
+## **How to use**
 
 ```
 pip install mlutils

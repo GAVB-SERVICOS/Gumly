@@ -1,6 +1,5 @@
 from setuptools import find_packages, setup
 
-# Read requirements.txt and transform in a list.
 with open("requirements.txt", "r") as fp:
     reqs = fp.read().split("\n")[:-1]
 
