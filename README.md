@@ -39,7 +39,7 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v 1.0.0](/GAVB-SERVICOS/mlutils/releases)
+[v 1.0.0](https://github.com/GAVB-SERVICOS/mlutils/releases)
 
 
 
