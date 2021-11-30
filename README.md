@@ -1,6 +1,6 @@
 # **MLutils**
 
-[![APM](https://img.shields.io/apm/l/python?style=plastic)](https://github.com/GAVB-SERVICOS/mlutils/blob/dev/LICENSE)
+[![APM](https://img.shields.io/apm/l/python?style=plastic)](./LICENSE)
 
 
 GAVB Machine Learning Utility library
