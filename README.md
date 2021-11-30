@@ -17,21 +17,21 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 ## **Functiocionality**
 
-[Dimensionality Reduction](./tutorial_dimensionality_reduction.ipynb)
+[Dimensionality Reduction](./tutorial/tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering Classifier & Tuning](./tutorial_fe_class_tuning.ipynb)
+[Feature Engineering Classifier & Tuning](./tutorial/tutorial_fe_class_tuning.ipynb)
 
-[Feature Engineering Regressor & Tuning](./tutorial_fe_regr_tuning.ipynb)
+[Feature Engineering Regressor & Tuning](./tutorial/tutorial_fe_regr_tuning.ipynb)
 
 [Feature Engineering](mlutils/dev/tutorial/tutorial_feature_engineering.ipynb)
 
-[Movie Files](./tutorial_movie_files_create_dir.ipynb)
+[Movie Files](./tutorial/tutorial_movie_files_create_dir.ipynb)
 
-[Tuning Hyperparams](./_tuning_hyperparams.ipynb)
+[Tuning Hyperparams](./tutorial/_tuning_hyperparams.ipynb)
 
-[Variable Treat](./tutorial_variable_treat.ipynb)
+[Variable Treat](./tutorial/tutorial_variable_treat.ipynb)
 
-[Weighted Mean Absolute Percentage Error](./tutorial_weighted_mean_absolute_percentage_error.ipynb)
+[Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
 
 ## **How to use**
