@@ -5,3 +5,4 @@ mlutils.egg-info
 *__pycache__
 .eggs
 .ipynb_checkpoints
+.pytest_cache
