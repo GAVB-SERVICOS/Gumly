@@ -1,13 +1,13 @@
+import pandas as pd
 from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
 from sklearn.metrics import make_scorer
 from mlutils.feature_engineering import select_data
-from sklearn.ensemble import *
-from sklearn.metrics import *
+
 
 def tuning_hyperparams(
-    df,
+    df: pd.DataFrame,
     target: str,
     parameters: dict,
     algorithm,
@@ -33,7 +33,6 @@ def tuning_hyperparams(
     :type: str
     :param n_trials: The of trials that the framework must perform
     :type: int
-    :raise exception: The optimization method couldn't be processed
     :return: Best hyperparameter features chosen by the technique 
     :rtype: dict
 
