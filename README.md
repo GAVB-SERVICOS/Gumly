@@ -34,7 +34,7 @@ Thus, it is possible to work with this framework that brings basically two main 
 [Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
 
-## **How to use**
+## **How to install**
 
 ```
 pip install mlutils
