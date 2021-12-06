@@ -12,7 +12,7 @@ def variable_treat(
     
     :param data : data frame
     :type: DataFrame 
-    :param variables: variables to treat
+    :param variables: variables to be treated for the method
     :type: str or list 
     :param lower: method to select lower values    
     :type: bool  

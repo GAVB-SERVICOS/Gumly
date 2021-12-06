@@ -3,5 +3,6 @@ build
 dist
 mlutils.egg-info
 *__pycache__
-eggs
+.eggs
 .ipynb_checkpoints
+.pytest_cache
