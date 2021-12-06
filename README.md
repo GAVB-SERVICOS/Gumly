@@ -19,10 +19,6 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Dimensionality Reduction](./tutorial/tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering Classifier & Tuning](./tutorial/tutorial_fe_class_tuning.ipynb)
-
-[Feature Engineering Regressor & Tuning](./tutorial/tutorial_fe_regr_tuning.ipynb)
-
 [Feature Engineering](mlutils/dev/tutorial/tutorial_feature_engineering.ipynb)
 
 [Movie Files](./tutorial/tutorial_movie_files_create_dir.ipynb)
