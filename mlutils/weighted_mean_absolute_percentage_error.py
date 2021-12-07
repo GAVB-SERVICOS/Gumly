@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
 
     """

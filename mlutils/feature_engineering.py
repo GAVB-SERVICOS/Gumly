@@ -23,7 +23,6 @@ def select_data(df: pd.DataFrame, target: str):
     :type: str
     :return: x, y for modeling process
     :rtype: DataFrame | Series
-
     """
 
     x = df.drop(columns=[str(target)], axis=1)
@@ -44,7 +43,6 @@ def feature_selection_filter(df, target: str, num_feats: int):
     :type: int
     :return: features selected by the technique
     :rtype: list
-
     """
     x, y = select_data(df, target)
 
@@ -71,7 +69,6 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     :type: int
     :return: features selected by the technique
     :rtype: list
-
     """
     x, y = select_data(df, target)
 
@@ -101,7 +98,6 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
     :type: int
     :return: features selected by the technique
     :rtype: list
-
     """
 
     x, y = select_data(df, target)
@@ -124,7 +120,6 @@ def feature_selection_stepwise(
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
-
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -137,7 +132,6 @@ def feature_selection_stepwise(
     :type: bool
     :return: features selected by the technique
     :rtype: list
-
     """
     x, y = select_data(df, target)
 
@@ -179,7 +173,6 @@ def feature_selection_stepwise(
 def feature_selection_f_regression(df, target: str, num_feats: int):
     """ 
     Perform a f_regression feature selection based on p-value
-
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -188,7 +181,6 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
     :type: int
     :return: features selected by the technique
     :rtype: list
-
     """
 
     x, y = select_data(df, target)
@@ -204,7 +196,6 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
 def feature_selection_mutual_information(df, target: str, num_feats: int):
     """ 
     Perform a mutual_info_regression feature selection
-
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -213,7 +204,6 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     :type: int
     :return: features selected by the technique
     :rtype: list
-
     """
     x, y = select_data(df, target)
     random_state = 42

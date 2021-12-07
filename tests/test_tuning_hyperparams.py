@@ -22,13 +22,17 @@ def test_tuning_hyperparams():
         {"name": "max_depth", "type": "Integer", "low": 12, "high": 24},
     ]
 
-
-    assert type(tuning_hyperparams(
-        df=df_iris,
-        target="target",
-        parameters=param_RF,
-        algorithm=RandomForestClassifier,
-        metric=accuracy_score,
-        scoring_option="maximize",
-        n_trials=10,
-    )) == dict
+    assert (
+        type(
+            tuning_hyperparams(
+                df=df_iris,
+                target="target",
+                parameters=param_RF,
+                algorithm=RandomForestClassifier,
+                metric=accuracy_score,
+                scoring_option="maximize",
+                n_trials=10,
+            )
+        )
+        == dict
+    )
