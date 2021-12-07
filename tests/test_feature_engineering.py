@@ -10,7 +10,7 @@ def test_feature_engineering_select_data():
     boston_data = datasets.load_boston()
     df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
     df_boston["target"] = boston_data.target
-    
+
     x, y = select_data(df_boston, "target")
     isinstance(x, pd.DataFrame)
     isinstance(y, pd.DataFrame)
@@ -92,4 +92,4 @@ def test_feature_engineering_feature_selection_mutual_information():
         "INDUS",
         "RM",
         "LSTAT",
-    ]    
+    ]
