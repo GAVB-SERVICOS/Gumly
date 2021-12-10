@@ -5,15 +5,15 @@
 
 GAVB Machine Learning Utility library
 
-The library consists of a bunch of methods that can be used in order to help Data Scientists during the ML development reducing time spent and complexity of its codes.
+The library consists of a collection of methods that can be used in order to help Data Scientists and Machine Learning Engineers during the development of Machine Learning applications seeking to reduce the time spent and complexity of coding.
 
 
 ## **Library Motivation and Description**
 
-During the development of ML projects at GAVB, Data Scientists needs to coding some features for projects repeatedly. So, MLOps area identified the opportunity to create some standard functions that can be used many times by data science area in each different project.
+During the development of ML projects at GAVB, Data Scientists have the necessity to code some features for projects repeatedly. So, MLOps area identified the opportunity to create some standard functions that can help as it can be used many times by data science area in each different project.
 Thus, it is possible to work with this framework that brings basically two main advantages: 
-1 - Projects executed in less time than the usual, due to the code reusability;
-2 - Establishment of a standard coding structure for GAVB projects.
+1 - Projects executed in less time than usual, due to the code reusability;
+2 - Establishment of a standard coding structure for projects.
 
 ## **Functiocionality**
 
@@ -21,11 +21,9 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Feature Engineering](mlutils/dev/tutorial/tutorial_feature_engineering.ipynb)
 
-[Movie Files](./tutorial/tutorial_movie_files_create_dir.ipynb)
+[Move Files](./tutorial/tutorial_move_files_create_dir.ipynb)
 
-[Tuning Hyperparams](./tutorial/_tuning_hyperparams.ipynb)
-
-[Variable Treat](./tutorial/tutorial_variable_treat.ipynb)
+[Tuning Hyperparameters](./tutorial/_tuning_hyperparameters.ipynb)
 
 [Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
@@ -39,7 +37,4 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v 1.0.0](https://github.com/GAVB-SERVICOS/mlutils/releases)
-
-
-
+[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/releases)

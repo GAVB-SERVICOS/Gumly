@@ -82,7 +82,7 @@ def test_feature_engineering_feature_selection_f_regression():
     ]
 
 
-def test_feature_engineering_feature_selection_mutual_information():  # Resultado variando
+def test_feature_engineering_feature_selection_mutual_information():
 
     boston_data = datasets.load_boston()
     df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
