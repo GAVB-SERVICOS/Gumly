@@ -1,5 +1,4 @@
 from numpy.testing._private.utils import assert_almost_equal
-from mlutils.variable_treat import *
 import numpy as np
 from sklearn import datasets
 import pandas as pd
