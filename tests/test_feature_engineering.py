@@ -1,4 +1,3 @@
-from numpy.testing._private.utils import assert_almost_equal
 import numpy as np
 from sklearn import datasets
 import pandas as pd
