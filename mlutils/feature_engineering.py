@@ -220,13 +220,8 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     return mi_feature
 
 
-
-
 def ordering_filter(
-    data,
-    variables,
-    lower_percentile: float = None,
-    upper_percentile: float = None,
+    data, variables, lower_percentile: float = None, upper_percentile: float = None,
 ):
 
     """
@@ -247,9 +242,9 @@ def ordering_filter(
     :rtype: list
     """
 
-    check_number(lower_percentile, 0, 100, 'lower_percentile')
-    check_number(upper_percentile, 0, 100, 'upper_percentile')
-   
+    check_number(lower_percentile, 0, 100, "lower_percentile")
+    check_number(upper_percentile, 0, 100, "upper_percentile")
+
     if type(variables) == str:
         variables = variables.split()
     rows_to_drop = set()
