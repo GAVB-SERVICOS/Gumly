@@ -11,7 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
-from mlutils.attribute_validation import check_number
+from mlutils.attribute_validation import assert_check_number
 
 
 def select_data(df: pd.DataFrame, target: str):
@@ -225,14 +225,14 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
 def ordering_filter(
     data,
     variables,
-    lower_percentile: float = None,
-    upper_percentile: float = None,
+    lower_percentile: float = 0.0,
+    upper_percentile: float = 0.0,
 ):
 
     """
     Returns the indexes of the records that have its values among the
-    <lower_percentile>% smaller and/or have its values among the
-    <upper_percentile>% bigger.
+    lower_percentile smaller and/or have its values among the
+    upper_percentile bigger.
    
     :param data : data frame
     :type: DataFrame
@@ -247,31 +247,22 @@ def ordering_filter(
     :rtype: list
     """
 
-    check_number(lower_percentile, 0, 100, 'lower_percentile')
-    check_number(upper_percentile, 0, 100, 'upper_percentile')
+    assert_check_number(lower_percentile, 0, 1.0, 'lower_percentile')
+    assert_check_number(upper_percentile, 0, 1.0, 'upper_percentile')
    
     if type(variables) == str:
         variables = variables.split()
     rows_to_drop = set()
-
-    if lower_percentile is not None:
-        lp = lower_percentile / 100
-        for var in variables:
-            new_data = data.copy().sort_values(by=var)
-            new_data["New Column"] = range(1, 1 + new_data.shape[0])
-            rows_to_drop = rows_to_drop.union(
-                set(new_data[new_data["New Column"] <= (lp * new_data.shape[0])].index)
-            )
-
-    if upper_percentile is not None:
-        up = upper_percentile / 100
-        for var in variables:
-            new_data = data.copy().sort_values(by=var, ascending=False)
-            new_data["New Column"] = range(1, 1 + new_data.shape[0])
-            rows_to_drop = rows_to_drop.union(
-                set(new_data[new_data["New Column"] <= (up * new_data.shape[0])].index)
-            )
-
+    quartil_lower = lower_percentile
+    quartil_upper = 1.0 - upper_percentile
+    indice_lower = data['indice'].quantile(quartil_lower)
+    indice_upper = data['indice'].quantile(quartil_upper)
+    for var in variables:
+        new_data = data.copy().sort_values(by=var, ascending=False)
+        new_data['indice'] = list(range(1, len(new_data)+1))
+        rows_to_drop = rows_to_drop.union(
+            set(new_data[(new_data['indice'] <= indice_lower) | (new_data['indice'] >= indice_upper)].index)
+        )
     rows_to_drop = list(rows_to_drop)
 
     return rows_to_drop
