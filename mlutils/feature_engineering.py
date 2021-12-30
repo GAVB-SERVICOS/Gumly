@@ -11,6 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
+from mlutils.attribute_validation import check_number
 
 
 def select_data(df: pd.DataFrame, target: str):
@@ -219,59 +220,56 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     return mi_feature
 
 
-def variable_treat(
+
+
+def ordering_filter(
     data,
     variables,
-    lower: bool = False,
     lower_percentile: float = None,
-    upper: bool = False,
     upper_percentile: float = None,
 ):
 
     """
-    Select the outliers list
-    
+    Returns the indexes of the records that have its values among the
+    <lower_percentile>% smaller and/or have its values among the
+    <upper_percentile>% bigger.
+   
     :param data : data frame
-    :type: DataFrame 
+    :type: DataFrame
     :param variables: variables to be treated for the method
-    :type: str or list 
-    :param lower: method to select lower values    
-    :type: bool  
-    :param lower_percentile: minimum percentile threshold 
+    :type: str or list
+    :param lower_percentile: minimum percentile threshold
     :type: float
-    :param upper: method to select upper values   
-    :type: bool  
-    :param upper_percentile: maximum percentile threshold 
+    :param upper_percentile: maximum percentile threshold
     :type: float
     :raise NotImplementedError: or lower or upper must be True  
     :return: list of outliers indices
     :rtype: list
-
     """
 
-    if lower is False and upper is False:
-        raise NotImplementedError(f" One of those paramns must be True")
-
+    check_number(lower_percentile, 0, 100, 'lower_percentile')
+    check_number(upper_percentile, 0, 100, 'upper_percentile')
+   
     if type(variables) == str:
         variables = variables.split()
     rows_to_drop = set()
 
-    if lower:
+    if lower_percentile is not None:
         lp = lower_percentile / 100
         for var in variables:
             new_data = data.copy().sort_values(by=var)
             new_data["New Column"] = range(1, 1 + new_data.shape[0])
             rows_to_drop = rows_to_drop.union(
-                set(new_data[new_data["New Column"] < (lp * new_data.shape[0])].index)
+                set(new_data[new_data["New Column"] <= (lp * new_data.shape[0])].index)
             )
 
-    if upper:
+    if upper_percentile is not None:
         up = upper_percentile / 100
         for var in variables:
-            new_data = data.copy().sort_values(by=var)
+            new_data = data.copy().sort_values(by=var, ascending=False)
             new_data["New Column"] = range(1, 1 + new_data.shape[0])
             rows_to_drop = rows_to_drop.union(
-                set(new_data[new_data["New Column"] > (up * new_data.shape[0])].index)
+                set(new_data[new_data["New Column"] <= (up * new_data.shape[0])].index)
             )
 
     rows_to_drop = list(rows_to_drop)
