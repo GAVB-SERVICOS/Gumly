@@ -1,3 +1,5 @@
+
+
 def check_number(x, lower=None, upper=None):
     """
     :param x: Value to checked 

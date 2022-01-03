@@ -237,9 +237,9 @@ def ordering_filter(
     :type: float
     :param upper_percentile: maximum percentile threshold
     :type: float
-    :raise NotImplementedError: or lower or upper must be True  
     :return: list of outliers indices
     :rtype: list
+    
     """
 
     assert_check_number(lower_percentile, 0, 1.0, "lower_percentile")
