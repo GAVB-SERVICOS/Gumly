@@ -95,13 +95,13 @@ def test_feature_engineering_feature_selection_mutual_information():
     ]
 
 
-
 def test_of():
 
     df2 = pd.DataFrame(
         np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=["a", "b", "c"]
     )
 
-    assert ordering_filter(
-        df2, "a", lower_percentile=0.9 , upper_percentile=1.0
-    ) == [0, 1, 2]
+    assert ordering_filter(df2, "a", lower_percentile=0.4, upper_percentile=0.1) == [
+        0,
+        2,
+    ]

@@ -220,13 +220,8 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     return mi_feature
 
 
-
-
 def ordering_filter(
-    data,
-    variables,
-    lower_percentile: float = 0.0,
-    upper_percentile: float = 0.0,
+    data, variables, lower_percentile: float = 0.0, upper_percentile: float = 0.0,
 ):
 
     """
@@ -247,21 +242,27 @@ def ordering_filter(
     :rtype: list
     """
 
-    assert_check_number(lower_percentile, 0, 1.0, 'lower_percentile')
-    assert_check_number(upper_percentile, 0, 1.0, 'upper_percentile')
-   
+    assert_check_number(lower_percentile, 0, 1.0, "lower_percentile")
+    assert_check_number(upper_percentile, 0, 1.0, "upper_percentile")
+
     if type(variables) == str:
         variables = variables.split()
     rows_to_drop = set()
     quartil_lower = lower_percentile
     quartil_upper = 1.0 - upper_percentile
-    indice_lower = data['indice'].quantile(quartil_lower)
-    indice_upper = data['indice'].quantile(quartil_upper)
+    data_len = len(data)
+    index_lower = quartil_lower * data_len
+    index_upper = quartil_upper * data_len
     for var in variables:
         new_data = data.copy().sort_values(by=var, ascending=False)
-        new_data['indice'] = list(range(1, len(new_data)+1))
+        new_data["__index__"] = list(range(1, data_len + 1))
         rows_to_drop = rows_to_drop.union(
-            set(new_data[(new_data['indice'] <= indice_lower) | (new_data['indice'] >= indice_upper)].index)
+            set(
+                new_data[
+                    (new_data["__index__"] <= index_lower)
+                    | (new_data["__index__"] >= index_upper)
+                ].index
+            )
         )
     rows_to_drop = list(rows_to_drop)
 
