@@ -19,11 +19,11 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Dimensionality Reduction](./tutorial/tutorial_dimensionality_reduction.ipynb)
 
-[Feature Engineering](mlutils/dev/tutorial/tutorial_feature_engineering.ipynb)
+[Feature Engineering](./tutorial/tutorial_feature_engineering.ipynb)
 
-[Move Files](./tutorial/tutorial_move_files_create_dir.ipynb)
+[Files](./tutorial/tutorial_files.ipynb)
 
-[Tuning Hyperparameters](./tutorial/_tuning_hyperparameters.ipynb)
+[Tuning Hyperparameters](./tutorial/tutorial_tuning_hyperparameters.ipynb)
 
 [Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
