@@ -1,7 +1,7 @@
 from sklearn import datasets
 import pandas as pd
 
-from mlutils.tuning_hyperparams import *
+from mlutils.hyperparameter_tuning import *
 from mlutils.feature_engineering import *
 from sklearn.ensemble import RandomForestClassifier
 
@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_log_error, median_absolute_error
 from sklearn.metrics import accuracy_score
 
 
-def test_tuning_hyperparams():
+def test_hyperparameter_tuning():
 
     iris_data = datasets.load_iris()
     df_iris = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
@@ -24,7 +24,7 @@ def test_tuning_hyperparams():
 
     assert (
         type(
-            tuning_hyperparams(
+            hyperparameter_tuning(
                 df=df_iris,
                 target="target",
                 parameters=param_RF,
