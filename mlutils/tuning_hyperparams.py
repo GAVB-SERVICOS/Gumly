@@ -6,7 +6,7 @@ from sklearn.metrics import make_scorer
 from mlutils.feature_engineering import select_data
 
 
-def tuning_hyperparams(
+def hyperparameter_tuning(
     df: pd.DataFrame,
     target: str,
     parameters: dict,

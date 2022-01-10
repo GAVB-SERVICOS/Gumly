@@ -23,7 +23,7 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Files](./tutorial/tutorial_files.ipynb)
 
-[Tuning Hyperparameters](./tutorial/tutorial_tuning_hyperparameters.ipynb)
+[Tuning Hyperparameters](./tutorial/tutorial_hyperparameter_tuning.ipynb)
 
 [Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
 
