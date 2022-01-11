@@ -11,7 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
-from mlutils.attribute_validation import assert_check_number
+from mlutils.argument_validation import assert_check_number
 
 
 def select_data(df: pd.DataFrame, target: str):
