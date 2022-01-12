@@ -20,11 +20,11 @@ The general format is:
 ```
 
 # VERSION - DATE (dd/mm/yyyy)
-### Added
+### Features
 - A to B
-### Changed
+### Bugfix
 - B to C
-### Removed
+### Deprecated
 - C from D
 
 ```
