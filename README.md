@@ -39,4 +39,4 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/CHANGELOG.md)
+[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/lucas/CHANGELOG.md)
