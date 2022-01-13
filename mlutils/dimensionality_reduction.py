@@ -3,10 +3,7 @@ from scipy.sparse.linalg import svds
 
 
 def dimensionality_reduction(
-    df_input,
-    decomposition_method: str = None,
-    k: int = None,
-    explained_variance: float = None,
+    df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None,
 ):
     """
     Implements methods for dimensionality reduction.
@@ -32,7 +29,7 @@ def dimensionality_reduction(
 
     """
     if k is None and explained_variance is None:
-        raise ValueError(f"k and explained_variance must be defined")
+        raise ValueError("k and explained_variance must be defined")
 
     if decomposition_method == "SVD":
 
@@ -47,9 +44,7 @@ def dimensionality_reduction(
         elif explained_variance is not None:
 
             if not isinstance(explained_variance, float):
-                raise TypeError(
-                    f"explained_variance must be a float, but its value passed was {explained_variance}."
-                )
+                raise TypeError(f"explained_variance must be a float, but its value passed was {explained_variance}.")
             if explained_variance <= 0 or explained_variance >= 1:
                 raise ValueError(f"explained_variance must be in the interval (0..1)")
 
@@ -57,6 +52,4 @@ def dimensionality_reduction(
         return u
 
     else:
-        raise NotImplementedError(
-            "Model implemented yet. Available names: 'SVD', 'PCA'."
-        )
+        raise NotImplementedError("Model implemented yet. Available names: 'SVD', 'PCA'.")

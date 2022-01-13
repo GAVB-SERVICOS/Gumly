@@ -41,7 +41,7 @@ def move_files(source_dir: str, dest_dir: str):
         for file in os.listdir(source_dir):
             shutil.copy(str(source_dir_path / file), dest_dir)
 
-    except:
+    except Exception:
         print("An error occured while moving file")
 
     else:

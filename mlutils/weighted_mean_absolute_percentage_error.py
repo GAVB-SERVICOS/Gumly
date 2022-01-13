@@ -29,15 +29,9 @@ def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
     y_pred = np.asarray(y_pred).reshape(-1)
     weights = np.asarray(weights).reshape(-1)
 
-    assert (
-        y_true.shape == y_pred.shape
-    ), "Predicted and true values have different shapes."
-    assert (
-        y_true.shape == weights.shape
-    ), "Weights and true values have different shapes."
-    assert (
-        y_pred.shape == weights.shape
-    ), "Weights and predicted values have different shapes."
+    assert y_true.shape == y_pred.shape, "Predicted and true values have different shapes."
+    assert y_true.shape == weights.shape, "Weights and true values have different shapes."
+    assert y_pred.shape == weights.shape, "Weights and predicted values have different shapes."
     assert np.all(weights > 0), "Weights cannot be negative."
     assert np.sum(weights) != 0, "Weights cannot be all equal to zero."
 

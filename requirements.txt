@@ -12,3 +12,4 @@ statsmodels==0.12.2
 tqdm==4.61.1
 urllib3==1.26.5
 zipp==3.4.1
+flake8==4.0.1

@@ -7,13 +7,7 @@ from mlutils.feature_engineering import select_data
 
 
 def hyperparameter_tuning(
-    df: pd.DataFrame,
-    target: str,
-    parameters: dict,
-    algorithm,
-    metric,
-    scoring_option: str,
-    n_trials: int,
+    df: pd.DataFrame, target: str, parameters: dict, algorithm, metric, scoring_option: str, n_trials: int,
 ):
 
     """
@@ -25,7 +19,8 @@ def hyperparameter_tuning(
     :type: str
     :param parameters: Dict that contains all the threshold given for optimization testing
     :type: dict
-    :param algorithm: Machine Learning algorithm used for fit the model (eg: RandomForestClassifier, RandomForestRegressor)
+    :param algorithm: Machine Learning algorithm used for fit the model
+    (eg: RandomForestClassifier, RandomForestRegressor)
     :type: class
     :param metric: Metric used for the evaluation of the tests (eg: accuracy_score, r2)
     :type: function
@@ -33,7 +28,7 @@ def hyperparameter_tuning(
     :type: str
     :param n_trials: The of trials that the framework must perform
     :type: int
-    :return: Best hyperparameter features chosen by the technique 
+    :return: Best hyperparameter features chosen by the technique
     :rtype: dict
 
     """
@@ -60,20 +55,16 @@ def hyperparameter_tuning(
                         name=param["name"], low=param["low"], high=param["high"]
                     )
                 else:
-                    raise NotImplemented("Not implemented yet")
+                    raise NotImplementedError("Not implemented yet")
 
         my_model = algorithm(**parameters_dict)
         cv = KFold(n_splits=10, shuffle=True, random_state=42)
-        metric_cv = cross_val_score(
-            estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv
-        )
+        metric_cv = cross_val_score(estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv)
         result = abs(metric_cv.mean())
 
         return result
 
-    study = optuna.create_study(
-        direction=scoring_option, sampler=RandomSampler(seed=42)
-    )
+    study = optuna.create_study(direction=scoring_option, sampler=RandomSampler(seed=42))
     study.optimize(objective, n_trials=n_trials)
 
     return study.best_params
