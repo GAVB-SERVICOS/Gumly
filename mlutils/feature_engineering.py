@@ -73,11 +73,7 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     """
     x, y = select_data(df, target)
 
-    rfe_selector = RFE(
-        estimator=LogisticRegression(max_iter=200),
-        n_features_to_select=num_feats,
-        step=step,
-    )
+    rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
     rfe_selector.fit(x, y)
     rfe_support = rfe_selector.get_support()
     rfe_feature = x.loc[:, rfe_support].columns.tolist()
@@ -113,11 +109,7 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
 
 
 def feature_selection_stepwise(
-    df,
-    target: str,
-    threshold_in: float = 0.01,
-    threshold_out: float = 0.05,
-    verbose: bool = False,
+    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False,
 ):
     """ 
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
@@ -144,9 +136,7 @@ def feature_selection_stepwise(
         excluded = list(set(x.columns) - set(included))
         new_pval = pd.Series(index=excluded)
         for new_column in excluded:
-            model = sm.OLS(
-                y, sm.add_constant(pd.DataFrame(x[included + [new_column]]))
-            ).fit()
+            model = sm.OLS(y, sm.add_constant(pd.DataFrame(x[included + [new_column]]))).fit()
             new_pval[new_column] = model.pvalues[new_column]
         best_pval = new_pval.min()
         if best_pval < threshold_in:
@@ -209,10 +199,7 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     x, y = select_data(df, target)
     random_state = 42
 
-    m_info = SelectKBest(
-        score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state),
-        k=num_feats,
-    )
+    m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats,)
     m_info.fit(x, y)
     mi_support = m_info.get_support()
     mi_feature = x.loc[:, mi_support].columns.tolist()
@@ -257,12 +244,7 @@ def ordering_filter(
         new_data = data.copy().sort_values(by=var, ascending=False)
         new_data["__index__"] = list(range(1, data_len + 1))
         rows_to_drop = rows_to_drop.union(
-            set(
-                new_data[
-                    (new_data["__index__"] <= index_lower)
-                    | (new_data["__index__"] >= index_upper)
-                ].index
-            )
+            set(new_data[(new_data["__index__"] <= index_lower) | (new_data["__index__"] >= index_upper)].index)
         )
     rows_to_drop = list(rows_to_drop)
 
