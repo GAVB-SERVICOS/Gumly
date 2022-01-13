@@ -1,4 +1,4 @@
-from mlutils.attribute_validation import assert_check_number, check_number
+from mlutils.argument_validation import assert_check_number, check_number
 
 import pytest
 
