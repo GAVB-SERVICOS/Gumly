@@ -39,4 +39,4 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v1.0.0](./mlutils/CHANGELOG.md)
+[v1.0.0](./CHANGELOG.md)
