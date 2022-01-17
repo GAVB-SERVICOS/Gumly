@@ -17,17 +17,17 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 ## **Functiocionality**
 
-[Argument Validation](./tutorial/tutorial_argument_validation.ipynb)
+[Argument Validation](./exercises/argument_validation.ipynb)
 
-[Dimensionality Reduction](./tutorial/tutorial_dimensionality_reduction.ipynb)
+[Dimensionality Reduction](./exercises/dimensionality_reduction.ipynb)
 
-[Feature Engineering](./tutorial/tutorial_feature_engineering.ipynb)
+[Feature Engineering](./exercises/feature_engineering.ipynb)
 
-[Files](./tutorial/tutorial_files.ipynb)
+[Files](./exercises/files.ipynb)
 
-[Hyperparameter Tuning](./tutorial/tutorial_hyperparameter_tuning.ipynb)
+[Hyperparameter Tuning](./exercises/hyperparameter_tuning.ipynb)
 
-[Weighted Mean Absolute Percentage Error](./tutorial/tutorial_weighted_mean_absolute_percentage_error.ipynb)
+[Weighted Mean Absolute Percentage Error](./exercises/weighted_mean_absolute_percentage_error.ipynb)
 
 
 ## **How to install**
@@ -39,4 +39,4 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/lucas/CHANGELOG.md)
+[v1.0.0](./CHANGELOG.md)
