@@ -17,6 +17,8 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 ## **Functiocionality**
 
+[Argument Validation](./tutorial/tutorial_argument_validation.ipynb)
+
 [Dimensionality Reduction](./tutorial/tutorial_dimensionality_reduction.ipynb)
 
 [Feature Engineering](./tutorial/tutorial_feature_engineering.ipynb)
@@ -37,4 +39,4 @@ pip install mlutils
 
 ## **Release Notes**
 
-[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/releases)
+[v1.0.0](https://github.com/GAVB-SERVICOS/mlutils/blob/feature/lucas/CHANGELOG.md)
