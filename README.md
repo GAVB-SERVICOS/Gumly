@@ -27,7 +27,7 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Hyperparameter Tuning](./exercises/hyperparameter_tuning.ipynb)
 
-[Weighted Mean Absolute Percentage Error](./exercises/weighted_mean_absolute_percentage_error.ipynb)
+[Metrics](./exercises/metrics.ipynb)
 
 
 ## **How to install**
