@@ -6,9 +6,7 @@ def test_wmap():
 
     y_true = [3, -0.5, 2, 7]
     y_pred = [2.5, 0.0, 2, 8]
-    assert (
-        weighted_mean_absolute_percentage_error(y_true, y_pred) == 0.17391304347826086
-    )
+    assert weighted_mean_absolute_percentage_error(y_true, y_pred) == 0.17391304347826086
 
 
 def test_wmap_weight():
@@ -16,10 +14,7 @@ def test_wmap_weight():
     y_true = [3, -0.5, 2, 7]
     y_pred = [2.5, 0.0, 2, 8]
 
-    assert (
-        weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[2, 1, 1, 3])
-        == 0.15789473684210525
-    )
+    assert weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[2, 1, 1, 3]) == 0.15789473684210525
 
 
 def test_weighted_mean_absolute_percentage_error_predict_true_shape():
@@ -42,9 +37,7 @@ def test_weighted_mean_absolute_percentage_error_predict_true_weights_less_zero(
     with pytest.raises(AssertionError) as ex:
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8]
-        weighted_mean_absolute_percentage_error(
-            y_true, y_pred, weights=[-1, -2, -3, -4]
-        )
+        weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[-1, -2, -3, -4])
         assert ex.message == "Weights cannot be negative."
 
 
