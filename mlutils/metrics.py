@@ -4,22 +4,22 @@ import numpy as np
 def weighted_mean_absolute_percentage_error(y_true, y_pred, weights=None):
 
     """
-     Implements the weighted MAPE metric.
-    
-     :param y_true: true target values
-     :type: array-like of shape
-     :param y_pred: estimated target values
-     :type: array-like of shape
-     :param weights: weights to use when averaging
-     :type: array-like of shape. default = None
-     :raise AssertionError: Predicted and true values have different shapes
-     :raise AssertionError: Weights and true values have different shapes
-     :raise AssertionError: Weights and predicted values have different shapes
-     :raise AssertionError: Weights cannot be negative
-     :raise AssertionError: Weights cannot be all equal to zero
-     :return: float number
-     :rtype: float
-    
+    Implements the weighted MAPE metric.
+
+    :param y_true: true target values
+    :type: array-like of shape
+    :param y_pred: estimated target values
+    :type: array-like of shape
+    :param weights: weights to use when averaging
+    :type: array-like of shape. default = None
+    :raise AssertionError: Predicted and true values have different shapes
+    :raise AssertionError: Weights and true values have different shapes
+    :raise AssertionError: Weights and predicted values have different shapes
+    :raise AssertionError: Weights cannot be negative
+    :raise AssertionError: Weights cannot be all equal to zero
+    :return: float number
+    :rtype: float
+
     """
 
     if not weights:

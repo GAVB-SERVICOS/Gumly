@@ -3,26 +3,29 @@ from scipy.sparse.linalg import svds
 
 
 def dimensionality_reduction(
-    df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None,
+    df_input,
+    decomposition_method: str = None,
+    k: int = None,
+    explained_variance: float = None,
 ):
     """
     Runs the chosen method of dimensionality reduction in the input data (df_input)
      and returns the reduced one.
-    
+
     :param df_input: sparse matrix
     :type: Array to compute SVD and PCA on, of shape (M,N)
     :param decomposition_method: Choice of method
-    :type: str, default = None 
-    :param K: Number of singular values(SVD) and principal component analyis(PCA) to compute. 
+    :type: str, default = None
+    :param K: Number of singular values(SVD) and principal component analyis(PCA) to compute.
         Must be 1 <= k < min(A.shape)
     :type: int, default = None
-    :param explained_variance: 0 < n_components < 1, select the number of components such that the 
-        amount of variance that needs to be explained is greater than the percentage 
+    :param explained_variance: 0 < n_components < 1, select the number of components such that the
+        amount of variance that needs to be explained is greater than the percentage
         specified by n_components
     :type: float, default = None
     :raise ValueError: K and explained_variance must be defined.
     :raise TypeError: explained_variance must be a float.
-    :raise ValueError : explained_variance must be in the interval (0..1) and k 
+    :raise ValueError : explained_variance must be in the interval (0..1) and k
         or explained_variance must be defined
     :raise NotImplementedError: Model implemented yet. Available names: 'SVD', 'PCA'
     :return: Input data with reduced dimensions

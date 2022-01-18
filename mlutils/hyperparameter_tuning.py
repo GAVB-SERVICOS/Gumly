@@ -7,7 +7,13 @@ from mlutils.feature_engineering import split_features_and_target
 
 
 def hyperparameter_tuning(
-    df: pd.DataFrame, target: str, parameters: dict, algorithm, metric, scoring_option: str, n_trials: int,
+    df: pd.DataFrame,
+    target: str,
+    parameters: dict,
+    algorithm,
+    metric,
+    scoring_option: str,
+    n_trials: int,
 ):
 
     """

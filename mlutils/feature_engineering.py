@@ -17,7 +17,7 @@ from mlutils.value_validation import assert_check_number
 def split_features_and_target(df: pd.DataFrame, target: str):
     """
     Separates the features and the target columns into two new dataframes, one containing each.
-    
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -35,7 +35,7 @@ def split_features_and_target(df: pd.DataFrame, target: str):
 def feature_selection_filter(df, target: str, num_feats: int):
     """
     Feature selection using filter technique and chi2 values.
-    
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -59,7 +59,7 @@ def feature_selection_filter(df, target: str, num_feats: int):
 def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     """
     Feature selection using wrapper technique and LogisticRegression.
-    
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -67,13 +67,17 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     :param num_feats: The number of features that is wanted to remain after the process
     :type: int
     :param step: The number steps
-    :type: int
+    :type: int, default = 10
     :return: features selected by the technique
     :rtype: list
     """
     x, y = split_features_and_target(df, target)
 
-    rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
+    rfe_selector = RFE(
+        estimator=LogisticRegression(max_iter=200),
+        n_features_to_select=num_feats,
+        step=step,
+    )
     rfe_selector.fit(x, y)
     rfe_support = rfe_selector.get_support()
     rfe_feature = x.loc[:, rfe_support].columns.tolist()
@@ -84,7 +88,7 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
 def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: int):
     """
     Feature selection using embedded technique and LightGBMClassifier.
-    
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -109,20 +113,24 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
 
 
 def feature_selection_stepwise(
-    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False,
+    df,
+    target: str,
+    threshold_in: float = 0.01,
+    threshold_out: float = 0.05,
+    verbose: bool = False,
 ):
-    """ 
+    """
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
     :type: str
     :param threshold_in: include a feature if its p-value < threshold_in
-    :type: float
+    :type: float, default = 0.01
     :param threshold_out: exclude a feature if its p-value > threshold_out
-    :type: float
+    :type: float, default = 0.05
     :param verbose: whether to print the sequence of inclusions and exclusions
-    :type: bool
+    :type: bool, default = False
     :return: features selected by the technique
     :rtype: list
     """
@@ -162,7 +170,7 @@ def feature_selection_stepwise(
 
 
 def feature_selection_f_regression(df, target: str, num_feats: int):
-    """ 
+    """
     Perform a f_regression feature selection based on p-value
     :param df: DataFrame pandas
     :type: DataFrame
@@ -185,7 +193,7 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
 
 
 def feature_selection_mutual_information(df, target: str, num_feats: int):
-    """ 
+    """
     Perform a mutual_info_regression feature selection
     :param df: DataFrame pandas
     :type: DataFrame
@@ -199,7 +207,10 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     x, y = split_features_and_target(df, target)
     random_state = 42
 
-    m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats,)
+    m_info = SelectKBest(
+        score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state),
+        k=num_feats,
+    )
     m_info.fit(x, y)
     mi_support = m_info.get_support()
     mi_feature = x.loc[:, mi_support].columns.tolist()
@@ -208,25 +219,28 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
 
 
 def ordering_filter(
-    data, variables, lower_percentile: float = 0.0, upper_percentile: float = 0.0,
+    data,
+    variables,
+    lower_percentile: float = 0.0,
+    upper_percentile: float = 0.0,
 ):
 
     """
-    Returns the indexes of the records that have its values among the
-    lower_percentile smaller and/or have its values among the
-    upper_percentile bigger.
-   
+    Analyzes the records of all given variables and returns their indexes if their values are among
+    the values within the fraction (lower_percentile) of the smallest values or if their values
+    are among the values within the fraction (upper_percentile) of the biggest values.
+
     :param data : data frame
     :type: DataFrame
     :param variables: variables to be treated for the method
     :type: str or list
     :param lower_percentile: minimum percentile threshold
-    :type: float
+    :type: float, default = 0.0
     :param upper_percentile: maximum percentile threshold
-    :type: float
+    :type: float, default = 0.0
     :return: list of outliers indices
     :rtype: list
-    
+
     """
 
     assert_check_number(lower_percentile, 0, 1.0, "lower_percentile")
