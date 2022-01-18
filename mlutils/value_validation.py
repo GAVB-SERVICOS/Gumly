@@ -21,7 +21,7 @@ def check_number(x, lower=None, upper=None):
 
 def assert_check_number(x, lower=None, upper=None, varname=None):
     """
-    :param x: Value to checked 
+    :param x: Value to be checked 
     :type x: number 
     :param lower: minimum value accepted
     :type lower: number

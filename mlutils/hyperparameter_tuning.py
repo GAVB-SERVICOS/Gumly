@@ -3,7 +3,7 @@ from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
 from sklearn.metrics import make_scorer
-from mlutils.feature_engineering import select_data
+from mlutils.feature_engineering import split_features_and_target
 
 
 def hyperparameter_tuning(
@@ -32,7 +32,7 @@ def hyperparameter_tuning(
     :rtype: dict
 
     """
-    x, y = select_data(df=df, target=target)
+    x, y = split_features_and_target(df=df, target=target)
 
     parameters_dict = {}
 

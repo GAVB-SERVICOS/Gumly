@@ -11,7 +11,7 @@ def test_feature_engineering_select_data():
     df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
     df_boston["target"] = boston_data.target
 
-    x, y = select_data(df_boston, "target")
+    x, y = split_features_and_target(df_boston, "target")
     isinstance(x, pd.DataFrame)
     isinstance(y, pd.DataFrame)
 

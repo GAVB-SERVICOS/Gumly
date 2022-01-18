@@ -6,7 +6,8 @@ def dimensionality_reduction(
     df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None,
 ):
     """
-    Implements methods for dimensionality reduction.
+    Runs the chosen method of dimensionality reduction in the input data (df_input)
+     and returns the reduced one.
     
     :param df_input: sparse matrix
     :type: Array to compute SVD and PCA on, of shape (M,N)
@@ -48,8 +49,8 @@ def dimensionality_reduction(
             if explained_variance <= 0 or explained_variance >= 1:
                 raise ValueError(f"explained_variance must be in the interval (0..1)")
 
-            u = PCA(explained_variance).fit_transform(df_input)
+            u = PCA(explained_variance, svd_solver='full').fit_transform(df_input)
         return u
 
     else:
-        raise NotImplementedError("Model implemented yet. Available names: 'SVD', 'PCA'.")
+        raise NotImplementedError("Method not implemented yet. Available names: 'SVD', 'PCA'.")

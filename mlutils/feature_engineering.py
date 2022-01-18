@@ -11,12 +11,12 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
-from mlutils.argument_validation import assert_check_number
+from mlutils.value_validation import assert_check_number
 
 
-def select_data(df: pd.DataFrame, target: str):
+def split_features_and_target(df: pd.DataFrame, target: str):
     """
-    Select dataframe and the name of the target variable as input and return x,y.
+    Separates the features and the target columns into two new dataframes, one containing each.
     
     :param df: DataFrame pandas
     :type: DataFrame
@@ -45,7 +45,7 @@ def feature_selection_filter(df, target: str, num_feats: int):
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
 
     x_norm = MinMaxScaler().fit_transform(x)
     chi_selector = SelectKBest(chi2, k=num_feats)
@@ -71,7 +71,7 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
 
     rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
     rfe_selector.fit(x, y)
@@ -97,7 +97,7 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
     :rtype: list
     """
 
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
 
     lgbc = LGBMClassifier(n_estimators=n_estimators)
     embeded_lgb_selector = SelectFromModel(lgbc, max_features=num_feats)
@@ -126,7 +126,7 @@ def feature_selection_stepwise(
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
 
     initial_list = []
 
@@ -174,7 +174,7 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
     :rtype: list
     """
 
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
 
     f_reg = SelectKBest(f_regression, k=num_feats)
     f_reg.fit(x, y)
@@ -196,7 +196,7 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = select_data(df, target)
+    x, y = split_features_and_target(df, target)
     random_state = 42
 
     m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats,)
