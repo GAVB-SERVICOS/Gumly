@@ -17,7 +17,7 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 ## **Functiocionality**
 
-[Argument Validation](./exercises/argument_validation.ipynb)
+[Value Validation](./exercises/value_validation.ipynb)
 
 [Dimensionality Reduction](./exercises/dimensionality_reduction.ipynb)
 
