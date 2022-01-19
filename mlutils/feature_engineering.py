@@ -32,9 +32,10 @@ def split_features_and_target(df: pd.DataFrame, target: str):
     return x, y
 
 
-def feature_selection_filter(df, target: str, num_feats: int):
+def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Feature selection using filter technique and chi2 values.
+    Feature selection using filter technique and chi2 values, this function returns 
+    the main important features based on chi2 test as a list. 
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -42,10 +43,15 @@ def feature_selection_filter(df, target: str, num_feats: int):
     :type: str
     :param num_feats: The number of features that is wanted to remain after the process
     :type: int
+    :raise ValueError : The input columns must be a number (float or int) not str
     :return: features selected by the technique
     :rtype: list
     """
     x, y = split_features_and_target(df, target)
+
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
 
     x_norm = MinMaxScaler().fit_transform(x)
     chi_selector = SelectKBest(chi2, k=num_feats)
@@ -56,9 +62,10 @@ def feature_selection_filter(df, target: str, num_feats: int):
     return chi_feature
 
 
-def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
+def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, step: int = 10):
     """
-    Feature selection using wrapper technique and LogisticRegression.
+    Feature selection using wrapper technique and LogisticRegression, this function returns 
+    the main important features based on betas from LogisticRegression algorithm as a list.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -73,11 +80,11 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     """
     x, y = split_features_and_target(df, target)
 
-    rfe_selector = RFE(
-        estimator=LogisticRegression(max_iter=200),
-        n_features_to_select=num_feats,
-        step=step,
-    )
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
+
+    rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
     rfe_selector.fit(x, y)
     rfe_support = rfe_selector.get_support()
     rfe_feature = x.loc[:, rfe_support].columns.tolist()
@@ -85,9 +92,10 @@ def feature_selection_wrapper(df, target: str, num_feats: int, step: int = 10):
     return rfe_feature
 
 
-def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: int):
+def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_estimators: int):
     """
-    Feature selection using embedded technique and LightGBMClassifier.
+    Feature selection using embedded technique and LightGBMClassifier, this function returns 
+    the main important features based on feature importance as a list.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -103,6 +111,10 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
 
     x, y = split_features_and_target(df, target)
 
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
+
     lgbc = LGBMClassifier(n_estimators=n_estimators)
     embeded_lgb_selector = SelectFromModel(lgbc, max_features=num_feats)
     embeded_lgb_selector.fit(x, y)
@@ -113,14 +125,11 @@ def feature_selection_embedded(df, target: str, num_feats: int, n_estimators: in
 
 
 def feature_selection_stepwise(
-    df,
-    target: str,
-    threshold_in: float = 0.01,
-    threshold_out: float = 0.05,
-    verbose: bool = False,
+    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False,
 ):
     """
-    Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS
+    Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS.
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -135,6 +144,10 @@ def feature_selection_stepwise(
     :rtype: list
     """
     x, y = split_features_and_target(df, target)
+
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
 
     initial_list = []
 
@@ -169,9 +182,11 @@ def feature_selection_stepwise(
     return included
 
 
-def feature_selection_f_regression(df, target: str, num_feats: int):
+def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Perform a f_regression feature selection based on p-value
+    Perform a f_regression feature selection based on p-value, returns 
+    the main important features based on p-value as a list.
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -183,6 +198,10 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
     """
 
     x, y = split_features_and_target(df, target)
+
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
 
     f_reg = SelectKBest(f_regression, k=num_feats)
     f_reg.fit(x, y)
@@ -192,9 +211,11 @@ def feature_selection_f_regression(df, target: str, num_feats: int):
     return f_feature
 
 
-def feature_selection_mutual_information(df, target: str, num_feats: int):
+def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Perform a mutual_info_regression feature selection
+    Perform a mutual_info_regression feature selection, the return of the function are 
+    main important features based on mutual information score as a list.
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param target: target variable
@@ -205,12 +226,14 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
     :rtype: list
     """
     x, y = split_features_and_target(df, target)
+
+    for xi in x.columns:
+        if xi.dtype == 'str':
+            raise ValueError(f"The input columns must be a number (float or int) not str")
+
     random_state = 42
 
-    m_info = SelectKBest(
-        score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state),
-        k=num_feats,
-    )
+    m_info = SelectKBest(score_func=lambda x, y: mutual_info_regression(x, y, random_state=random_state), k=num_feats)
     m_info.fit(x, y)
     mi_support = m_info.get_support()
     mi_feature = x.loc[:, mi_support].columns.tolist()
@@ -219,10 +242,7 @@ def feature_selection_mutual_information(df, target: str, num_feats: int):
 
 
 def ordering_filter(
-    data,
-    variables,
-    lower_percentile: float = 0.0,
-    upper_percentile: float = 0.0,
+    data, variables, lower_percentile: float = 0.0, upper_percentile: float = 0.0,
 ):
 
     """
