@@ -20,12 +20,22 @@ The general format is:
 ```
 
 # VERSION - DATE (dd/mm/yyyy)
-### Features
-- A to B
-### Bugfix
-- B to C
+### Features and improvements
+- module alpha.py
+  - A: brief description of A.
+  - B: brief description of B.
+- module beta.py
+  - C: brief description of C.
+
+### Fixes
+- module alpha.py:
+  - New fixed behavior #1 
+  - New fixed behavior #2
+
 ### Deprecated
-- C from D
+- module alpha.py
+  - function A
+  - argument B of function C
 
 ```
 
