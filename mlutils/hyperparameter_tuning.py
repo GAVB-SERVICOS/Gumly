@@ -14,6 +14,9 @@ def hyperparameter_tuning(
     metric,
     scoring_option: str,
     n_trials: int,
+    n_splits: int,
+    suffle: bool,
+    random_state: int
 ):
 
     """
@@ -33,6 +36,12 @@ def hyperparameter_tuning(
     :param scoring_option: Maximize or minimize objectives
     :type: str
     :param n_trials: The of trials that the framework must perform
+    :type: int
+    :param n_splits: The number of splits that must be done in the dataset
+    :type: int
+    :param suffle: The flag true or false for suffle data before execution
+    :type: int
+    :param random_state: The number choosen for seed
     :type: int
     :return: Best hyperparameter features chosen by the technique
     :rtype: dict
@@ -64,13 +73,13 @@ def hyperparameter_tuning(
                     raise NotImplementedError("Not implemented yet")
 
         my_model = algorithm(**parameters_dict)
-        cv = KFold(n_splits=10, shuffle=True, random_state=42)
+        cv = KFold(n_splits=n_splits, shuffle=suffle, random_state=random_state)
         metric_cv = cross_val_score(estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv)
         result = abs(metric_cv.mean())
 
         return result
 
-    study = optuna.create_study(direction=scoring_option, sampler=RandomSampler(seed=42))
+    study = optuna.create_study(direction=scoring_option, sampler=RandomSampler(seed=random_state))
     study.optimize(objective, n_trials=n_trials)
 
     return study.best_params
