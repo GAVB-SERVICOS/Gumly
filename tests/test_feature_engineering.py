@@ -5,15 +5,15 @@ from mlutils.feature_engineering import *
 import pytest
 
 
-def test_feature_engineering_select_data():
+def test_feature_engineering_split_features_and_target():
 
     boston_data = datasets.load_boston()
     df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
     df_boston["target"] = boston_data.target
 
     x, y = split_features_and_target(df_boston, "target")
-    isinstance(x, pd.DataFrame)
-    isinstance(y, pd.DataFrame)
+    assert isinstance(x, pd.DataFrame)
+    assert isinstance(y, pd.Series)
 
 
 # classification
