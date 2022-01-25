@@ -17,16 +17,17 @@ def test_dimensionality_reduction_svd():
             [3, 2, 8, 1],
         ], dtype=float
     )
-    
-    
-    n_array,_,_ = svds(df, k=2)
+
+    v0 = np.ones(df.shape[-1])
+    n_array,_,_ = svds(df, k=2, v0=v0)
         
-    result = dimensionality_reduction(df, decomposition_method="SVD", k=2)
+    result = dimensionality_reduction(df, decomposition_method="SVD", k=2, v0=v0)
     # The SVD method yelds a different result each time it runs, 
     # changing the signal of the values of the columns, therefore, they 
     # can't be directly compared. So we use the standard deviation 
     # of the columns as comparison metric.
-    assert_almost_equal(n_array.std(0), result.std(0)) 
+    #assert_almost_equal(n_array.std(0), result.std(0))
+    assert_almost_equal(n_array, result)
     assert result.shape[1] == 2
 
 

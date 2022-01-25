@@ -7,7 +7,7 @@ def dimensionality_reduction(
     decomposition_method: str = None,
     k: int = None,
     explained_variance: float = None,
-):
+**kwargs: dict):
     """
     Runs the chosen method of dimensionality reduction in the input data (df_input)
      and returns the reduced one.
@@ -23,6 +23,8 @@ def dimensionality_reduction(
         amount of variance that needs to be explained is greater than the percentage
         specified by n_components
     :type: float, default = None
+    :params kwargs: Extra parameters passed to the selected method's base function
+    :type: dict 
     :raise ValueError: K and explained_variance must be defined.
     :raise TypeError: explained_variance must be a float.
     :raise ValueError : explained_variance must be in the interval (0..1) and k
@@ -38,13 +40,13 @@ def dimensionality_reduction(
     if decomposition_method == "SVD":
 
         df_input = df_input.astype(float)
-        u, s, vt = svds(df_input, k=k)
+        u,_,_ = svds(df_input, k=k, **kwargs)
         return u
 
     elif decomposition_method == "PCA":
         if k is not None:
 
-            u = PCA(k).fit_transform(df_input)
+            u = PCA(k,**kwargs).fit_transform(df_input)
         elif explained_variance is not None:
 
             if not isinstance(explained_variance, float):
@@ -52,7 +54,7 @@ def dimensionality_reduction(
             if explained_variance <= 0 or explained_variance >= 1:
                 raise ValueError(f"explained_variance must be in the interval (0..1)")
 
-            u = PCA(explained_variance, svd_solver='full').fit_transform(df_input)
+            u = PCA(explained_variance, svd_solver='full', **kwargs).fit_transform(df_input)
         return u
 
     else:
