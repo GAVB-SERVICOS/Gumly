@@ -35,7 +35,7 @@ def test_feature_engineering_feature_selection_wrapper():
     df_iris = pd.DataFrame(data=iris_data.data, columns=iris_data.feature_names)
     df_iris["target"] = iris_data.target
 
-    assert feature_selection_wrapper(df_iris, "target", 3) == [
+    assert feature_selection_wrapper(df_iris, "target", 3, 3) == [
         "sepal width (cm)",
         "petal length (cm)",
         "petal width (cm)",
