@@ -32,6 +32,9 @@ def test_hyperparameter_tuning():
                 metric=accuracy_score,
                 scoring_option="maximize",
                 n_trials=10,
+                n_splits=5,
+                suffle=True,
+                random_state=451
             )
         )
         == dict

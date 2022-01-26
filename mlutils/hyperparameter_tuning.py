@@ -40,7 +40,7 @@ def hyperparameter_tuning(
     :param n_splits: The number of splits that must be done in the dataset
     :type: int
     :param suffle: The flag true or false for suffle data before execution
-    :type: int
+    :type: bool
     :param random_state: The number choosen for seed
     :type: int
     :return: Best hyperparameter features chosen by the technique
