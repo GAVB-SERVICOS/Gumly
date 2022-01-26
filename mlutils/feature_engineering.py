@@ -14,6 +14,14 @@ import statsmodels.api as sm
 from mlutils.value_validation import assert_check_number
 
 
+def _check_dtypes(df: pd.DataFrame, target: str):
+
+    x, y = split_features_and_target(df, target)
+
+    if (x.dtypes.any() == 'str') == True:
+        raise ValueError("The input columns must be a number (float or int) not str")
+
+
 def split_features_and_target(df: pd.DataFrame, target: str):
     """
     Separates the features and the target columns into two new dataframes, one containing each.
@@ -49,9 +57,7 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     """
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     x_norm = MinMaxScaler().fit_transform(x)
     chi_selector = SelectKBest(chi2, k=num_feats)
@@ -80,9 +86,7 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
     """
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
     rfe_selector.fit(x, y)
@@ -111,9 +115,7 @@ def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_
 
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     lgbc = LGBMClassifier(n_estimators=n_estimators)
     embeded_lgb_selector = SelectFromModel(lgbc, max_features=num_feats)
@@ -145,9 +147,7 @@ def feature_selection_stepwise(
     """
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     initial_list = []
 
@@ -199,9 +199,7 @@ def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int
 
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     f_reg = SelectKBest(f_regression, k=num_feats)
     f_reg.fit(x, y)
@@ -227,9 +225,7 @@ def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feat
     """
     x, y = split_features_and_target(df, target)
 
-    for xi in x.columns:
-        if xi.dtype == 'str':
-            raise ValueError(f"The input columns must be a number (float or int) not str")
+    _check_dtypes(df, target)
 
     random_state = 42
 
