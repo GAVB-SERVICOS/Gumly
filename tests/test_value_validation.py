@@ -1,4 +1,4 @@
-from mlutils.value_validation import assert_check_number, check_number, check_dtypes
+from rico.value_validation import assert_check_number, check_number, check_dtypes
 from sklearn import datasets
 import pandas as pd
 

@@ -11,8 +11,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
-from mlutils.value_validation import assert_check_number
-from mlutils.value_validation import check_dtypes
+from rico.value_validation import assert_check_number
+from rico.value_validation import check_dtypes
 
 
 def split_features_and_target(df: pd.DataFrame, target: str):

@@ -1,4 +1,4 @@
-# **MLutils**
+# **rico**
 
 [![APM](https://img.shields.io/apm/l/python?style=plastic)](./LICENSE)
 
@@ -33,7 +33,7 @@ Thus, it is possible to work with this framework that brings basically two main 
 ## **How to install**
 
 ```
-pip install mlutils
+pip install rico
 ```
 
 
