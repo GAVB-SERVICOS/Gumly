@@ -1,4 +1,4 @@
-name: rico `main` build and publish
+name: rico manually `main` build and publish
 on:
   workflow_dispatch
 jobs:
