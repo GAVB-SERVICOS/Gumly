@@ -1,4 +1,4 @@
-# **MLutils**
+# **Gumly**
 
 [![APM](https://img.shields.io/apm/l/python?style=plastic)](./LICENSE)
 
