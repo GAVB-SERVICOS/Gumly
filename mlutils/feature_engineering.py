@@ -33,6 +33,15 @@ def split_features_and_target(df: pd.DataFrame, target: str):
 
 
 def _check_dtypes(df: pd.DataFrame, target: str):
+    """
+    Internal module for verification of dataframe columns dtypes.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param target: target variable
+    :type: str
+    :raise ValueError : The input columns must be a number (float or int) not str
+    """
 
     x, y = split_features_and_target(df, target)
 
@@ -51,7 +60,6 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     :type: str
     :param num_feats: The number of features that is wanted to remain after the process
     :type: int
-    :raise ValueError : The input columns must be a number (float or int) not str
     :return: features selected by the technique
     :rtype: list
     """
