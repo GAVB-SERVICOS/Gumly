@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 def check_number(x, lower=None, upper=None):
     """
     :param x: Value to be checked
@@ -36,3 +39,18 @@ def assert_check_number(x, lower=None, upper=None, varname=None):
     assert check_number(
         x=x, lower=lower, upper=upper
     ), f"Check number of: {varname} ({type(x)})={x}, expected {varname} between {lower} and {upper}"
+
+
+def check_dtypes(df: pd.DataFrame, types: list):
+    """
+    Module for verification of dataframe columns dtypes.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param check_types: check_types to check if exists in df
+    :type: list of str
+    :raise ValueError : The input columns must be different from [types]
+    """
+
+    if (df.dtypes.any() == i for i in types) == True:
+        raise ValueError("The input columns must be different from %s", types)
