@@ -12,6 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
 from mlutils.value_validation import assert_check_number
+from mlutils.value_validation import check_dtypes
 
 
 def split_features_and_target(df: pd.DataFrame, target: str):
@@ -32,23 +33,6 @@ def split_features_and_target(df: pd.DataFrame, target: str):
     return x, y
 
 
-def _check_dtypes(df: pd.DataFrame, target: str):
-    """
-    Internal module for verification of dataframe columns dtypes.
-
-    :param df: DataFrame pandas
-    :type: DataFrame
-    :param target: target variable
-    :type: str
-    :raise ValueError : The input columns must be a number (float or int) not str
-    """
-
-    x, y = split_features_and_target(df, target)
-
-    if (x.dtypes.any() == 'str') == True:
-        raise ValueError("The input columns must be a number (float or int) not str")
-
-
 def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     """
     Feature selection using filter technique and chi2 values, this function returns 
@@ -63,9 +47,10 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = split_features_and_target(df, target)
 
-    _check_dtypes(df, target)
+    check_dtypes(df, ['str'])
+
+    x, y = split_features_and_target(df, target)
 
     x_norm = MinMaxScaler().fit_transform(x)
     chi_selector = SelectKBest(chi2, k=num_feats)
@@ -92,9 +77,10 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = split_features_and_target(df, target)
 
-    _check_dtypes(df, target)
+    check_dtypes(df, ['str'])
+
+    x, y = split_features_and_target(df, target)
 
     rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
     rfe_selector.fit(x, y)
@@ -121,9 +107,9 @@ def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_
     :rtype: list
     """
 
-    x, y = split_features_and_target(df, target)
+    check_dtypes(df, ['str'])
 
-    _check_dtypes(df, target)
+    x, y = split_features_and_target(df, target)
 
     lgbc = LGBMClassifier(n_estimators=n_estimators)
     embeded_lgb_selector = SelectFromModel(lgbc, max_features=num_feats)
@@ -153,9 +139,10 @@ def feature_selection_stepwise(
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = split_features_and_target(df, target)
 
-    _check_dtypes(df, target)
+    check_dtypes(df, ['str'])
+
+    x, y = split_features_and_target(df, target)
 
     initial_list = []
 
@@ -205,9 +192,9 @@ def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int
     :rtype: list
     """
 
-    x, y = split_features_and_target(df, target)
+    check_dtypes(df, ['str'])
 
-    _check_dtypes(df, target)
+    x, y = split_features_and_target(df, target)
 
     f_reg = SelectKBest(f_regression, k=num_feats)
     f_reg.fit(x, y)
@@ -231,9 +218,10 @@ def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feat
     :return: features selected by the technique
     :rtype: list
     """
-    x, y = split_features_and_target(df, target)
 
-    _check_dtypes(df, target)
+    check_dtypes(df, ['str'])
+
+    x, y = split_features_and_target(df, target)
 
     random_state = 42
 
