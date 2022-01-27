@@ -1,8 +1,8 @@
 from sklearn import datasets
 import pandas as pd
 
-from mlutils.hyperparameter_tuning import *
-from mlutils.feature_engineering import *
+from gumly.hyperparameter_tuning import *
+from gumly.feature_engineering import *
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score

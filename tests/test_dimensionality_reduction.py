@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from mlutils.dimensionality_reduction import *
+from gumly.dimensionality_reduction import *
 from numpy.testing import assert_almost_equal
 import pytest
 

@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
-from mlutils.feature_engineering import split_features_and_target
+from gumly.feature_engineering import split_features_and_target
 from sklearn.metrics import make_scorer
 
 

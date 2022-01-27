@@ -10,10 +10,10 @@ with open("requirements.txt", "r") as fp:
 
 
 setup(
-    name="mlutils",
-    packages=find_packages(include=["mlutils"]),
+    name="gumly",
+    packages=find_packages(include=["gumly"]),
     version=VERSION,
-    description="MLUtils release 1.0.0",
+    description="Gumly release 1.0.0",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     author="GAVB Servicos de Informatica LTDA",

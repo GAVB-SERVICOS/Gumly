@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn import datasets
 import pandas as pd
-from mlutils.feature_engineering import *
+from gumly.feature_engineering import *
 import pytest
 
 

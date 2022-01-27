@@ -1,4 +1,4 @@
-from mlutils.metrics import weighted_mean_absolute_percentage_error
+from gumly.metrics import weighted_mean_absolute_percentage_error
 import pytest
 
 
