@@ -2,8 +2,8 @@ import pandas as pd
 from sklearn.model_selection import cross_val_score, KFold
 import optuna
 from optuna.samplers import RandomSampler
-from sklearn.metrics import make_scorer
 from mlutils.feature_engineering import split_features_and_target
+from sklearn.metrics import make_scorer
 
 
 def hyperparameter_tuning(
@@ -16,7 +16,8 @@ def hyperparameter_tuning(
     n_trials: int,
     n_splits: int,
     suffle: bool,
-    random_state: int
+    random_state: int,
+    metric_goal: str,
 ):
 
     """
@@ -43,19 +44,19 @@ def hyperparameter_tuning(
     :type: bool
     :param random_state: The number choosen for seed
     :type: int
+    :param metric_goal: If scoring_option is maximize, then set as True. Otherwise, set as False
+    :type: int
     :return: Best hyperparameter features chosen by the technique
     :rtype: dict
 
     """
-    x, y = split_features_and_target(df=df, target=target)
 
-    parameters_dict = {}
+    def objective(trial):
 
-    def objective(trial=n_trials, parameters=parameters, metric=metric, x=x, y=y):
+        parameters_dict = {}
 
         if parameters:
             for i, param in enumerate(parameters):
-
                 if param["type"] == "Real":
                     parameters_dict[param["name"]] = trial.suggest_uniform(
                         name=param["name"], low=param["low"], high=param["high"]
@@ -74,12 +75,19 @@ def hyperparameter_tuning(
 
         my_model = algorithm(**parameters_dict)
         cv = KFold(n_splits=n_splits, shuffle=suffle, random_state=random_state)
-        metric_cv = cross_val_score(estimator=my_model, X=x, y=y, scoring=make_scorer(metric), cv=cv)
+        metric_cv = cross_val_score(
+            estimator=my_model, X=x, y=y, scoring=make_scorer(metric, greater_is_better=metric_goal), cv=cv
+        )
         result = abs(metric_cv.mean())
 
         return result
 
+    x, y = split_features_and_target(df=df, target=target)
+
     study = optuna.create_study(direction=scoring_option, sampler=RandomSampler(seed=random_state))
     study.optimize(objective, n_trials=n_trials)
 
-    return study.best_params
+    best_params = study.best_params
+    best_score = study.best_value
+
+    return best_params, best_score

@@ -14,14 +14,6 @@ import statsmodels.api as sm
 from mlutils.value_validation import assert_check_number
 
 
-def _check_dtypes(df: pd.DataFrame, target: str):
-
-    x, y = split_features_and_target(df, target)
-
-    if (x.dtypes.any() == 'str') == True:
-        raise ValueError("The input columns must be a number (float or int) not str")
-
-
 def split_features_and_target(df: pd.DataFrame, target: str):
     """
     Separates the features and the target columns into two new dataframes, one containing each.
@@ -40,6 +32,23 @@ def split_features_and_target(df: pd.DataFrame, target: str):
     return x, y
 
 
+def _check_dtypes(df: pd.DataFrame, target: str):
+    """
+    Internal module for verification of dataframe columns dtypes.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param target: target variable
+    :type: str
+    :raise ValueError : The input columns must be a number (float or int) not str
+    """
+
+    x, y = split_features_and_target(df, target)
+
+    if (x.dtypes.any() == 'str') == True:
+        raise ValueError("The input columns must be a number (float or int) not str")
+
+
 def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     """
     Feature selection using filter technique and chi2 values, this function returns 
@@ -51,7 +60,6 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     :type: str
     :param num_feats: The number of features that is wanted to remain after the process
     :type: int
-    :raise ValueError : The input columns must be a number (float or int) not str
     :return: features selected by the technique
     :rtype: list
     """
