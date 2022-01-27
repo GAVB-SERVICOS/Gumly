@@ -14,14 +14,6 @@ import statsmodels.api as sm
 from mlutils.value_validation import assert_check_number
 
 
-def _check_dtypes(df: pd.DataFrame, target: str):
-
-    x, y = split_features_and_target(df, target)
-
-    if (x.dtypes.any() == 'str') == True:
-        raise ValueError("The input columns must be a number (float or int) not str")
-
-
 def split_features_and_target(df: pd.DataFrame, target: str):
     """
     Separates the features and the target columns into two new dataframes, one containing each.
@@ -38,6 +30,14 @@ def split_features_and_target(df: pd.DataFrame, target: str):
     y = df[str(target)]
 
     return x, y
+
+
+def _check_dtypes(df: pd.DataFrame, target: str):
+
+    x, y = split_features_and_target(df, target)
+
+    if (x.dtypes.any() == 'str') == True:
+        raise ValueError("The input columns must be a number (float or int) not str")
 
 
 def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
