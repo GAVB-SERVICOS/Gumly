@@ -17,7 +17,7 @@ def hyperparameter_tuning(
     n_splits: int,
     suffle: bool,
     random_state: int,
-    metric_goal: str,
+    metric_goal: bool,
 ):
 
     """
