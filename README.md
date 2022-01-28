@@ -1,2 +1,2 @@
 # Gumly
-The GAVB Machine Learning Utility library!
+The GAVB Utilities for Machine Learning Yum!
