@@ -1,7 +1,7 @@
 venv
 build
 dist
-mlutils.egg-info
+gumly.egg-info
 *__pycache__
 .eggs
 .ipynb_checkpoints
