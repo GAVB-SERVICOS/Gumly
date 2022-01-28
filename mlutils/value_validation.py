@@ -49,8 +49,9 @@ def check_dtypes(df: pd.DataFrame, types: list):
     :type: DataFrame
     :param check_types: check_types to check if exists in df
     :type: list of str
-    :raise ValueError : The input columns must be different from [types]
+    :raise ValueError : Exists one or more type of df.columns not permitted
     """
 
-    if (df.dtypes.any() == i for i in types) == True:
-        raise ValueError("The input columns must be different from %s", types)
+    if any(i in df.dtypes.to_list() for i in types):
+
+        raise ValueError("Exists one or more type of df.columns not permitted ", types)
