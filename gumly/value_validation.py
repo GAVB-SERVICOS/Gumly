@@ -3,6 +3,8 @@ import pandas as pd
 
 def check_number(x, lower=None, upper=None):
     """
+    This function returns True if the first argument is a number and it lies between the next two arguments. Othwerise, returns False.
+
     :param x: Value to be checked
     :type x: number
     :param lower: minimum value accepted
@@ -24,6 +26,8 @@ def check_number(x, lower=None, upper=None):
 
 def assert_check_number(x, lower=None, upper=None, varname=None):
     """
+    This function uses the above function and it will raise an exception if check_number returns False.
+
     :param x: Value to be checked
     :type x: number
     :param lower: minimum value accepted
@@ -52,6 +56,26 @@ def check_dtypes(df: pd.DataFrame, types: list):
     :raise ValueError : Exists one or more type of df.columns not permitted
     """
 
-    if any(i in df.dtypes.to_list() for i in types):
+    if len(types) == 0:
+        raise ValueError("The input is empty")
 
-        raise ValueError("Exists one or more type of df.columns not permitted ")
+    for k, v in df.dtypes.to_dict().items():
+        if v in types:
+            return k
+    return None
+
+
+def assert_check_dtypes(df: pd.DataFrame, types: list):
+    """
+    Module for verification of dataframe columns dtypes.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param check_types: check_types to check if exists in df
+    :type: list of str
+    :raise ValueError : Exists one or more type of df.columns not permitted
+    """
+
+    k = check_dtypes(df, types)
+
+    assert k is None, f"type of column {k} is not permitted"

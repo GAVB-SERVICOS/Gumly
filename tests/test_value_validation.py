@@ -1,5 +1,4 @@
-from gumly.value_validation import assert_check_number, check_number, check_dtypes
-from sklearn import datasets
+from gumly.value_validation import assert_check_number, check_number, check_dtypes, assert_check_dtypes
 import pandas as pd
 
 import pytest
@@ -29,16 +28,26 @@ def test_argument_validation_error():
 
         assert_check_number(lower_percentil, 0, 1.0, "lower_percentil")
 
-def test_check_dtypes_error():
 
-    x = pd.DataFrame({'a': [1,2,3], 'b': ['1','2','3']})
-    y = pd.DataFrame({'a': [1,2,3], 'b': [1.0,1.2,3.0]})
-    
-    with pytest.raises(ValueError) as ex:
+def test_check_dtypes():
 
-        check_dtypes(x, ['int64'])
+    x = pd.DataFrame({'a': [1, 2, 3], 'b': ['1', '2', '3']})
 
-    check_dtypes(y, ['str'])
-    
-    
-    
+    with pytest.raises(ValueError):
+        check_dtypes(x, [])
+
+    assert None == check_dtypes(x, ['float64'])
+
+
+def test_assert_check_dtypes_error():
+
+    x = pd.DataFrame({'a': [1, 2, 3], 'b': ['1', '2', '3']})
+    y = pd.DataFrame({'a': [1, 2, 3], 'b': [1.0, 1.2, 3.0]})
+
+    with pytest.raises(AssertionError):
+
+        y = pd.DataFrame({'a': [1, 2, 3], 'b': [1.0, 1.2, 3.0]})
+
+        assert_check_dtypes(y, ['float64'])
+
+    assert None == assert_check_dtypes(x, ['float64'])

@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 import statsmodels.api as sm
 from gumly.value_validation import assert_check_number
-from gumly.value_validation import check_dtypes
+from gumly.value_validation import assert_check_dtypes
 
 
 def split_features_and_target(df: pd.DataFrame, target: str):
@@ -48,7 +48,7 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 
@@ -78,7 +78,7 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 
@@ -107,7 +107,7 @@ def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 
@@ -140,7 +140,7 @@ def feature_selection_stepwise(
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 
@@ -192,7 +192,7 @@ def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 
@@ -219,7 +219,7 @@ def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feat
     :rtype: list
     """
 
-    check_dtypes(df, ['str'])
+    assert_check_dtypes(df, ['str'])
 
     x, y = split_features_and_target(df, target)
 

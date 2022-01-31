@@ -12,10 +12,11 @@ def hyperparameter_tuning(
     parameters: dict,
     algorithm,
     metric,
+    metric_type,
     scoring_option: str,
     n_trials: int,
     n_splits: int,
-    suffle: bool,
+    shuffle: bool,
     random_state: int,
     metric_goal: bool,
 ):
@@ -34,20 +35,22 @@ def hyperparameter_tuning(
     :type: class
     :param metric: Metric used for the evaluation of the tests (eg: accuracy_score, r2)
     :type: function
+    :param metric_type: Set 'Regression' for Regression metrics or 'Classification' for Classification metrics
+    :type: str
     :param scoring_option: Maximize or minimize objectives
     :type: str
     :param n_trials: The of trials that the framework must perform
     :type: int
     :param n_splits: The number of splits that must be done in the dataset
     :type: int
-    :param suffle: The flag true or false for suffle data before execution
+    :param shuffle: The flag true or false for shuffle data before execution
     :type: bool
     :param random_state: The number choosen for seed
     :type: int
     :param metric_goal: If scoring_option is maximize, then set as True. Otherwise, set as False
     :type: int
-    :return: Best hyperparameter features chosen by the technique
-    :rtype: dict
+    :return: Report as DataFrame, best value (metric) and best hyperparameter features chosen by the technique
+    :rtype: DataFrame, float, dict
 
     """
 
@@ -74,21 +77,26 @@ def hyperparameter_tuning(
                     raise NotImplementedError("Not implemented yet")
 
         my_model = algorithm(**parameters_dict)
-        cv = KFold(n_splits=n_splits, shuffle=suffle, random_state=random_state)
+        cv = KFold(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
         metric_cv = cross_val_score(
             estimator=my_model, X=x, y=y, scoring=make_scorer(metric, greater_is_better=metric_goal), cv=cv
         )
 
         result = metric_cv.mean()
 
-        return (1.0 - result)
+        if metric_type == 'Regression':
+            return result
+
+        elif metric_type == 'Classification':
+            return 1.0 - result
 
     x, y = split_features_and_target(df=df, target=target)
 
     study = optuna.create_study(direction=scoring_option, sampler=RandomSampler(seed=random_state))
     study.optimize(objective, n_trials=n_trials)
 
-    best_params = study.best_params
-    best_score = study.best_value
+    report_df = study.trials_dataframe(attrs=('number', 'value', 'params', 'state'))
+    best_value = study.best_value
+    best_param = study.best_params
 
-    return best_params, best_score
+    return report_df, best_value, best_param

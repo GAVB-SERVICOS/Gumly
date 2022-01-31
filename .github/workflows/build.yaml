@@ -1,4 +1,4 @@
-name: MLUtils `main` build and publish
+name: Gumly `main` build and publish
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
     paths:
       - 'VERSION'
 jobs:
-  mlutils-main-build:
+  gumly-main-build:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:

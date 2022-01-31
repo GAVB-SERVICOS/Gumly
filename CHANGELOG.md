@@ -39,7 +39,7 @@ The general format is:
 
 ```
 
-# 0.1.0 - DATE (xx/xx/2022)
+# 1.0.0 - DATE (xx/xx/2022)
 
 ### Added
 

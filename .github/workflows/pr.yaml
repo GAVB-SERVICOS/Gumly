@@ -1,4 +1,4 @@
-name: MLUtils PR build
+name: Gumly PR build
 on: pull_request
 jobs:
   quick-deploy-pr-build:

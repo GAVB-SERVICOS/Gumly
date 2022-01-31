@@ -3,11 +3,8 @@ from scipy.sparse.linalg import svds
 
 
 def dimensionality_reduction(
-    df_input,
-    decomposition_method: str = None,
-    k: int = None,
-    explained_variance: float = None,
-**kwargs: dict):
+    df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None, **kwargs: dict
+):
     """
     Runs the chosen method of dimensionality reduction in the input data (df_input)
      and returns the reduced one.
@@ -40,13 +37,13 @@ def dimensionality_reduction(
     if decomposition_method == "SVD":
 
         df_input = df_input.astype(float)
-        u,_,_ = svds(df_input, k=k, **kwargs)
+        u, _, _ = svds(df_input, k=k, **kwargs)
         return u
 
     elif decomposition_method == "PCA":
         if k is not None:
 
-            u = PCA(k,**kwargs).fit_transform(df_input)
+            u = PCA(k, **kwargs).fit_transform(df_input)
         elif explained_variance is not None:
 
             if not isinstance(explained_variance, float):
