@@ -35,9 +35,8 @@ def test_check_dtypes_error():
     y = pd.DataFrame({'a': [1,2,3], 'b': [1.0,1.2,3.0]})
     
     with pytest.raises(ValueError) as ex:
-
         check_dtypes(x, ['int64'])
-
+        assert ex.message == "Exists one or more type of df.columns not permitted "
     check_dtypes(y, ['str'])
     
     
