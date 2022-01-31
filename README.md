@@ -3,7 +3,7 @@
 [![APM](https://img.shields.io/apm/l/python?style=plastic)](./LICENSE)
 
 
-GAVB Machine Learning Utility library
+GAVB Ultilities machine Learning "Yum"
 
 The library consists of a collection of methods that can be used in order to help Data Scientists and Machine Learning Engineers during the development of Machine Learning applications seeking to reduce the time spent and complexity of coding.
 
