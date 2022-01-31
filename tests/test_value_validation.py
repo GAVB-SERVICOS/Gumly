@@ -30,15 +30,14 @@ def test_argument_validation_error():
         assert_check_number(lower_percentil, 0, 1.0, "lower_percentil")
 
 def test_check_dtypes_error():
-    import pdb
-    pdb.set_trace()
+
     x = pd.DataFrame({'a': [1,2,3], 'b': ['1','2','3']})
     y = pd.DataFrame({'a': [1,2,3], 'b': [1.0,1.2,3.0]})
     
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
 
-        check_dtypes(x, ['str'])
-    
+        check_dtypes(x, ['int64'])
+
     check_dtypes(y, ['str'])
     
     

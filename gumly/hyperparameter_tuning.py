@@ -78,9 +78,10 @@ def hyperparameter_tuning(
         metric_cv = cross_val_score(
             estimator=my_model, X=x, y=y, scoring=make_scorer(metric, greater_is_better=metric_goal), cv=cv
         )
-        result = abs(metric_cv.mean())
 
-        return result
+        result = metric_cv.mean()
+
+        return (1.0 - result)
 
     x, y = split_features_and_target(df=df, target=target)
 

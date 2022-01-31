@@ -22,20 +22,18 @@ def test_hyperparameter_tuning():
         {"name": "max_depth", "type": "Integer", "low": 12, "high": 24},
     ]
 
-    assert (
-        type(
-            hyperparameter_tuning(
-                df=df_iris,
-                target="target",
-                parameters=param_RF,
-                algorithm=RandomForestClassifier,
-                metric=accuracy_score,
-                scoring_option="maximize",
-                n_trials=10,
-                n_splits=5,
-                suffle=True,
-                random_state=451
-            )
-        )
-        == dict
+
+        
+    hyperparameter_tuning(
+        df=df_iris,
+        target="target",
+        parameters=param_RF,
+        algorithm=RandomForestClassifier,
+        metric=accuracy_score,
+        scoring_option="maximize",
+        n_trials=10,
+        n_splits=5,
+        suffle=True,
+        random_state=42,
+        metric_goal=True
     )
