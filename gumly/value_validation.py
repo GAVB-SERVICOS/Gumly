@@ -54,4 +54,4 @@ def check_dtypes(df: pd.DataFrame, types: list):
 
     if any(i in df.dtypes.to_list() for i in types):
 
-        raise ValueError("Exists one or more type of df.columns not permitted ", types)
+        raise ValueError("Exists one or more type of df.columns not permitted ")
