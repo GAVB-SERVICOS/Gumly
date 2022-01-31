@@ -15,7 +15,7 @@ def hyperparameter_tuning(
     scoring_option: str,
     n_trials: int,
     n_splits: int,
-    suffle: bool,
+    shuffle: bool,
     random_state: int,
     metric_goal: bool,
 ):
@@ -40,7 +40,7 @@ def hyperparameter_tuning(
     :type: int
     :param n_splits: The number of splits that must be done in the dataset
     :type: int
-    :param suffle: The flag true or false for suffle data before execution
+    :param shuffle: The flag true or false for shuffle data before execution
     :type: bool
     :param random_state: The number choosen for seed
     :type: int
@@ -74,7 +74,7 @@ def hyperparameter_tuning(
                     raise NotImplementedError("Not implemented yet")
 
         my_model = algorithm(**parameters_dict)
-        cv = KFold(n_splits=n_splits, shuffle=suffle, random_state=random_state)
+        cv = KFold(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
         metric_cv = cross_val_score(
             estimator=my_model, X=x, y=y, scoring=make_scorer(metric, greater_is_better=metric_goal), cv=cv
         )
