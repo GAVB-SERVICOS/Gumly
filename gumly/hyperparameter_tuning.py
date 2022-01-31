@@ -43,7 +43,7 @@ def hyperparameter_tuning(
     :type: int
     :param n_splits: The number of splits that must be done in the dataset
     :type: int
-    :param shuffle: The flag true or false for shuffle data before execution
+    :param shuffle: The flag True or False for shuffle data before execution
     :type: bool
     :param random_state: The number choosen for seed
     :type: int

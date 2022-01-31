@@ -47,13 +47,15 @@ def assert_check_number(x, lower=None, upper=None, varname=None):
 
 def check_dtypes(df: pd.DataFrame, types: list):
     """
-    Module for verification of dataframe columns dtypes.
+    Module for verification of the list of types.
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param check_types: check_types to check if exists in df
+    :param types: list of desired dtypes to check in df
     :type: list of str
-    :raise ValueError : Exists one or more type of df.columns not permitted
+    :raise ValueError : The input is empty
+    :return: column from df
+    :rtype: str
     """
 
     if len(types) == 0:
@@ -71,9 +73,9 @@ def assert_check_dtypes(df: pd.DataFrame, types: list):
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param check_types: check_types to check if exists in df
+    :param types: list of desired dtypes to check in df
     :type: list of str
-    :raise ValueError : Exists one or more type of df.columns not permitted
+    :raise AssertError : type of column {k} is not permitted
     """
 
     k = check_dtypes(df, types)

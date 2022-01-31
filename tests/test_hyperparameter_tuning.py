@@ -22,20 +22,19 @@ def test_hyperparameter_tuning():
         {"name": "max_depth", "type": "Integer", "low": 1, "high": 12},
     ]
 
-
-        
     r, v, p = hyperparameter_tuning(
         df=df_iris,
         target="target",
         parameters=param_RF,
         algorithm=RandomForestClassifier,
         metric=accuracy_score,
+        metric_type='Classification',
         scoring_option="maximize",
         n_trials=1,
         n_splits=2,
         shuffle=True,
         random_state=42,
-        metric_goal=True
+        metric_goal=True,
     )
 
     r2, v2, p2 = hyperparameter_tuning(
@@ -44,12 +43,13 @@ def test_hyperparameter_tuning():
         parameters=param_RF,
         algorithm=RandomForestClassifier,
         metric=accuracy_score,
+        metric_type='Classification',
         scoring_option="maximize",
         n_trials=5,
         n_splits=2,
         shuffle=True,
         random_state=42,
-        metric_goal=True
+        metric_goal=True,
     )
 
     assert v2 >= v

@@ -1,4 +1,4 @@
-SRC_FOLDER=mlutils
+SRC_FOLDER=gumly
 TEST_FOLDER=tests
 
 # we mark all commands as `phony` to avoid any potential conflict with files in the CICD environment
@@ -14,14 +14,14 @@ isort:
 	isort $(SRC_FOLDER) $(TEST_FOLDER)
 
 typecheck:
-	mypy --namespace-packages --explicit-package-bases -p mlutils
+	mypy --namespace-packages --explicit-package-bases -p gumly
 	mypy --namespace-packages tests
 
 test:
 	pytest --durations=5 $(TEST_FOLDER)
 
 cov:
-	pytest --cov=mlutils --durations=5 $(TEST_FOLDER)
+	pytest --cov=gumly --durations=5 $(TEST_FOLDER)
 
 verify: lint typecheck test
 	echo "Lint, typecheck, test successfully completed!"
