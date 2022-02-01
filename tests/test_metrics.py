@@ -1,5 +1,6 @@
-from gumly.metrics import weighted_mean_absolute_percentage_error
 import pytest
+
+from gumly.metrics import weighted_mean_absolute_percentage_error
 
 
 def test_wmap():
@@ -22,7 +23,7 @@ def test_weighted_mean_absolute_percentage_error_predict_true_shape():
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8, 9]
         weighted_mean_absolute_percentage_error(y_true, y_pred)
-        assert ex.message == "Predicted and true values have different shapes."
+        assert str(ex) == "Predicted and true values have different shapes."
 
 
 def test_weighted_mean_absolute_percentage_error_predict_true_weights_shape():
@@ -30,7 +31,7 @@ def test_weighted_mean_absolute_percentage_error_predict_true_weights_shape():
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8]
         weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[1, 2])
-        assert ex.message == "Weights and true values have different shapes."
+        assert str(ex) == "Weights and true values have different shapes."
 
 
 def test_weighted_mean_absolute_percentage_error_predict_true_weights_less_zero():
@@ -38,7 +39,7 @@ def test_weighted_mean_absolute_percentage_error_predict_true_weights_less_zero(
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8]
         weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[-1, -2, -3, -4])
-        assert ex.message == "Weights cannot be negative."
+        assert str(ex) == "Weights cannot be negative."
 
 
 def test_weighted_mean_absolute_percentage_error_predict_true_weights_equal_zero():
@@ -46,4 +47,4 @@ def test_weighted_mean_absolute_percentage_error_predict_true_weights_equal_zero
         y_true = [3, -0.5, 2, 7]
         y_pred = [2.5, 0.0, 2, 8]
         weighted_mean_absolute_percentage_error(y_true, y_pred, weights=[0, 0, 0, 0])
-        assert ex.message == "Weights cannot be all equal to zero."
+        assert str(ex) == "Weights cannot be all equal to zero."

@@ -1,14 +1,19 @@
-from sklearn import datasets
 import pandas as pd
-
-from gumly.hyperparameter_tuning import *
-from gumly.feature_engineering import *
+from sklearn import datasets
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import (
+    accuracy_score,
+    explained_variance_score,
+    max_error,
+    mean_absolute_error,
+    mean_squared_error,
+    mean_squared_log_error,
+    median_absolute_error,
+    r2_score,
+)
 
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from sklearn.metrics import explained_variance_score, max_error
-from sklearn.metrics import mean_squared_log_error, median_absolute_error
-from sklearn.metrics import accuracy_score
+from gumly.feature_engineering import *
+from gumly.hyperparameter_tuning import *
 
 
 def test_hyperparameter_tuning():

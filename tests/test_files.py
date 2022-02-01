@@ -1,8 +1,10 @@
-from gumly.files import *
+import shutil
 import tempfile
 from pathlib import Path
+
 import pytest
-import shutil
+
+from gumly.files import *
 
 
 @pytest.fixture()

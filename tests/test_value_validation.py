@@ -1,7 +1,12 @@
-from gumly.value_validation import assert_check_number, check_number, check_dtypes, assert_check_dtypes
 import pandas as pd
-
 import pytest
+
+from gumly.value_validation import (
+    assert_check_dtypes,
+    assert_check_number,
+    check_dtypes,
+    check_number,
+)
 
 
 def test_argument_validation_check_number():
