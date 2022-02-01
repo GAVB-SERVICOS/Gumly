@@ -5,17 +5,17 @@
 
 GAVB Utilities for Machine Learning Yum
 
-The library consists of a collection of methods that can be used in order to help Data Scientists and Machine Learning Engineers during the mainelopment of Machine Learning applications seeking to reduce the time spent and complexity of coding.
+The library consists of a collection of methods that can be used in order to help Data Scientists and Machine Learning Engineers during the development of Machine Learning applications seeking to reduce the time spent and complexity of coding.
 
 
 ## **Library Motivation and Description**
 
-During the mainelopment of ML projects at GAVB, Data Scientists have the necessity to code some features for projects repeatedly. So, MLOps area identified the opportunity to create some standard functions that can help as it can be used many times by data science area in each different project.
+During the development of ML projects at GAVB, Data Scientists have the necessity to code some features for projects repeatedly. So, MLOps area identified the opportunity to create some standard functions that can help as it can be used many times by data science area in each different project.
 Thus, it is possible to work with this framework that brings basically two main advantages: 
 1 - Projects executed in less time than usual, due to the code reusability;
 2 - Establishment of a standard coding structure for projects.
 
-## **Functiocionality**
+## **Functionality**
 
 [Value Validation](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/value_validation.ipynb)
 
