@@ -1,9 +1,15 @@
-from sklearn.decomposition import PCA
+from typing import Any
+
 from scipy.sparse.linalg import svds
+from sklearn.decomposition import PCA
 
 
 def dimensionality_reduction(
-    df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None, **kwargs: dict
+    df_input,
+    decomposition_method: str = None,
+    k: int = None,
+    explained_variance: float = None,
+    **kwargs: Any,
 ):
     """
     Runs the chosen method of dimensionality reduction in the input data (df_input)
@@ -21,7 +27,7 @@ def dimensionality_reduction(
         specified by n_components
     :type: float, default = None
     :params kwargs: Extra parameters passed to the selected method's base function
-    :type: dict 
+    :type: dict
     :raise ValueError: K and explained_variance must be defined.
     :raise TypeError: explained_variance must be a float.
     :raise ValueError : explained_variance must be in the interval (0..1) and k
@@ -49,7 +55,7 @@ def dimensionality_reduction(
             if not isinstance(explained_variance, float):
                 raise TypeError(f"explained_variance must be a float, but its value passed was {explained_variance}.")
             if explained_variance <= 0 or explained_variance >= 1:
-                raise ValueError(f"explained_variance must be in the interval (0..1)")
+                raise ValueError("explained_variance must be in the interval (0..1)")
 
             u = PCA(explained_variance, svd_solver='full', **kwargs).fit_transform(df_input)
         return u

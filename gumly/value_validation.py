@@ -3,7 +3,8 @@ import pandas as pd
 
 def check_number(x, lower=None, upper=None):
     """
-    This function returns True if the first argument is a number and it lies between the next two arguments. Othwerise, returns False.
+    This function returns True if the first argument is a number and it lies between the next two arguments.
+    Othwerise, returns False.
 
     :param x: Value to be checked
     :type x: number

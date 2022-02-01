@@ -1,18 +1,20 @@
+from typing import Any, List, Set
+
 import pandas as pd
+import statsmodels.api as sm
+from lightgbm import LGBMClassifier
 from sklearn.feature_selection import (
-    SelectKBest,
-    chi2,
     RFE,
     SelectFromModel,
+    SelectKBest,
+    chi2,
     f_regression,
     mutual_info_regression,
 )
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
-from lightgbm import LGBMClassifier
-import statsmodels.api as sm
-from gumly.value_validation import assert_check_number
-from gumly.value_validation import assert_check_dtypes
+from sklearn.preprocessing import MinMaxScaler
+
+from gumly.value_validation import assert_check_dtypes, assert_check_number
 
 
 def split_features_and_target(df: pd.DataFrame, target: str):
@@ -35,8 +37,8 @@ def split_features_and_target(df: pd.DataFrame, target: str):
 
 def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Feature selection using filter technique and chi2 values, this function returns 
-    the main important features based on chi2 test as a list. 
+    Feature selection using filter technique and chi2 values, this function returns
+    the main important features based on chi2 test as a list.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -63,7 +65,7 @@ def feature_selection_filter(df: pd.DataFrame, target: str, num_feats: int):
 
 def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, step: int = 10):
     """
-    Feature selection using wrapper technique and LogisticRegression, this function returns 
+    Feature selection using wrapper technique and LogisticRegression, this function returns
     the main important features based on betas from LogisticRegression algorithm as a list.
 
     :param df: DataFrame pandas
@@ -82,7 +84,11 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
 
     x, y = split_features_and_target(df, target)
 
-    rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
+    rfe_selector = RFE(
+        estimator=LogisticRegression(max_iter=200),
+        n_features_to_select=num_feats,
+        step=step,
+    )
     rfe_selector.fit(x, y)
     rfe_support = rfe_selector.get_support()
     rfe_feature = x.loc[:, rfe_support].columns.tolist()
@@ -92,7 +98,7 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
 
 def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_estimators: int):
     """
-    Feature selection using embedded technique and LightGBMClassifier, this function returns 
+    Feature selection using embedded technique and LightGBMClassifier, this function returns
     the main important features based on feature importance as a list.
 
     :param df: DataFrame pandas
@@ -121,7 +127,11 @@ def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_
 
 
 def feature_selection_stepwise(
-    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False,
+    df,
+    target: str,
+    threshold_in: float = 0.01,
+    threshold_out: float = 0.05,
+    verbose: bool = False,
 ):
     """
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS.
@@ -144,9 +154,7 @@ def feature_selection_stepwise(
 
     x, y = split_features_and_target(df, target)
 
-    initial_list = []
-
-    included = list(initial_list)
+    included: List[pd.Series] = []
     while True:
         changed = False
         excluded = list(set(x.columns) - set(included))
@@ -179,7 +187,7 @@ def feature_selection_stepwise(
 
 def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Perform a f_regression feature selection based on p-value, returns 
+    Perform a f_regression feature selection based on p-value, returns
     the main important features based on p-value as a list.
 
     :param df: DataFrame pandas
@@ -206,7 +214,7 @@ def feature_selection_f_regression(df: pd.DataFrame, target: str, num_feats: int
 
 def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feats: int):
     """
-    Perform a mutual_info_regression feature selection, the return of the function are 
+    Perform a mutual_info_regression feature selection, the return of the function are
     main important features based on mutual information score as a list.
 
     :param df: DataFrame pandas
@@ -234,7 +242,10 @@ def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feat
 
 
 def ordering_filter(
-    data, variables, lower_percentile: float = 0.0, upper_percentile: float = 0.0,
+    data,
+    variables,
+    lower_percentile: float = 0.0,
+    upper_percentile: float = 0.0,
 ):
 
     """
@@ -260,7 +271,7 @@ def ordering_filter(
 
     if type(variables) == str:
         variables = variables.split()
-    rows_to_drop = set()
+    rows_to_drop: Set[Any] = set()
     quartil_lower = lower_percentile
     quartil_upper = 1.0 - upper_percentile
     data_len = len(data)
@@ -272,6 +283,4 @@ def ordering_filter(
         rows_to_drop = rows_to_drop.union(
             set(new_data[(new_data["__index__"] <= index_lower) | (new_data["__index__"] >= index_upper)].index)
         )
-    rows_to_drop = list(rows_to_drop)
-
-    return rows_to_drop
+    return list(rows_to_drop)

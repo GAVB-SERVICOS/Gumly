@@ -1,15 +1,18 @@
-import pandas as pd
-from sklearn.model_selection import cross_val_score, KFold
+from typing import Any, Dict, List
+
 import optuna
+import pandas as pd
 from optuna.samplers import RandomSampler
-from gumly.feature_engineering import split_features_and_target
 from sklearn.metrics import make_scorer
+from sklearn.model_selection import KFold, cross_val_score
+
+from gumly.feature_engineering import split_features_and_target
 
 
 def hyperparameter_tuning(
     df: pd.DataFrame,
     target: str,
-    parameters: dict,
+    parameters: List[Dict[Any, Any]],
     algorithm,
     metric,
     metric_type,
@@ -28,8 +31,8 @@ def hyperparameter_tuning(
     :type: DataFrame
     :param target: target variable
     :type: str
-    :param parameters: Dict that contains all the threshold given for optimization testing
-    :type: dict
+    :param parameters: list that contains all the threshold given for optimization testing
+    :type: List[Dict[Any, Any]]
     :param algorithm: Machine Learning algorithm used for fit the model
     (eg: RandomForestClassifier, RandomForestRegressor)
     :type: class
