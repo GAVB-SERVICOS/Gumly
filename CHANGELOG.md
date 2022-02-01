@@ -63,10 +63,10 @@ The general format is:
 - module hyperparameter_tuning.py
   - hyperparameter_tuning: Perform hyperparameters optimization using optuna framework for the chosen technique.
 
--module metrics.py
+- module metrics.py
   - weighted_mean_absolute_percentage_error: Implements the weighted MAPE metric.
 
--module value_validation.py
+- module value_validation.py
   - check_number: This function returns True if the first argument is a number and it lies between the next two arguments. Othwerise, returns False.
   - assert_check_number: This function uses check_number function and it will raise an exception if returns False.
   - check_dtypes: Verify the list of types.
