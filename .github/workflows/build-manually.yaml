@@ -1,4 +1,4 @@
-name: Gumly `main` build and publish
+name: Gumly manually `main` build and publish
 on:
   workflow_dispatch
 jobs:
