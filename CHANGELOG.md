@@ -39,8 +39,35 @@ The general format is:
 
 ```
 
-# 1.0.0 - DATE (xx/xx/2022)
+# 1.0.0 - DATE (01/02/2022)
 
-### Added
+### Features
 
-- ..features added..
+- module dimencionality_reduction.py
+  - dimencionality_reduction: Wrapper for two well-know methods, PCA and svds.
+  
+- module feature_engineering.py
+  - split_features_and_target: Separates the features and the target columns into two new dataframes.
+  - feature_selection_filter: Feature selection using filter technique and chi2 values.
+  - feature_selection_wrapper: Feature selection using wrapper technique and LogisticRegression.
+  - feature_selection_embedded: Feature selection using embedded technique and LightGBMClassifier.
+  - feature_selection_stepwise: Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS.
+  - feature_selection_f_regression: Perform a f_regression feature selection based on p-value.
+  - feature_selection_mutual_information: Perform a mutual_info_regression feature selection.
+  - ordering_filter: Analyzes the records of all given variables and returns their indexes.
+
+- module files.py
+  - create_dir: Creates a directory if it doesn't exist.
+  - move_files: Moves the files from source_dir to dest_dir.
+
+- module hyperparameter_tuning.py
+  - hyperparameter_tuning: Perform hyperparameters optimization using optuna framework for the chosen technique.
+
+- module metrics.py
+  - weighted_mean_absolute_percentage_error: Implements the weighted MAPE metric.
+
+- module value_validation.py
+  - check_number: This function returns True if the first argument is a number and it lies between the next two arguments. Othwerise, returns False.
+  - assert_check_number: This function uses check_number function and it will raise an exception if returns False.
+  - check_dtypes: Verify the list of types.
+  - assert_check_dtypes: Verify dataframe columns dtypes.
