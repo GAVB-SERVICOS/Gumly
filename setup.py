@@ -6,7 +6,7 @@ LONG_DESCRIPTION = open('README.md').read()
 
 
 with open("requirements.txt", "r") as fp:
-    reqs = fp.read().split("\n")[:-1]
+    reqs = fp.read().split("\n")
 
 
 setup(
