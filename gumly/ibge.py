@@ -5,33 +5,64 @@ import re
 
 def fetch():
     estado = []
+    uf_estado = []
+    id_estado = []
     _regiao = []
     sigla_regiao = []
-    uf_estado = []
+    
 
     for dictionary in Estados().json():
         estado.append(dictionary["nome"])
         uf_estado.append(dictionary["sigla"])
+        id_estado.append(dictionary["id"])
         _regiao.append(dictionary["regiao"]["nome"])
         sigla_regiao.append(dictionary["regiao"]["sigla"])
 
     municipios = []
+    municipios_id = []
     municipios_uf = []
     municipios_estado = []
     municipios_regiao = []
+    municipios_microrregiao_id = []
+    municipios_microrregiao = []
+    municipios_mesorregiao_id = []
+    municipios_mesorregiao = []
+    municipios_regiao_imediata_id = []
+    municipios_regiao_imediata = []
+    municipios_regiao_intermediaria_id = []
+    municipios_regiao_intermediaria = []
+
 
     for dictionary in Municipios().json():
         municipios.append(dictionary["nome"])
+        municipios_id.append(dictionary["id"])
         municipios_estado.append(dictionary["microrregiao"]["mesorregiao"]["UF"]["nome"])
         municipios_uf.append(dictionary["microrregiao"]["mesorregiao"]["UF"]["sigla"])
         municipios_regiao.append(dictionary["microrregiao"]["mesorregiao"]["UF"]["regiao"]["nome"])
+        municipios_microrregiao_id.append(dictionary["microrregiao"]["id"])
+        municipios_microrregiao.append(dictionary["microrregiao"]["nome"])
+        municipios_mesorregiao_id.append(dictionary["microrregiao"]["mesorregiao"]["id"])
+        municipios_mesorregiao.append(dictionary["microrregiao"]["mesorregiao"]["nome"])
+        municipios_regiao_imediata_id.append(dictionary['regiao-imediata']["id"])
+        municipios_regiao_imediata.append(dictionary['regiao-imediata']["nome"])
+        municipios_regiao_intermediaria_id.append(dictionary['regiao-imediata']['regiao-intermediaria']['id'])
+        municipios_regiao_intermediaria.append(dictionary['regiao-imediata']['regiao-intermediaria']['nome'])
 
     municipios_tratado = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in municipios]
     estado_tratado = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in estado]
 
     municipio_regiao_tratado = dict(zip(municipios_tratado,municipios_regiao))
+    municipio_microrregiao_tratado = dict(zip(municipios_tratado,municipios_microrregiao))
+    municipio_mesorregiao_tratado = dict(zip(municipios_tratado,municipios_mesorregiao))
+    municipio_regiao_imediata_tratado = dict(zip(municipios_tratado,municipios_regiao_imediata))
+    municipio_regiao_intermediaria_tratado = dict(zip(municipios_tratado,municipios_regiao_intermediaria))
+    
+    
     municipio_estado_tratado = dict(zip(municipios_tratado,municipios_estado))
+    
     estado_regiao_tratado = dict(zip(estado_tratado,_regiao))
+    estado_estado_id_tratado = dict(zip(estado_tratado,id_estado))
+    estado_id_estado = dict(zip(id_estado,estado))
 
     dict_cep_estado = {pd.Interval(69900, 69999, closed = 'both') : 'Acre',
                        pd.Interval(57000, 57999, closed = 'both') : 'Alagoas',
@@ -94,7 +125,11 @@ def fetch():
                        pd.Interval(1000000, 19999999, closed = 'both') : 'São Paulo',
                        pd.Interval(77000000, 77999999, closed = 'both') : 'Tocantins'}
     
-    result = dict(municipios_regiao = municipio_regiao_tratado,
+    result = dict(municipios_microrregiao = municipio_microrregiao_tratado,
+                  municipios_mesorregiao = municipio_mesorregiao_tratado,
+                  municipios_regiao_imediata = municipio_regiao_imediata_tratado,
+                  municipios_regiao_intermediaria = municipio_regiao_intermediaria_tratado,
+                  municipios_regiao = municipio_regiao_tratado,
                   municipios_estado = municipio_estado_tratado,
                   regiao = estado_regiao_tratado,
                   cep_estado = dict_cep_estado)
@@ -107,6 +142,50 @@ def city_to_region(df, colOrigem, ibge_data):
     df['temp'] = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
         
     colNova = df['temp'].map(ibge_data['municipios_regiao'])
+       
+    df.drop(['temp'], axis = 1,inplace = True)
+    
+    return colNova
+
+def city_to_microregion(df, colOrigem, ibge_data):
+    
+    #Trata a coluna do dataset
+    df['temp'] = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+        
+    colNova = df['temp'].map(ibge_data['municipios_microrregiao'])
+       
+    df.drop(['temp'], axis = 1,inplace = True)
+    
+    return colNova
+
+def city_to_mesoregion(df, colOrigem, ibge_data):
+    
+    #Trata a coluna do dataset
+    df['temp'] = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+        
+    colNova = df['temp'].map(ibge_data['municipios_mesorregiao'])
+       
+    df.drop(['temp'], axis = 1,inplace = True)
+    
+    return colNova
+
+def city_to_imediate_region(df, colOrigem, ibge_data):
+    
+    #Trata a coluna do dataset
+    df['temp'] = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+        
+    colNova = df['temp'].map(ibge_data['municipios_regiao_imediata'])
+       
+    df.drop(['temp'], axis = 1,inplace = True)
+    
+    return colNova
+
+def city_to_intermediarie_region(df, colOrigem, ibge_data):
+    
+    #Trata a coluna do dataset
+    df['temp'] = [re.sub('\W+','', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+        
+    colNova = df['temp'].map(ibge_data['municipios_regiao_intermediaria'])
        
     df.drop(['temp'], axis = 1,inplace = True)
     
