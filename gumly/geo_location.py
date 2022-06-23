@@ -139,9 +139,19 @@ def fetch():
     return result
 
 
-def city_to_region(df, colOrigem, ibge_data):
+def city_to_region(df: pd.DataFrame, colOrigem: str, ibge_data):
+    """
 
-    # Trata a coluna do dataset
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+    
+    
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_regiao'])
@@ -153,7 +163,18 @@ def city_to_region(df, colOrigem, ibge_data):
 
 def city_to_microregion(df, colOrigem, ibge_data):
 
-    # Trata a coluna do dataset
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
+    
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_microrregiao'])
@@ -165,7 +186,17 @@ def city_to_microregion(df, colOrigem, ibge_data):
 
 def city_to_mesoregion(df, colOrigem, ibge_data):
 
-    # Trata a coluna do dataset
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_mesorregiao'])
@@ -177,7 +208,16 @@ def city_to_mesoregion(df, colOrigem, ibge_data):
 
 def city_to_imediate_region(df, colOrigem, ibge_data):
 
-    # Trata a coluna do dataset
+    """
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_regiao_imediata'])
@@ -189,7 +229,18 @@ def city_to_imediate_region(df, colOrigem, ibge_data):
 
 def city_to_intermediarie_region(df, colOrigem, ibge_data):
 
-    # Trata a coluna do dataset
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
+
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_regiao_intermediaria'])
@@ -200,7 +251,18 @@ def city_to_intermediarie_region(df, colOrigem, ibge_data):
 
 
 def city_to_state(df, colOrigem, ibge_data):
-    # Trata a coluna do dataset
+    
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['municipios_estado'])
@@ -211,7 +273,18 @@ def city_to_state(df, colOrigem, ibge_data):
 
 
 def state_to_region(df, colOrigem, ibge_data):
-    # Trata a coluna do dataset
+    
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
     df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
 
     colNova = df['temp'].map(ibge_data['regiao'])
@@ -220,9 +293,20 @@ def state_to_region(df, colOrigem, ibge_data):
 
     return colNova
 
-
 def cep_to_state(df, colOrigem, ibge_data):
-    # Trata a coluna do dataset
+    
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
+
     df['temp'] = df[colOrigem].astype('str')
     df['temp'] = [re.sub(r'\W+', '', x) for x in df.temp]
     df['temp'] = df.temp.astype('int')
@@ -235,7 +319,19 @@ def cep_to_state(df, colOrigem, ibge_data):
 
 
 def cep_to_region(df, colOrigem, ibge_data):
-    # Trata a coluna do dataset
+    
+    """
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Dict input city  
+    :ibge_data: Function according key ['municipios_regiao'] map
+    :return: ColNova pd.Series with right region according the city input
+    :rtype: pd.Series
+
+    """
+
+
     df['temp'] = df[colOrigem].astype('str')
     df['temp'] = [re.sub(r'\W+', '', x) for x in df.temp]
     df['temp'] = df.temp.astype('int')

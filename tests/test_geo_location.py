@@ -1,12 +1,12 @@
 # From the module
-from gumly.ibge import city_to_imediate_region, city_to_intermediarie_region, fetch
-from gumly.ibge import city_to_region
-from gumly.ibge import city_to_microregion
-from gumly.ibge import city_to_mesoregion
-from gumly.ibge import city_to_state
-from gumly.ibge import state_to_region
-from gumly.ibge import cep_to_state
-from gumly.ibge import cep_to_region
+from gumly.geo_location import city_to_imediate_region, city_to_intermediarie_region, fetch
+from gumly.geo_location import city_to_region
+from gumly.geo_location import city_to_microregion
+from gumly.geo_location import city_to_mesoregion
+from gumly.geo_location import city_to_state
+from gumly.geo_location import state_to_region
+from gumly.geo_location import cep_to_state
+from gumly.geo_location import cep_to_region
 
 # Others
 import pandas as pd
@@ -18,7 +18,7 @@ def test_city_to_region():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -35,7 +35,7 @@ def test_city_to_microregion():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -52,7 +52,7 @@ def test_city_to_mesoregion():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -68,7 +68,7 @@ def test_city_to_imediate_region():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -85,7 +85,7 @@ def test_city_to_intermediarie_region():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -101,7 +101,7 @@ def test_city_to_state():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -118,7 +118,7 @@ def test_state_to_region():
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
-    }  # With a typo on the last entry
+    }  
 
     df = pd.DataFrame(data=d)
 
@@ -146,6 +146,8 @@ def test_cep_to_state():
 
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
 
+
+
 def test_cep_to_region():
     d = {
         'Customer': [1, 2, 3],
@@ -154,7 +156,7 @@ def test_cep_to_region():
 
     df = pd.DataFrame(data=d)
 
-    ibge_data = {'regiao':{pd.Interval(1000000, 19999999, closed='both'): 'São Paulo',pd.Interval(1000, 19999, closed='both'): 'São Paulo'}}
+    ibge_data = {'cep_estado':{pd.Interval(1000000, 19999999, closed='both'): 'São Paulo',pd.Interval(1000, 19999, closed='both'): 'São Paulo'},'regiao':{'São Paulo': 'Sudeste'}}
 
     expected = pd.Series(['Sudeste', 'Sudeste', 'Sudeste'], name='temp')
 
