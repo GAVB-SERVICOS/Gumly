@@ -138,15 +138,18 @@ def fetch():
 
     return result
 
+ibge_data = fetch()
 
-def city_to_region(df: pd.DataFrame, colOrigem: str, ibge_data):
+
+def city_to_region(df: pd.DataFrame, colOrigem: str):
+    
+    
     """
-
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str 
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -160,16 +163,15 @@ def city_to_region(df: pd.DataFrame, colOrigem: str, ibge_data):
 
     return colNova
 
-
-def city_to_microregion(df, colOrigem, ibge_data):
+def city_to_microregion(df, colOrigem):
 
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -184,15 +186,15 @@ def city_to_microregion(df, colOrigem, ibge_data):
     return colNova
 
 
-def city_to_mesoregion(df, colOrigem, ibge_data):
+def city_to_mesoregion(df, colOrigem):
 
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -206,14 +208,14 @@ def city_to_mesoregion(df, colOrigem, ibge_data):
     return colNova
 
 
-def city_to_imediate_region(df, colOrigem, ibge_data):
+def city_to_imediate_region(df, colOrigem):
 
     """
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -227,15 +229,15 @@ def city_to_imediate_region(df, colOrigem, ibge_data):
     return colNova
 
 
-def city_to_intermediarie_region(df, colOrigem, ibge_data):
+def city_to_intermediarie_region(df, colOrigem):
 
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -250,15 +252,15 @@ def city_to_intermediarie_region(df, colOrigem, ibge_data):
     return colNova
 
 
-def city_to_state(df, colOrigem, ibge_data):
+def city_to_state(df, colOrigem):
     
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -272,15 +274,15 @@ def city_to_state(df, colOrigem, ibge_data):
     return colNova
 
 
-def state_to_region(df, colOrigem, ibge_data):
+def state_to_region(df, colOrigem):
     
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -293,15 +295,15 @@ def state_to_region(df, colOrigem, ibge_data):
 
     return colNova
 
-def cep_to_state(df, colOrigem, ibge_data):
+def cep_to_state(df, colOrigem):
     
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -318,15 +320,15 @@ def cep_to_state(df, colOrigem, ibge_data):
     return colNova
 
 
-def cep_to_region(df, colOrigem, ibge_data):
+def cep_to_region(df, colOrigem):
     
     """
 
     :param df: DataFrame pandas
     :type: DataFrame
-    :param colOrigem: Dict input city  
-    :ibge_data: Function according key ['municipios_regiao'] map
-    :return: ColNova pd.Series with right region according the city input
+    :param colOrigem: Column Key
+    :type: str   
+    :return: ColNova pd.Series 
     :rtype: pd.Series
 
     """
@@ -345,3 +347,4 @@ def cep_to_region(df, colOrigem, ibge_data):
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
+
