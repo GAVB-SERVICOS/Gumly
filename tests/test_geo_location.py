@@ -104,7 +104,7 @@ ibge_data.return_value = {'municipios_regiao_intermediaria': {'saopaulo': 'São 
     "sys.modules", {"gumly.geo_location.ibge_data": ibge_data, }
 )
 def test_city_to_intermediarie_region():
-    from gumly.geo_location import city_to_intermediarie_region
+    from gumly.geo_location import city_to_intermediary_region
     d = {
         'Customer': [1, 2, 3, 4],
         'City': ['São Paulo', 'Sao Paulo', 'sao paulo', 'São Pauol'],
@@ -114,7 +114,7 @@ def test_city_to_intermediarie_region():
 
     expected = pd.Series(['São Paulo', 'São Paulo', 'São Paulo', np.nan], name='temp')
 
-    result = city_to_intermediarie_region(df, 'City')
+    result = city_to_intermediary_region(df, 'City')
 
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
 
@@ -209,3 +209,23 @@ def test_cep_to_region():
     result = cep_to_region(df, 'CEP')
 
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+
+
+@mock.patch.dict(
+    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data, }
+)
+def test_id_to_city():
+    from gumly.geo_location import ibge_city
+    d = {
+        'Customer': [1, 2],
+        'ID': ['5300108','30'],
+    }  
+
+    df = pd.DataFrame(data=d)
+
+    expected = pd.Series(['Brasília', np.nan], name='temp')
+
+    result = ibge_city(df, 'ID')
+
+    assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+
