@@ -84,7 +84,11 @@ def feature_selection_wrapper(df: pd.DataFrame, target: str, num_feats: int, ste
 
     x, y = split_features_and_target(df, target)
 
-    rfe_selector = RFE(estimator=LogisticRegression(max_iter=200), n_features_to_select=num_feats, step=step,)
+    rfe_selector = RFE(
+        estimator=LogisticRegression(max_iter=200),
+        n_features_to_select=num_feats,
+        step=step,
+    )
     rfe_selector.fit(x, y)
     rfe_support = rfe_selector.get_support()
     rfe_feature = x.loc[:, rfe_support].columns.tolist()
@@ -123,7 +127,11 @@ def feature_selection_embedded(df: pd.DataFrame, target: str, num_feats: int, n_
 
 
 def feature_selection_stepwise(
-    df, target: str, threshold_in: float = 0.01, threshold_out: float = 0.05, verbose: bool = False,
+    df,
+    target: str,
+    threshold_in: float = 0.01,
+    threshold_out: float = 0.05,
+    verbose: bool = False,
 ):
     """
     Perform a forward-backward feature selection based on p-value from statsmodels.api.OLS.
@@ -234,7 +242,10 @@ def feature_selection_mutual_information(df: pd.DataFrame, target: str, num_feat
 
 
 def ordering_filter(
-    data, variables, lower_percentile: float = 0.0, upper_percentile: float = 0.0,
+    data,
+    variables,
+    lower_percentile: float = 0.0,
+    upper_percentile: float = 0.0,
 ):
 
     """

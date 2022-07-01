@@ -48,9 +48,9 @@ def fetch():
         municipios_regiao_intermediaria_id.append(dictionary['regiao-imediata']['regiao-intermediaria']['id'])
         municipios_regiao_intermediaria.append(dictionary['regiao-imediata']['regiao-intermediaria']['nome'])
 
-    municipios_tratado = [re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in municipios]
-    estado_tratado = [re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in estado]
-    uf_tratado = [re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in uf_estado]
+    municipios_tratado = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in municipios]
+    estado_tratado = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in estado]
+    uf_tratado = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in uf_estado]
 
     municipio_uf_concatenado = []
 
@@ -58,7 +58,7 @@ def fetch():
         municipio_uf_concatenado.append(municipios_tratado[i] + municipios_uf[i])
 
     municipio_uf_concatenado_tratado = [
-        re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in municipio_uf_concatenado
+        re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in municipio_uf_concatenado
     ]
 
     municipio_regiao_tratado = dict(zip(municipios_tratado, municipios_regiao))
@@ -177,13 +177,13 @@ def city_to_region(df: pd.DataFrame, colCity: str, colUf: str = None):
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
 
-    if colUf != None:
+    if colUf is not None:
 
         df['temp'] = [
             re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
@@ -194,7 +194,12 @@ def city_to_region(df: pd.DataFrame, colCity: str, colUf: str = None):
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
         colNova = df['temp'].map(ibge_data['municipios_regiao'])
-        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
+        warnings.warn(
+            """WARNING! There may be cities in different states with the same name. It is
+            recommended to use the UF  together with the cities to avoid error in the result.
+            AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se
+            utilizar a UF juntamente com as cidades para evitar erro no resultado."""
+        )
 
     df.drop(['temp'], axis=1, inplace=True)
 
@@ -211,13 +216,13 @@ def city_to_microregion(df: pd.DataFrame, colCity: str, colUf: str = None):
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
-    
+
     """
 
-    if colUf != None:
+    if colUf is not None:
         df['temp'] = [
             re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
             for x in df[colCity].astype('str') + df[colUf].astype('str')
@@ -229,7 +234,12 @@ def city_to_microregion(df: pd.DataFrame, colCity: str, colUf: str = None):
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
 
         colNova = df['temp'].map(ibge_data['municipios_microrregiao'])
-        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
+        warnings.warn(
+            """WARNING! There may be cities in different states with the same name. It is
+            recommended to use the UF  together with the cities to avoid error in the result.
+            AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se
+            utilizar a UF juntamente com as cidades para evitar erro no resultado."""
+        )
 
     df.drop(['temp'], axis=1, inplace=True)
 
@@ -246,12 +256,12 @@ def city_to_mesoregion(df: pd.DataFrame, colCity: str, colUf: str = None):
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
-    if colUf != None:
+    if colUf is not None:
         df['temp'] = [
             re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
             for x in df[colCity].astype('str') + df[colUf].astype('str')
@@ -264,7 +274,12 @@ def city_to_mesoregion(df: pd.DataFrame, colCity: str, colUf: str = None):
 
         colNova = df['temp'].map(ibge_data['municipios_mesorregiao'])
 
-        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
+        warnings.warn(
+            """WARNING! There may be cities in different states with the same name. It is
+            recommended to use the UF  together with the cities to avoid error in the result.
+            AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se
+            utilizar a UF juntamente com as cidades para evitar erro no resultado."""
+        )
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
@@ -280,12 +295,12 @@ def city_to_immediate_region(df: pd.DataFrame, colCity: str, colUf: str = None):
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
-    if colUf != None:
+    if colUf is not None:
         df['temp'] = [
             re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
             for x in df[colCity].astype('str') + df[colUf].astype('str')
@@ -298,7 +313,12 @@ def city_to_immediate_region(df: pd.DataFrame, colCity: str, colUf: str = None):
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_imediata'])
 
-        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
+        warnings.warn(
+            """WARNING! There may be cities in different states with the same name. It is
+            recommended to use the UF  together with the cities to avoid error in the result.
+            AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se
+            utilizar a UF juntamente com as cidades para evitar erro no resultado."""
+        )
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
@@ -314,12 +334,12 @@ def city_to_intermediary_region(df: pd.DataFrame, colCity: str, colUf: str = Non
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
     """
 
-    if colUf != None:
+    if colUf is not None:
         df['temp'] = [
             re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
             for x in df[colCity].astype('str') + df[colUf].astype('str')
@@ -332,7 +352,12 @@ def city_to_intermediary_region(df: pd.DataFrame, colCity: str, colUf: str = Non
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_intermediaria'])
 
-        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
+        warnings.warn(
+            """WARNING! There may be cities in different states with the same name. It is
+            recommended to use the UF  together with the cities to avoid error in the result.
+            AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se
+            utilizar a UF juntamente com as cidades para evitar erro no resultado."""
+        )
 
     df.drop(['temp'], axis=1, inplace=True)
 
@@ -347,8 +372,8 @@ def state_to_region(df: pd.DataFrame, colOrigem: str):
     :param df: DataFrame pandas
     :type: DataFrame
     :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
+    :type: str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
@@ -370,8 +395,8 @@ def cep_to_state(df: pd.DataFrame, colOrigem: str):
     :param df: DataFrame pandas
     :type: DataFrame
     :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
+    :type: str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
@@ -395,8 +420,8 @@ def cep_to_region(df: pd.DataFrame, colOrigem: str):
     :param df: DataFrame pandas
     :type: DataFrame
     :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
+    :type: str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
@@ -424,8 +449,8 @@ def uf_to_region(df: pd.DataFrame, colOrigem: str):
     :param df: DataFrame pandas
     :type: DataFrame
     :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
+    :type: str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
@@ -447,8 +472,8 @@ def ibge_city(df: pd.DataFrame, colOrigem: str):
     :param df: DataFrame pandas
     :type: DataFrame
     :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
+    :type: str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
@@ -472,8 +497,8 @@ def city_ibge(df: pd.DataFrame, colCity: str, colUf: str):
     :param colCity: Column city key
     :type: str
     :param:colUf:Column uf key
-    :type:str 
-    :return: ColNova pd.Series 
+    :type:str
+    :return: ColNova pd.Series
     :rtype: pd.Series
 
     """
