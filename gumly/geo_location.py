@@ -194,7 +194,7 @@ def city_to_region(df: pd.DataFrame, colCity: str, colUf: str = None):
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
         colNova = df['temp'].map(ibge_data['municipios_regiao'])
-        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
 
     df.drop(['temp'], axis=1, inplace=True)
 
@@ -229,7 +229,7 @@ def city_to_microregion(df: pd.DataFrame, colCity: str, colUf: str = None):
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
 
         colNova = df['temp'].map(ibge_data['municipios_microrregiao'])
-        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
 
     df.drop(['temp'], axis=1, inplace=True)
 
@@ -264,7 +264,7 @@ def city_to_mesoregion(df: pd.DataFrame, colCity: str, colUf: str = None):
 
         colNova = df['temp'].map(ibge_data['municipios_mesorregiao'])
 
-        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
@@ -298,7 +298,7 @@ def city_to_immediate_region(df: pd.DataFrame, colCity: str, colUf: str = None):
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_imediata'])
 
-        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
@@ -332,7 +332,7 @@ def city_to_intermediary_region(df: pd.DataFrame, colCity: str, colUf: str = Non
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_intermediaria'])
 
-        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+        warnings.warn('WARNING! There may be cities in different states with the same name. It is recommended to use the UF  together with the cities to avoid error in the result. AVISO! Pode haver cidades em estados diferentes com o mesmo nome. Recomenda-se utilizar a UF juntamente com as cidades para evitar erro no resultado.')
 
     df.drop(['temp'], axis=1, inplace=True)
 
