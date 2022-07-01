@@ -2,6 +2,7 @@ import pandas as pd
 from ibge.localidades import Estados, Municipios
 import unidecode
 import re
+import warnings
 
 
 def fetch():
@@ -32,7 +33,6 @@ def fetch():
     municipios_regiao_intermediaria_id = []
     municipios_regiao_intermediaria = []
 
-
     for dictionary in Municipios().json():
         municipios.append(dictionary["nome"])
         municipios_id.append(dictionary["id"])
@@ -54,24 +54,28 @@ def fetch():
 
     municipio_uf_concatenado = []
 
-    for i in range(0,len(municipios_tratado)):
+    for i in range(0, len(municipios_tratado)):
         municipio_uf_concatenado.append(municipios_tratado[i] + municipios_uf[i])
-        
-    municipio_uf_concatenado_tratado = [re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in municipio_uf_concatenado]
-    
+
+    municipio_uf_concatenado_tratado = [
+        re.sub('\W+', '', unidecode.unidecode(x.lower())) for x in municipio_uf_concatenado
+    ]
+
     municipio_regiao_tratado = dict(zip(municipios_tratado, municipios_regiao))
-    municipiouf_regiao_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_regiao))
+    municipiouf_regiao_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_regiao))
     municipio_microrregiao_tratado = dict(zip(municipios_tratado, municipios_microrregiao))
-    municipiouf_microrregiao_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_microrregiao))
+    municipiouf_microrregiao_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_microrregiao))
     municipio_mesorregiao_tratado = dict(zip(municipios_tratado, municipios_mesorregiao))
-    municipiouf_mesorregiao_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_mesorregiao))
+    municipiouf_mesorregiao_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_mesorregiao))
     municipio_regiao_imediata_tratado = dict(zip(municipios_tratado, municipios_regiao_imediata))
-    municipiouf_regiao_imediata_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_regiao_imediata))
+    municipiouf_regiao_imediata_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_regiao_imediata))
     municipio_regiao_intermediaria_tratado = dict(zip(municipios_tratado, municipios_regiao_intermediaria))
-    municipiouf_regiao_intermediaria_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_regiao_intermediaria))
+    municipiouf_regiao_intermediaria_tratado = dict(
+        zip(municipio_uf_concatenado_tratado, municipios_regiao_intermediaria)
+    )
     municipio_estado_tratado = dict(zip(municipios_tratado, municipios_estado))
-    id_municipio_tratado= dict(zip(municipios_id, municipios_tratado))
-    municipiouf_id_tratado = dict(zip(municipio_uf_concatenado_tratado,municipios_id))
+    id_municipio_tratado = dict(zip(municipios_id, municipios))
+    municipiouf_id_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_id))
     estado_regiao_tratado = dict(zip(estado_tratado, _regiao))
     uf_regiao_tratado = dict(zip(uf_tratado, _regiao))
 
@@ -140,32 +144,34 @@ def fetch():
 
     result = dict(
         municipios_regiao=municipio_regiao_tratado,
-        municipiosuf_regiao = municipiouf_regiao_tratado,
+        municipiosuf_regiao=municipiouf_regiao_tratado,
         municipios_microrregiao=municipio_microrregiao_tratado,
         municipiosuf_microrregiao=municipiouf_microrregiao_tratado,
         municipios_mesorregiao=municipio_mesorregiao_tratado,
         municipiosuf_mesorregiao=municipiouf_mesorregiao_tratado,
         municipios_regiao_imediata=municipio_regiao_imediata_tratado,
-        municipiosuf_regiao_imediata = municipiouf_regiao_imediata_tratado,
+        municipiosuf_regiao_imediata=municipiouf_regiao_imediata_tratado,
         municipios_regiao_intermediaria=municipio_regiao_intermediaria_tratado,
         municipiosuf_regiao_intermediaria=municipiouf_regiao_intermediaria_tratado,
         municipios_estado=municipio_estado_tratado,
         regiao=estado_regiao_tratado,
         cep_estado=dict_cep_estado,
-        uf_regiao = uf_regiao_tratado,
-        id_municipios = id_municipio_tratado,
-        municipiosuf_id = municipiouf_id_tratado,
+        uf_regiao=uf_regiao_tratado,
+        id_municipios=id_municipio_tratado,
+        municipiosuf_id=municipiouf_id_tratado,
     )
 
     return result
 
+
 ibge_data = fetch()
 
 
-def city_to_region(df: pd.DataFrame, colCity: str, colUf = None):
-    
-    
+def city_to_region(df: pd.DataFrame, colCity: str, colUf: str = None):
+
     """
+    Fill the region through the city returning a pd.series.
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param colCity: Column city key
@@ -179,20 +185,26 @@ def city_to_region(df: pd.DataFrame, colCity: str, colUf = None):
 
     if colUf != None:
 
-        df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+        df['temp'] = [
+            re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
+            for x in df[colCity].astype('str') + df[colUf].astype('str')
+        ]
 
         colNova = df['temp'].map(ibge_data['municipiosuf_regiao'])
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
         colNova = df['temp'].map(ibge_data['municipios_regiao'])
-    
+        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
+
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
 
-def city_to_microregion(df:pd.DataFrame, colCity: str,colUf:str = None):
+
+def city_to_microregion(df: pd.DataFrame, colCity: str, colUf: str = None):
 
     """
+    Fill the microregion through the city returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -202,26 +214,32 @@ def city_to_microregion(df:pd.DataFrame, colCity: str,colUf:str = None):
     :type:str 
     :return: ColNova pd.Series 
     :rtype: pd.Series
+    
     """
 
     if colUf != None:
-        df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+        df['temp'] = [
+            re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
+            for x in df[colCity].astype('str') + df[colUf].astype('str')
+        ]
 
         colNova = df['temp'].map(ibge_data['municipiosuf_microrregiao'])
-    
+
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
 
         colNova = df['temp'].map(ibge_data['municipios_microrregiao'])
+        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
 
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
 
 
-def city_to_mesoregion(df:pd.DataFrame, colCity: str,colUf:str = None):
+def city_to_mesoregion(df: pd.DataFrame, colCity: str, colUf: str = None):
 
     """
+    Fill the mesoregion through the city returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -234,23 +252,29 @@ def city_to_mesoregion(df:pd.DataFrame, colCity: str,colUf:str = None):
 
     """
     if colUf != None:
-        df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+        df['temp'] = [
+            re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
+            for x in df[colCity].astype('str') + df[colUf].astype('str')
+        ]
 
         colNova = df['temp'].map(ibge_data['municipiosuf_mesorregiao'])
-    
+
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
-        
+
         colNova = df['temp'].map(ibge_data['municipios_mesorregiao'])
 
+        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
 
 
-def city_to_imediate_region(df:pd.DataFrame, colCity: str,colUf:str = None):
+def city_to_immediate_region(df: pd.DataFrame, colCity: str, colUf: str = None):
 
     """
+    Fill the immediate region through the city returning a pd.series.
+
     :param df: DataFrame pandas
     :type: DataFrame
     :param colCity: Column city key
@@ -262,23 +286,28 @@ def city_to_imediate_region(df:pd.DataFrame, colCity: str,colUf:str = None):
 
     """
     if colUf != None:
-        df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+        df['temp'] = [
+            re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
+            for x in df[colCity].astype('str') + df[colUf].astype('str')
+        ]
 
         colNova = df['temp'].map(ibge_data['municipiosuf_regiao_imediata'])
-    
+
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_imediata'])
 
+        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
 
 
-def city_to_intermediary_region(df:pd.DataFrame, colCity: str,colUf:str = None):
+def city_to_intermediary_region(df: pd.DataFrame, colCity: str, colUf: str = None):
 
     """
+    Fill the intermediary region through the city returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -291,45 +320,29 @@ def city_to_intermediary_region(df:pd.DataFrame, colCity: str,colUf:str = None):
     """
 
     if colUf != None:
-        df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+        df['temp'] = [
+            re.sub(r'\W+', '', unidecode.unidecode(x.lower()))
+            for x in df[colCity].astype('str') + df[colUf].astype('str')
+        ]
 
         colNova = df['temp'].map(ibge_data['municipiosuf_regiao_intermediaria'])
-    
+
     else:
         df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')]
 
         colNova = df['temp'].map(ibge_data['municipios_regiao_intermediaria'])
 
-    df.drop(['temp'], axis=1, inplace=True)
-
-    return colNova
-
-
-def city_to_state(df:pd.DataFrame, colOrigem:str):
-    
-    """
-
-    :param df: DataFrame pandas
-    :type: DataFrame
-    :param colOrigem: Column Key
-    :type: str   
-    :return: ColNova pd.Series 
-    :rtype: pd.Series
-
-    """
-
-    df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
-
-    colNova = df['temp'].map(ibge_data['municipios_estado'])
+        warnings.warn('WARNING! Might have cities repedted, better fill the uf cities to avoid mistake in result.')
 
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
 
 
-def state_to_region(df:pd.DataFrame, colOrigem:str):
-    
+def state_to_region(df: pd.DataFrame, colOrigem: str):
+
     """
+    Fill the region through the state returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -348,9 +361,11 @@ def state_to_region(df:pd.DataFrame, colOrigem:str):
 
     return colNova
 
-def cep_to_state(df:pd.DataFrame, colOrigem:str):
-    
+
+def cep_to_state(df: pd.DataFrame, colOrigem: str):
+
     """
+    Fill the state through the cep returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -360,7 +375,6 @@ def cep_to_state(df:pd.DataFrame, colOrigem:str):
     :rtype: pd.Series
 
     """
-
 
     df['temp'] = df[colOrigem].astype('str')
     df['temp'] = [re.sub(r'\W+', '', x) for x in df.temp]
@@ -373,9 +387,10 @@ def cep_to_state(df:pd.DataFrame, colOrigem:str):
     return colNova
 
 
-def cep_to_region(df:pd.DataFrame, colOrigem:str):
-    
+def cep_to_region(df: pd.DataFrame, colOrigem: str):
+
     """
+    Fill the region through the cep returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -385,7 +400,6 @@ def cep_to_region(df:pd.DataFrame, colOrigem:str):
     :rtype: pd.Series
 
     """
-
 
     df['temp'] = df[colOrigem].astype('str')
     df['temp'] = [re.sub(r'\W+', '', x) for x in df.temp]
@@ -402,9 +416,10 @@ def cep_to_region(df:pd.DataFrame, colOrigem:str):
     return colNova
 
 
-def uf_to_region(df:pd.DataFrame, colOrigem:str):
-    
+def uf_to_region(df: pd.DataFrame, colOrigem: str):
+
     """
+    Fill the region through the uf returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -424,9 +439,10 @@ def uf_to_region(df:pd.DataFrame, colOrigem:str):
     return colNova
 
 
-def ibge_city(df:pd.DataFrame, colOrigem:str):
-    
+def ibge_city(df: pd.DataFrame, colOrigem: str):
+
     """
+    Fill the city through ibge id returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -437,7 +453,7 @@ def ibge_city(df:pd.DataFrame, colOrigem:str):
 
     """
 
-    df['temp'] =  df[colOrigem]
+    df['temp'] = df[colOrigem]
 
     colNova = df['temp'].map(ibge_data['id_municipios'])
 
@@ -445,9 +461,11 @@ def ibge_city(df:pd.DataFrame, colOrigem:str):
 
     return colNova
 
-def city_ibge(df:pd.DataFrame, colCity: str, colUf:str):
-    
+
+def city_ibge(df: pd.DataFrame, colCity: str, colUf: str):
+
     """
+    Fill the ibge id through the city returning a pd.series.
 
     :param df: DataFrame pandas
     :type: DataFrame
@@ -460,7 +478,9 @@ def city_ibge(df:pd.DataFrame, colCity: str, colUf:str):
 
     """
 
-    df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str')+df[colUf].astype('str')]
+    df['temp'] = [
+        re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colCity].astype('str') + df[colUf].astype('str')
+    ]
 
     colNova = df['temp'].map(ibge_data['municipiosuf_id'])
 

@@ -5,11 +5,7 @@ from sklearn.decomposition import PCA
 
 
 def dimensionality_reduction(
-    df_input,
-    decomposition_method: str = None,
-    k: int = None,
-    explained_variance: float = None,
-    **kwargs: Any,
+    df_input, decomposition_method: str = None, k: int = None, explained_variance: float = None, **kwargs: Any,
 ):
     """
     Runs the chosen method of dimensionality reduction in the input data (df_input)
