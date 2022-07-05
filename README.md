@@ -29,6 +29,8 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Metrics](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/metrics.ipynb)
 
+[Geo Location](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/geo_location.ipynb)
+
 
 ## **How to install**
 
