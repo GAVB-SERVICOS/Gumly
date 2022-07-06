@@ -1,6 +1,7 @@
 import functools
 import types
 import dill as pickle
+from value_validation import check_list, check_int
 
 
 class LocalStateHandler:
@@ -204,7 +205,6 @@ class CheckpointFlow:
         # return the state itself
         return state
 
-    # TODO: be able to select the checkpoint index to begin with
     def run(self, state: dict = None, load_policy: str = 'first only', checkpoint: int = None):
         """
         Runs the sequence of main functions, managing the checkpoints and
@@ -223,12 +223,11 @@ class CheckpointFlow:
             corresponding list index, should be executed or not
         :type: String or List
         :param checkpoint: The index of the main function that should start the
-            execution sequence
+            execution sequence. If an invalid value is given, it will just be
+            ignored
         :type: Integer
 
-        :raise ValueError: The load_policy as a list has the wrong number of elements
         :raise TypeError: The load_policy is neither a string nor a list.
-            Or the checkpoint is not an integer
 
         """
         # try to read the state from the file and get the checkpoint index info
@@ -245,13 +244,10 @@ class CheckpointFlow:
         # initialize the data as None, it will be loaded from a load function
         data = dict()
 
-        # use the given checkpoint index, if any
-        if checkpoint is not None:
-            # TODO: use some new value validation functions
-            if type(checkpoint) is not int:
-                raise TypeError(f"checkpoint should be an integer, but was found to be a {type(checkpoint)}.")
-
-
+        # use the given checkpoint index, if any valid value is given
+        if check_int(checkpoint, lower=0, upper=len(self.fs)-1):
+            # from now on, use the given value
+            self.ckp_index = checkpoint
 
         # Handle the policy choice and map it to a list of booleans
         # initialize the policy list with all false
@@ -261,32 +257,25 @@ class CheckpointFlow:
 
             if load_policy == 'first only':
                 # if there is a checkpoint index, ...
-                if 'checkpoint_index' in state:
+                if check_int(self.ckp_index, 0, len(self.fs)):
                     # set the index of the checkpoint to load
-                    policy[state['checkpoint_index']] = True
+                    policy[self.ckp_index] = True
                 else:
                     # set the first one to load
                     policy[0] = True
 
             elif load_policy == 'always':
                 # set all load function to be executed
-                policy = [True for i in len(self.fs)]
+                policy = [True for i in range(len(self.fs))]
 
-        # if a list was given, ...
-        elif type(load_policy) is list:
-            # the length of the list must be equal to the amount of main functions
-            if len(load_policy) != len(self.fs):
-                # otherwise, raise an error
-                raise ValueError(f"When the load_policy is a list it should have the same"
-                                 f" number of elements as the number of main functions in"
-                                 f" the sequence, which is {len(self.fs)}, but it has"
-                                 f" {len(load_policy)} elements.")
+        # if a list was given with the correct size and type of elements, ...
+        elif check_list(load_policy, n_elements=len(self.fs), type_of_elements=bool):
             # use the given list
             policy = load_policy
         else:
             # if the policy is neither a string nor a list, raise an error
-            raise TypeError(f"load_policy must be either a string a list of booleans, but"
-                            f" it was found to be a {type(load_policy)}.")
+            raise TypeError("load_policy must be either a string or a list of booleans with the"
+                            " same number of elements as the number of main functions.")
 
         # for each index, starting by the checkpoint, ...
         for i in range(self.ckp_index, len(self.fs)):
