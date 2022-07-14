@@ -1,7 +1,7 @@
 import functools
 import types
 import dill as pickle
-from value_validation import check_list, check_int
+from gumly.value_validation import check_list, check_int
 
 
 class LocalStateHandler:
@@ -85,8 +85,9 @@ class CheckpointFlow:
         :type: String
         :param handler: The name of the state handler. i.e. the key of
             state_handler_constructors field that corresponds to the chosen
-            handler. Default value is "local"
-        :type: String
+            handler. Default value is "local". Or it can be the class of the
+            handler itself.
+        :type: String or Class
 
         :raise TypeError: handler must be a string
         :raise NotImplementedError: The available handlers are [...]
@@ -101,17 +102,23 @@ class CheckpointFlow:
         # initialize the checkpoint index
         self.ckp_index = 0
 
-        # check if the handler is a string
-        if not isinstance(handler, str):
-            raise TypeError('handler must be a string')
+        # if the handler is given as a string, ...
+        if isinstance(handler, str):
+            # check if the given handler name is acceptable
+            available_handlers = self.state_handler_constructors.keys()
+            if handler not in available_handlers:
+                raise NotImplementedError(f'The available handlers are {available_handlers}')
 
-        # check if the given handler name is acceptable
-        available_handlers = self.state_handler_constructors.keys()
-        if handler not in available_handlers:
-            raise NotImplementedError(f'The available handlers are {available_handlers}')
+            # initialize the state handler object with the given path
+            self.handler = self.state_handler_constructors[handler](state_path)
 
-        # initialize the state handler object with the given path
-        self.handler = self.state_handler_constructors[handler](state_path)
+        # if it is a class, use it as is
+        elif isinstance(handler, type):
+            self.handler = handler(state_path)
+
+        # if it is neither, raise an error
+        else:
+            raise TypeError('handler must be a string or a class')
 
     def add_step(self, load: types.FunctionType = None, save: types.FunctionType = None):
         """
