@@ -8,3 +8,4 @@ gumly.egg-info
 .pytest_cache
 .idea
 *.pkl
+*.jpg

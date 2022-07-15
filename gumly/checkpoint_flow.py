@@ -304,54 +304,54 @@ class CheckpointFlow:
         self.handler.write(state)
 
 
-if __name__ == '__main__':
-    initial_state = dict(
-        a='value of A'
-    )
+# if __name__ == '__main__':
+#     initial_state = dict(
+#         a='value of A'
+#     )
 
-    cp = CheckpointFlow('state.pkl')
-
-
-    def loader(state):
-        print("loader")
-        return {'x': [1, 2, 3]}
+#     cp = CheckpointFlow('state.pkl')
 
 
-    def saver(state, data):
-        print(f"saver printing data={data}")
+#     def loader(state):
+#         print("loader")
+#         return {'x': [1, 2, 3]}
 
 
-    @cp.add_step(load=loader, save=saver)
-    def f1(state, data):
-        print(f"f1 printing state: {state}")
-        print(f"f1 printing data: {data}")
-        state['d'] = 'D'
-        return 10
+#     def saver(state, data):
+#         print(f"saver printing data={data}")
 
 
-    @cp.add_step()
-    def f2(state, data):
-        # raise Exception("This thing broke!")
-        print(f"f2 printing state: {state}")
-        print(f"f2 printing data: {data}")
-        data['y'] = [10, 20, 30]
+#     @cp.add_step(load=loader, save=saver)
+#     def f1(state, data):
+#         print(f"f1 printing state: {state}")
+#         print(f"f1 printing data: {data}")
+#         state['d'] = 'D'
+#         return 10
 
 
-    def loader3(state):
-        print("loader3")
-        return {'z': ['A', 'B', 'C']}
+#     @cp.add_step()
+#     def f2(state, data):
+#         # raise Exception("This thing broke!")
+#         print(f"f2 printing state: {state}")
+#         print(f"f2 printing data: {data}")
+#         data['y'] = [10, 20, 30]
 
 
-    def saver3(state, data):
-        print(f"saver3 printing data={data}")
+#     def loader3(state):
+#         print("loader3")
+#         return {'z': ['A', 'B', 'C']}
 
 
-    @cp.add_step(load=loader3, save=saver3)
-    def f3(state, data):
-        print(f"f3 printing state: {state}")
-        print(f"f3 printing data: {data}")
-        state['c'] = 4.5
-        return -99
+#     def saver3(state, data):
+#         print(f"saver3 printing data={data}")
 
 
-    cp.run(initial_state)
+#     @cp.add_step(load=loader3, save=saver3)
+#     def f3(state, data):
+#         print(f"f3 printing state: {state}")
+#         print(f"f3 printing data: {data}")
+#         state['c'] = 4.5
+#         return -99
+
+
+#     cp.run(initial_state)
