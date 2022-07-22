@@ -46,20 +46,24 @@ def undersampler(X, y,
     
     """
     if "random" == method.lower():
-        scraper = RandomUnderSampler(sampling_strategy=sampling_strategy,
+        sample = RandomUnderSampler(sampling_strategy=sampling_strategy,
                                      random_state=random_state,
                                      replacement=replacement,
-                                     n_jobs=n_jobs)
+                                    )
     elif "nearmiss" == method.lower():
-        scraper = NearMiss(sampling_strategy=sampling_strategy,
-                           random_state=random_state, 
+        sample = NearMiss(sampling_strategy=sampling_strategy, 
                            n_neighbors=n_neighbors,
                            n_neighbors_ver3=n_neighbors_ver3,
                            n_jobs=n_jobs)
     elif "tomeklinks" == method.lower():
-        scraper = TomekLinks(sampling_strategy=sampling_strategy,
-                             random_state=random_state,
+        sample = TomekLinks(sampling_strategy=sampling_strategy,
                              n_jobs=n_jobs)
+    else:
+        raise Exception(f"Method '{method}' not implemented!")    
+
+    return sample.fit_resample(X, y)
+
+
 
 #def combine(X, y, method: str, sampling_strategy:str = 'auto', random_state=None, n_neighbors=5):
 #    """TODO:

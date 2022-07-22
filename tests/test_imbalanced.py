@@ -28,7 +28,7 @@ def dataset_samples(X, y):
     return sorted([x[1] for x in Counter(y).items()])
 
 
-def test_random_sample():
+def test_oversample_random_sample():
     X, y = create_dataset()
     class_map = dataset_samples(X, y)
     total_examples = sum(class_map)
@@ -43,7 +43,7 @@ def test_random_sample():
 
     assert total_examples == actual_examples # (10,10,100) (100,100,100)
 
-def test_smote_sample():
+def test_oversampler_smote_sample():
     X, y = create_dataset()
     class_map = dataset_samples(X, y)
     total_examples = sum(class_map)
@@ -58,7 +58,7 @@ def test_smote_sample():
 
     assert total_examples == actual_examples # (10,10,100) (100,100,100)
 
-def test_adasyn_sample():
+def test_oversampler_adasyn_sample():
     X, y = create_dataset()
     class_map = dataset_samples(X, y)
     total_examples = sum(class_map)
@@ -73,3 +73,49 @@ def test_adasyn_sample():
 
     #assert total_examples == actual_examples # (10,10,100) (100,100,100)
     assert actual_examples>=total_examples>=actual_examples-(actual_examples*0.2)
+
+
+def test_undersampler_random_sample():
+    X, y = create_dataset()
+    class_map = dataset_samples(X, y)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples != actual_examples
+
+    X_resample, y_resample = undersampler(X, y, 'random', random_state=0)
+    class_map = dataset_samples(X_resample, y_resample)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples == actual_examples
+
+def test_undersampler_nearmiss_sample():
+    X, y = create_dataset()
+    class_map = dataset_samples(X, y)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples != actual_examples
+
+    X_resample, y_resample = undersampler(X, y, 'nearmiss', random_state=0)
+    class_map = dataset_samples(X_resample, y_resample)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples == actual_examples
+
+def test_undersampler_tomeklinks_sample():
+    X, y = create_dataset()
+    class_map = dataset_samples(X, y)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples != actual_examples
+
+    X_resample, y_resample = undersampler(X, y, 'tomeklinks', random_state=0)
+    class_map = dataset_samples(X_resample, y_resample)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples == actual_examples
