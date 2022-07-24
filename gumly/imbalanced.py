@@ -6,6 +6,9 @@ from imblearn.over_sampling import ADASYN
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.under_sampling import NearMiss
 from imblearn.under_sampling import TomekLinks
+from imblearn.combine import SMOTEENN
+from imblearn.combine import SMOTETomek 
+
 
 def oversampler(X, y, 
                 method: str = 'random', 
@@ -65,8 +68,33 @@ def undersampler(X, y,
 
 
 
-#def combine(X, y, method: str, sampling_strategy:str = 'auto', random_state=None, n_neighbors=5):
-#    """TODO:
-#    
-#    """
-#    if "random" == method.lower():
+def combine(X, y, 
+            method: str, 
+            sampling_strategy:str = 'auto', 
+            random_state=None, 
+            smote=None, 
+            enn=None, 
+            tomek=None, 
+            n_jobs=-1):
+
+    """TODO:
+    
+    """
+    if "smoteenn" == method.lower():
+        sampler = SMOTEENN(sampling_strategy=sampling_strategy, 
+                           random_state=random_state,
+                           smote=smote,
+                           enn=enn,
+                           n_jobs=n_jobs)
+    
+    elif "smotetomek" == method.lower():
+        sampler = SMOTETomek(sampling_strategy=sampling_strategy,
+                             random_state=random_state,
+                             smote=smote,
+                             tomek=tomek,
+                             n_jobs=n_jobs)
+    
+    else:
+        raise Exception(f"Method '{method}' not implemented!")
+    
+    return sampler.fit_resample(X,y)

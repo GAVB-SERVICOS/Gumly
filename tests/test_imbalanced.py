@@ -1,6 +1,6 @@
 from sklearn.datasets import make_classification
 from collections import Counter
-from gumly.imbalanced import oversampler, undersampler
+from gumly.imbalanced import oversampler, undersampler, combine
 
 
 def create_dataset(
@@ -114,6 +114,22 @@ def test_undersampler_tomeklinks_sample():
     assert total_examples != actual_examples
 
     X_resample, y_resample = undersampler(X, y, 'tomeklinks', random_state=0)
+    class_map = dataset_samples(X_resample, y_resample)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples == actual_examples
+
+
+def test_combine_smoteenn_sampler():
+    X, y = create_dataset()
+    class_map = dataset_samples(X,y)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples != actual_examples
+
+    X_resample, y_resample = combine(X, y, 'smoteenn', random_state=0)
     class_map = dataset_samples(X_resample, y_resample)
     total_examples = sum(class_map)
     actual_examples = class_map[-1] * 3
