@@ -5,7 +5,6 @@ from imblearn.over_sampling import SMOTE
 from imblearn.over_sampling import ADASYN
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.under_sampling import NearMiss
-from imblearn.under_sampling import TomekLinks
 from imblearn.combine import SMOTEENN
 from imblearn.combine import SMOTETomek 
 
@@ -15,9 +14,19 @@ def oversampler(X, y,
                 sampling_strategy: str = 'auto', 
                 random_state=None, 
                 n_neighbors=5):
-    """TODO:
+    
+    """......
+
+    :param X, y: 
+    :type: 
+    :param : 
+    :type: str, default = None
+    :return: 
+    :rtype: 
+
     
     """
+
     if "random" == method.lower():
         sampler = RandomOverSampler(sampling_strategy=sampling_strategy, 
                                     random_state=random_state)
@@ -45,9 +54,17 @@ def undersampler(X, y,
                  n_neighbors_ver3:int=3, 
                  replacement:bool=False, 
                  n_jobs:int=-1):
-    """TODO:
+    """......
+
+    :param X, y: 
+    :type: 
+    :param : 
+    :type: str, default = None
+    :return: 
+    :rtype: 
     
     """
+
     if "random" == method.lower():
         sample = RandomUnderSampler(sampling_strategy=sampling_strategy,
                                      random_state=random_state,
@@ -58,9 +75,6 @@ def undersampler(X, y,
                            n_neighbors=n_neighbors,
                            n_neighbors_ver3=n_neighbors_ver3,
                            n_jobs=n_jobs)
-    elif "tomeklinks" == method.lower():
-        sample = TomekLinks(sampling_strategy=sampling_strategy,
-                             n_jobs=n_jobs)
     else:
         raise Exception(f"Method '{method}' not implemented!")    
 
@@ -77,9 +91,17 @@ def combine(X, y,
             tomek=None, 
             n_jobs=-1):
 
-    """TODO:
+    """......
+
+    :param X, y: 
+    :type: 
+    :param : 
+    :type: str, default = None
+    :return: 
+    :rtype: 
     
     """
+
     if "smoteenn" == method.lower():
         sampler = SMOTEENN(sampling_strategy=sampling_strategy, 
                            random_state=random_state,

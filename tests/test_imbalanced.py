@@ -72,7 +72,7 @@ def test_oversampler_adasyn_sample():
     actual_examples = class_map[-1] * 3
 
     #assert total_examples == actual_examples # (10,10,100) (100,100,100)
-    assert actual_examples>=total_examples>=actual_examples-(actual_examples*0.2)
+    assert (total_examples/actual_examples) >= 0.7
 
 
 def test_undersampler_random_sample():
@@ -105,22 +105,6 @@ def test_undersampler_nearmiss_sample():
 
     assert total_examples == actual_examples
 
-def test_undersampler_tomeklinks_sample():
-    X, y = create_dataset()
-    class_map = dataset_samples(X, y)
-    total_examples = sum(class_map)
-    actual_examples = class_map[-1] * 3
-
-    assert total_examples != actual_examples
-
-    X_resample, y_resample = undersampler(X, y, 'tomeklinks', random_state=0)
-    class_map = dataset_samples(X_resample, y_resample)
-    total_examples = sum(class_map)
-    actual_examples = class_map[-1] * 3
-
-    assert total_examples == actual_examples
-
-
 def test_combine_smoteenn_sampler():
     X, y = create_dataset()
     class_map = dataset_samples(X,y)
@@ -134,4 +118,19 @@ def test_combine_smoteenn_sampler():
     total_examples = sum(class_map)
     actual_examples = class_map[-1] * 3
 
-    assert total_examples == actual_examples
+    assert (total_examples/actual_examples) >= 0.7
+
+def test_combine_smotetomek_sampler():
+    X, y = create_dataset()
+    class_map = dataset_samples(X,y)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert total_examples != actual_examples
+
+    X_resample, y_resample = combine(X, y, 'smotetomek', random_state=0)
+    class_map = dataset_samples(X_resample, y_resample)
+    total_examples = sum(class_map)
+    actual_examples = class_map[-1] * 3
+
+    assert (total_examples/actual_examples) >= 0.7
