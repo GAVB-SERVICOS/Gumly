@@ -10,17 +10,25 @@ from imblearn.combine import SMOTETomek
 
 
 def oversampler(X, y, 
-                method: str = 'random', 
-                sampling_strategy: str = 'auto', 
-                random_state=None, 
-                n_neighbors=5):
+                method:str, 
+                sampling_strategy:str='auto', 
+                random_state:int=None, 
+                n_neighbors:int=5):
     
     """......
 
-    :param X, y: 
-    :type: 
-    :param : 
+    :param X : Matrix containing the data which have to be sampled.
+    :type: array-like, dataframe, sparse matrix
+    :param y : Corresponding label for each sample in X.
+    :type: array-like of shape (n_samples)
+    :param method : Choice method can be 'random', 'smote' and 'adasyn' 
+    :type: str
+    :param sampling_strategy : Sampling information to resample the data set.
     :type: str, default = None
+    :param random_state: Control the randomization of the algorithm.
+    :type: int, default = None
+    :param n_neighbors : Number of nearest neighbours to used to construct synthetic samples.
+    :type: int, default = 5
     :return: 
     :rtype: 
 
@@ -49,19 +57,34 @@ def oversampler(X, y,
 def undersampler(X, y, 
                  method: str, 
                  sampling_strategy:str = 'auto', 
-                 random_state=None, 
+                 random_state:int=None, 
                  n_neighbors:int=3,
                  n_neighbors_ver3:int=3, 
                  replacement:bool=False, 
                  n_jobs:int=-1):
     """......
 
-    :param X, y: 
-    :type: 
-    :param : 
-    :type: str, default = None
+    :param X : Matrix containing the data which have to be sampled.
+    :type: array-like, dataframe, sparse matrix
+    :param y : Corresponding label for each sample in X.
+    :type: array-like of shape (n_samples)
+    :param method : Choice method can be 'random' and 'nearmiss'. 
+    :type: str
+    :param sampling_strategy : Sampling information to sample the data set.
+    :type: str, default = 'auto'
+    :param random_state: Control the randomization of the algorithm.
+    :type: int, default = None
+    :param n_neighbors : Size of the neighbourhood to consider to compute the average distance to the minority point samples.
+    :type: int, default = 3
+    :param n_neighbors_ver3 : NearMiss-3 algorithm start by a phase of re-sampling
+    :type: int, default = 3
+    :param replacement : Whether the sample is with or without replacement.
+    :type: bool, default = False
+    :param n_jobs : Number of CPU cores used during the cross-validation loop. 
+    :type: int, default = None
     :return: 
     :rtype: 
+
     
     """
 
@@ -93,12 +116,27 @@ def combine(X, y,
 
     """......
 
-    :param X, y: 
-    :type: 
-    :param : 
-    :type: str, default = None
+    :param X : Matrix containing the data which have to be sampled.
+    :type: array-like, dataframe, sparse matrix
+    :param y : Corresponding label for each sample in X.
+    :type: array-like of shape (n_samples)
+    :param method : Choice method can be 'smoteenn' and 'smotetomek'.
+    :type: str
+    :param sampling_strategy : Sampling information to resample the data set.
+    :type: str, default = 'auto'
+    :param random_state: Control the randomization of the algorithm.
+    :type: int, default = None
+    :param smote :The smote object to use
+    :type: sampler object, default = None
+    :param enn : The EditedNearestNeighbours object to use.
+    :type : sampler object, default = None
+    :param tomek: The TomekLinks object to use.f not given, a TomekLinks object with sampling strategy='all' will be given.
+    :type: sampler object, default = None
+    :param n_jobs: Number of CPU cores used during the cross-validation loop.
+    :type: int, default = None
     :return: 
     :rtype: 
+
     
     """
 
