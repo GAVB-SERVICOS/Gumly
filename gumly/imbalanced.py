@@ -29,8 +29,8 @@ def oversampler(X, y,
     :type: int, default = None
     :param n_neighbors : Number of nearest neighbours to used to construct synthetic samples.
     :type: int, default = 5
-    :return: 
-    :rtype: 
+    :return: One tuple with two arrays at index 0 the values of input "X" transformed and at index 1 the values of "y" oversampled.
+    :rtype: Tuple
 
     
     """
@@ -82,8 +82,8 @@ def undersampler(X, y,
     :type: bool, default = False
     :param n_jobs : Number of CPU cores used during the cross-validation loop. 
     :type: int, default = None
-    :return: 
-    :rtype: 
+    :return: One tuple with two arrays at index 0 the values of input "X" transformed and at index 1 the values of "y" oversampled.
+    :rtype: Tuple
 
     
     """
@@ -134,9 +134,8 @@ def combine(X, y,
     :type: sampler object, default = None
     :param n_jobs: Number of CPU cores used during the cross-validation loop.
     :type: int, default = None
-    :return: 
-    :rtype: 
-
+    :return: One tuple with two arrays at index 0 the values of input "X" transformed and at index 1 the values of "y" oversampled.
+    :rtype: Tuple
     
     """
 
