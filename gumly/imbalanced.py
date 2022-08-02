@@ -15,7 +15,9 @@ def oversampler(X, y,
                 random_state:int=None, 
                 n_neighbors:int=5):
     
-    """......
+    """Runs the chosen method of Over-sampling at imbalanced data 
+        and returns the balanced tuple with two arrays at index 0 
+        the values of input "X" transformed and at index 1 the values of "y".
 
     :param X : Matrix containing the data which have to be sampled.
     :type: array-like, dataframe, sparse matrix
@@ -62,7 +64,10 @@ def undersampler(X, y,
                  n_neighbors_ver3:int=3, 
                  replacement:bool=False, 
                  n_jobs:int=-1):
-    """......
+    
+    """Runs the chosen method of Under-sampling at imbalanced data 
+        and returns the balanced tuple with two arrays at index 0 
+        the values of input "X" transformed and at index 1 the values of "y".
 
     :param X : Matrix containing the data which have to be sampled.
     :type: array-like, dataframe, sparse matrix
@@ -114,7 +119,9 @@ def combine(X, y,
             tomek=None, 
             n_jobs=-1):
 
-    """......
+    """Runs the chosen method of Combination of over-and undersampling at imbalanced data 
+        and returns the balanced tuple with two arrays at index 0 
+        the values of input "X" transformed and at index 1 the values of "y".
 
     :param X : Matrix containing the data which have to be sampled.
     :type: array-like, dataframe, sparse matrix
