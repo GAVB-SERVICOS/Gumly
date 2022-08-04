@@ -109,7 +109,7 @@ def combine(
     X, y, method: str, sampling_strategy: str = 'auto', random_state=None, smote=None, enn=None, tomek=None, n_jobs=-1
 ):
 
-    """Runs the chosen method of Combination of over-and undersampling at imbalanced data 
+    """Runs the chosen method Combination of over-and undersampling at imbalanced data 
         and returns the balanced tuple with two arrays at index 0 
         the values of input "X" transformed and at index 1 the values of "y".
 
