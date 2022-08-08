@@ -9,7 +9,12 @@ from imblearn.combine import SMOTEENN
 from imblearn.combine import SMOTETomek
 
 
-def oversampler(X, y, method: str, sampling_strategy: str = 'auto', random_state: int = None, n_neighbors: int = 5):
+def oversampler(X, y, 
+                method: str, 
+                sampling_strategy: str = 'auto',
+                sampler_obj=None, 
+                random_state = None, 
+                n_neighbors = None):
 
     """Runs the chosen method of Over-sampling at imbalanced data 
         and returns the balanced tuple with two arrays at index 0 
@@ -33,17 +38,28 @@ def oversampler(X, y, method: str, sampling_strategy: str = 'auto', random_state
     
     """
 
-    if "random" == method.lower():
-        sampler = RandomOverSampler(sampling_strategy=sampling_strategy, random_state=random_state)
-
-    elif "smote" == method.lower():
-        sampler = SMOTE(sampling_strategy=sampling_strategy, random_state=random_state, k_neighbors=n_neighbors)
-
-    elif "adasyn" == method.lower():
-        sampler = ADASYN(sampling_strategy=sampling_strategy, random_state=random_state, n_neighbors=n_neighbors)
-
+    # Calculating K default
+    
+    if n_neighbors==None:
+        k=np.sqrt(X.shape[0])
     else:
-        raise Exception(f"Method '{method}' not implemented!")
+        k=n_neighbors
+    
+    if hasattr(sampler_obj, "fit_resample") == True:
+        return sampler_obj.fit_resample(X, y)
+    else:
+
+        if "random" == method.lower():
+            sampler = RandomOverSampler(sampling_strategy=sampling_strategy, random_state=random_state)
+
+        elif "smote" == method.lower():
+            sampler = SMOTE(sampling_strategy=sampling_strategy, random_state=random_state, k_neighbors=k)
+
+        elif "adasyn" == method.lower():
+            sampler = ADASYN(sampling_strategy=sampling_strategy, random_state=random_state, n_neighbors=k)
+
+        else:
+            raise Exception(f"Method '{method}' not implemented!")
 
     return sampler.fit_resample(X, y)
 
@@ -52,9 +68,10 @@ def undersampler(
     X,
     y,
     method: str,
+    sampler_obj=None,
     sampling_strategy: str = 'auto',
     random_state: int = None,
-    n_neighbors: int = 3,
+    n_neighbors=None,
     n_neighbors_ver3: int = 3,
     replacement: bool = False,
     n_jobs: int = -1,
@@ -88,25 +105,40 @@ def undersampler(
     
     """
 
-    if "random" == method.lower():
-        sample = RandomUnderSampler(
-            sampling_strategy=sampling_strategy, random_state=random_state, replacement=replacement,
-        )
-    elif "nearmiss" == method.lower():
-        sample = NearMiss(
-            sampling_strategy=sampling_strategy,
-            n_neighbors=n_neighbors,
-            n_neighbors_ver3=n_neighbors_ver3,
-            n_jobs=n_jobs,
-        )
+    if n_neighbors==None:
+        k=np.sqrt(X.shape[0])
     else:
-        raise Exception(f"Method '{method}' not implemented!")
+        k=n_neighbors
+
+    if hasattr(sampler_obj, "fit_resample") == True:
+        return sampler_obj.fit_resample(X, y)
+    else:  
+        if "random" == method.lower():
+            sample = RandomUnderSampler(
+                sampling_strategy=sampling_strategy, random_state=random_state, replacement=replacement,
+            )
+        elif "nearmiss" == method.lower():
+            sample = NearMiss(
+                sampling_strategy=sampling_strategy,
+                n_neighbors=k,
+                n_neighbors_ver3=n_neighbors_ver3,
+                n_jobs=n_jobs,
+            )
+        else:
+            raise Exception(f"Method '{method}' not implemented!")
 
     return sample.fit_resample(X, y)
 
 
 def combine(
-    X, y, method: str, sampling_strategy: str = 'auto', random_state=None, smote=None, enn=None, tomek=None, n_jobs=-1
+    X, y, 
+    method: str, 
+    sampling_strategy: str = 'auto', 
+    random_state=None, 
+    smote=None, 
+    enn=None, 
+    tomek=None, 
+    n_jobs=-1
 ):
 
     """Runs the chosen method of Combination of over-and undersampling at imbalanced data 
