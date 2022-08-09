@@ -4,7 +4,7 @@ from gumly.imbalanced import oversampler, undersampler, combine
 
 
 def create_dataset(
-    n_samples=1000,
+    n_samples=2000,
     weights=(0.01, 0.01, 0.98),
     n_classes=3,
     class_sep=0.8,

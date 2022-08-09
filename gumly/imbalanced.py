@@ -14,7 +14,7 @@ def oversampler(X, y,
                 sampling_strategy: str = 'auto',
                 sampler_obj=None, 
                 random_state = None, 
-                n_neighbors = None):
+                n_neighbors = 5):
 
     """Runs the chosen method of Over-sampling at imbalanced data 
         and returns the balanced tuple with two arrays at index 0 
@@ -39,13 +39,6 @@ def oversampler(X, y,
 
     
     """
-
-    # Calculating K default
-    
-    if n_neighbors==None:
-        k=int(np.sqrt(X.shape[0]))
-    else:
-        k=n_neighbors
     
     if hasattr(sampler_obj, "fit_resample") == True:
         return sampler_obj.fit_resample(X, y)
@@ -55,10 +48,10 @@ def oversampler(X, y,
             sampler = RandomOverSampler(sampling_strategy=sampling_strategy, random_state=random_state)
 
         elif "smote" == method.lower():
-            sampler = SMOTE(sampling_strategy=sampling_strategy, random_state=random_state, k_neighbors=k)
+            sampler = SMOTE(sampling_strategy=sampling_strategy, random_state=random_state, k_neighbors=n_neighbors)
 
         elif "adasyn" == method.lower():
-            sampler = ADASYN(sampling_strategy=sampling_strategy, random_state=random_state, n_neighbors=k)
+            sampler = ADASYN(sampling_strategy=sampling_strategy, random_state=random_state, n_neighbors=n_neighbors)
 
         else:
             raise Exception(f"Method '{method}' not implemented!")
@@ -73,7 +66,7 @@ def undersampler(
     sampler_obj=None,
     sampling_strategy: str = 'auto',
     random_state: int = None,
-    n_neighbors=None,
+    n_neighbors=5,
     n_neighbors_ver3: int = 3,
     replacement: bool = False,
     n_jobs: int = -1,
@@ -109,11 +102,6 @@ def undersampler(
     
     """
 
-    if n_neighbors==None:
-        k=int(np.sqrt(X.shape[0]))
-    else:
-        k=n_neighbors
-
     if hasattr(sampler_obj, "fit_resample") == True:
         return sampler_obj.fit_resample(X, y)
     else:  
@@ -124,7 +112,7 @@ def undersampler(
         elif "nearmiss" == method.lower():
             sample = NearMiss(
                 sampling_strategy=sampling_strategy,
-                n_neighbors=k,
+                n_neighbors=n_neighbors,
                 n_neighbors_ver3=n_neighbors_ver3,
                 n_jobs=n_jobs,
             )
