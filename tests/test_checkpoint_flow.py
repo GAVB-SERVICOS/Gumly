@@ -11,7 +11,9 @@ def test_local_state_handler():
                 handler_= LocalStateHandler(tmp_file.name)
                 initial_state = handler_.read()
                 assert initial_state== {'a':1, 'b':2}
-      
+
+def test_CheckpointFlow():
+      pass
                 
     
 
