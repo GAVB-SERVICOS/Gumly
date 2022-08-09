@@ -26,6 +26,8 @@ def oversampler(X, y,
     :type: array-like of shape (n_samples)
     :param method : Choice method can be 'random', 'smote' and 'adasyn' 
     :type: str
+    :param sampler_obj : The instance of not fited imblearn object that contais the 'fit_resample' method.   . 
+    :type: obj, default=None
     :param sampling_strategy : Sampling information to resample the data set.
     :type: str, default = None
     :param random_state: Control the randomization of the algorithm.
@@ -87,6 +89,8 @@ def undersampler(
     :type: array-like of shape (n_samples)
     :param method : Choice method can be 'random' and 'nearmiss'. 
     :type: str
+    :param sampler_obj : The instance of not fited imblearn object that contais the 'fit_resample' method.   . 
+    :type: obj, default=None
     :param sampling_strategy : Sampling information to sample the data set.
     :type: str, default = 'auto'
     :param random_state: Control the randomization of the algorithm.
