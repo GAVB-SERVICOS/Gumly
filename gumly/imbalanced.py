@@ -43,7 +43,7 @@ def oversampler(X, y,
     # Calculating K default
     
     if n_neighbors==None:
-        k=np.sqrt(X.shape[0])
+        k=int(np.sqrt(X.shape[0]))
     else:
         k=n_neighbors
     
@@ -110,7 +110,7 @@ def undersampler(
     """
 
     if n_neighbors==None:
-        k=np.sqrt(X.shape[0])
+        k=int(np.sqrt(X.shape[0]))
     else:
         k=n_neighbors
 
