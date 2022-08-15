@@ -78,6 +78,8 @@ def fetch():
     municipiouf_id_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_id))
     estado_regiao_tratado = dict(zip(estado_tratado, _regiao))
     uf_regiao_tratado = dict(zip(uf_tratado, _regiao))
+    estado_uf_tratado = dict(zip(estado_tratado,uf_estado))
+    uf_estado_tratado = dict(zip(uf_tratado,estado))
 
     dict_cep_estado = {
         pd.Interval(69900, 69999, closed='both'): 'Acre',
@@ -155,6 +157,8 @@ def fetch():
         municipiosuf_regiao_intermediaria=municipiouf_regiao_intermediaria_tratado,
         municipios_estado=municipio_estado_tratado,
         regiao=estado_regiao_tratado,
+        estado_uf=estado_uf_tratado,
+        uf_estado=uf_estado_tratado,
         cep_estado=dict_cep_estado,
         uf_regiao=uf_regiao_tratado,
         id_municipios=id_municipio_tratado,
@@ -508,6 +512,51 @@ def city_ibge(df: pd.DataFrame, colCity: str, colUf: str):
     ]
 
     colNova = df['temp'].map(ibge_data['municipiosuf_id'])
+
+    df.drop(['temp'], axis=1, inplace=True)
+
+    return colNova
+
+
+def state_to_uf(df: pd.DataFrame, colOrigem: str):
+
+    """
+    Fill the region through the state returning a pd.series.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Column Key
+    :type: str
+    :return: ColNova pd.Series
+    :rtype: pd.Series
+
+    """
+
+    df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+
+    colNova = df['temp'].map(ibge_data['estado_uf'])
+
+    df.drop(['temp'], axis=1, inplace=True)
+
+    return colNova
+
+def uf_to_state(df: pd.DataFrame, colOrigem: str):
+
+    """
+    Fill the region through the state returning a pd.series.
+
+    :param df: DataFrame pandas
+    :type: DataFrame
+    :param colOrigem: Column Key
+    :type: str
+    :return: ColNova pd.Series
+    :rtype: pd.Series
+
+    """
+
+    df['temp'] = [re.sub(r'\W+', '', unidecode.unidecode(x.lower())) for x in df[colOrigem].astype('str')]
+
+    colNova = df['temp'].map(ibge_data['uf_estado'])
 
     df.drop(['temp'], axis=1, inplace=True)
 
