@@ -93,7 +93,7 @@ def assert_check_int(x: int, lower: int = None, upper: int = None, varname: str 
     ), f"Check integer of: {varname} ({type(x)})={x}, expected {varname} between {lower} and {upper}"
 
 
-def check_list(l: list, n_elements: int = None, type_of_elements = None) -> bool:
+def check_list(l: list, n_elements: int = None, type_of_elements=None) -> bool:
     """
     Checks whether the given value is a list. Optionally, verifies if it has
     some specific number of elements and/or if all elements are instances of a
@@ -143,7 +143,7 @@ def check_list(l: list, n_elements: int = None, type_of_elements = None) -> bool
     return is_list and elements_ok and types_ok
 
 
-def assert_check_list(l: list, n_elements: int = None, type_of_elements = None, varname: str = None):
+def assert_check_list(l: list, n_elements: int = None, type_of_elements=None, varname: str = None):
     """
     This function uses the check_list function and it will raise an exception if it returns False.
 
@@ -165,10 +165,10 @@ def assert_check_list(l: list, n_elements: int = None, type_of_elements = None, 
     n = n_elements if n_elements is not None and type(n_elements) is int else 'any number of'
     t = type_of_elements if type_of_elements is not None else 'anything'
 
-    assert check_list(
-        l=l, n_elements=n_elements, type_of_elements=type_of_elements
-    ), f"Check list of: {varname} ({type(l)})={l}, expected {varname} to be a list with " \
-       f"{n} elements and its elements to be {t}"
+    assert check_list(l=l, n_elements=n_elements, type_of_elements=type_of_elements), (
+        f"Check list of: {varname} ({type(l)})={l}, expected {varname} to be a list with "
+        f"{n} elements and its elements to be {t}"
+    )
 
 
 def check_dtypes(df: pd.DataFrame, types: list):
