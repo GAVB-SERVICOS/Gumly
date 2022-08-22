@@ -1,3 +1,4 @@
+import pandas as pd
 from sklearn.datasets import make_classification
 from collections import Counter
 from gumly.imbalanced import oversampler, undersampler, combine
@@ -24,8 +25,8 @@ def create_dataset(
     )
 
 
-def dataset_samples(X, y):
-    return sorted([x[1] for x in Counter(y).items()])
+def dataset_samples(X: pd.DataFrame, y: int):
+    return sorted([x[1] for x in Counter(y).items()])  # type: ignore
 
 
 def test_oversample_random_sample():
