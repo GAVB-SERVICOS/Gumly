@@ -39,6 +39,22 @@ The general format is:
 
 ```
 
+# 1.1.0 - DATE (05/07/2022)
+
+### Features
+
+- module geo location
+  - city to region
+  - city to microregion
+  - city to mesoregion
+  - city to immediate region
+  - city_to_intermediary_region
+  - state to region
+  - cep to state
+  - cep to region
+  - ibge to city
+  - city to ibge
+
 # 1.0.0 - DATE (01/02/2022)
 
 ### Features
