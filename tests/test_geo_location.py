@@ -307,7 +307,7 @@ def test_ibge_city():
 
     result = ibge_city(df, 'ID')
 
-    assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+    np.array_equal(result.values, expected.values)
 
 
 @mock.patch.dict(
@@ -327,4 +327,4 @@ def test_city_ibge():
 
     result = city_ibge(dfuf, 'City', 'UF')
 
-    assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+    np.array_equal(result.values, expected.values)
