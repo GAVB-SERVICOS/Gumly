@@ -78,8 +78,8 @@ def fetch():
     municipiouf_id_tratado = dict(zip(municipio_uf_concatenado_tratado, municipios_id))
     estado_regiao_tratado = dict(zip(estado_tratado, _regiao))
     uf_regiao_tratado = dict(zip(uf_tratado, _regiao))
-    estado_uf_tratado = dict(zip(estado_tratado,uf_estado))
-    uf_estado_tratado = dict(zip(uf_tratado,estado))
+    estado_uf_tratado = dict(zip(estado_tratado, uf_estado))
+    uf_estado_tratado = dict(zip(uf_tratado, estado))
 
     dict_cep_estado = {
         pd.Interval(69900, 69999, closed='both'): 'Acre',
@@ -539,6 +539,7 @@ def state_to_uf(df: pd.DataFrame, colOrigem: str):
     df.drop(['temp'], axis=1, inplace=True)
 
     return colNova
+
 
 def uf_to_state(df: pd.DataFrame, colOrigem: str):
 

@@ -350,7 +350,6 @@ def test_state_uf():
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
 
 
-
 @mock.patch.dict(
     "sys.modules",
     {
@@ -369,4 +368,3 @@ def test_uf_state():
     result = uf_to_state(dfs, 'state')
 
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
-
