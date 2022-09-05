@@ -6,3 +6,5 @@ gumly.egg-info
 .eggs
 .ipynb_checkpoints
 .pytest_cache
+*.jpg
+*.plk
