@@ -20,7 +20,10 @@ def test_fetch(e, m):
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_to_region():
     from gumly.geo_location import city_to_region
@@ -54,7 +57,10 @@ ibge_data.return_value = {'municipios_microrregiao': {'saopaulo': 'São Paulo'}}
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_to_microregion():
     from gumly.geo_location import city_to_microregion
@@ -88,7 +94,10 @@ ibge_data.return_value = {'municipios_mesorregiao': {'saopaulo': 'São Paulo'}}
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_to_mesoregion():
     from gumly.geo_location import city_to_mesoregion
@@ -124,7 +133,10 @@ ibge_data.return_value = {'municipios_regiao_imediata': {'saopaulo': 'São Paulo
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_to_immediate_region():
     from gumly.geo_location import city_to_immediate_region
@@ -158,7 +170,10 @@ ibge_data.return_value = {'municipios_regiao_intermediaria': {'saopaulo': 'São 
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_to_intermediary_region():
     from gumly.geo_location import city_to_intermediary_region
@@ -191,7 +206,10 @@ ibge_data.return_value = {'regiao': {'saopaulo': 'São Paulo'}}
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_state_to_region():
     from gumly.geo_location import state_to_region
@@ -220,7 +238,10 @@ ibge_data.return_value = {
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_cep_to_state():
     from gumly.geo_location import cep_to_state
@@ -247,7 +268,10 @@ ibge_data.return_value = {
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_cep_to_region():
     from gumly.geo_location import cep_to_region
@@ -264,7 +288,10 @@ def test_cep_to_region():
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_ibge_city():
     from gumly.geo_location import ibge_city
@@ -284,7 +311,10 @@ def test_ibge_city():
 
 
 @mock.patch.dict(
-    "sys.modules", {"gumly.geo_location.ibge_data": ibge_data,},
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
 )
 def test_city_ibge():
     from gumly.geo_location import city_ibge
