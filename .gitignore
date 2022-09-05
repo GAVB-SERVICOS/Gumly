@@ -8,3 +8,5 @@ gumly.egg-info
 .pytest_cache
 *.jpg
 *.plk
+
+.coverage
