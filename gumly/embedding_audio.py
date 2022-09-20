@@ -15,12 +15,17 @@ class EmbeddingAudio(object):
             ('zero_crossing_rate', feature.zero_crossing_rate),
             ('mfcc', feature.mfcc)
         ]
-
     
-    def create_feature_pandas(self, data_dir_target, df_save_embedding=None, sr=22050):
+    def create_feature_pandas(self, data_dir_target=None, df_save_embedding=None, sr=22050):
         
         ## Lendo DataFrame
-        df = pd.read_csv(data_dir_target)
+        if type(data_dir_target) == str:
+            df = pd.read_csv(data_dir_target)
+        elif type(data_dir_target) == type(pd.DataFrame()):
+            df = data_dir_target.copy()
+        else:
+            return 'Erro'
+
         path_sound = df['path_sound'].values        
         target = df['target'].values        
         
@@ -93,3 +98,35 @@ class EmbeddingAudio(object):
         
         features_segmentation = np.array(features_segmentation)
         return features_segmentation
+    
+    def reshape_sound_and_target(self, path_sound, targets, segment_size_t=1):
+        """        
+        Parameters:
+        path_sound, 
+        targets, 
+        segment_size_t: segment size in seconds
+        """
+        segments_sound, segments_target = [], []
+        
+        for i in range(len(path_sound)):
+            # load
+            y, sr = load(path_sound[i])
+
+            signal_len = len(y) 
+            # segment size in samples
+            segment_size = int(segment_size_t * sr)  
+            # Break signal into list of segments in a single-line Python code
+            segments = [
+                y[x:x + segment_size] for x in np.arange(0, signal_len, segment_size)
+            ]
+
+            target = [targets[i] for _ in range(len(segments))]
+
+            segments_sound.extend(segments)
+            segments_target.extend(target)
+
+        segments_sound = np.array(segments_sound)
+        segments_target = np.array(segments_target)
+        
+        return segments_sound, segments_target, sr
+
