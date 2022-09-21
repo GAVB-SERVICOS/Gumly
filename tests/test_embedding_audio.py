@@ -8,12 +8,14 @@ import librosa
 
 from gumly.embedding_audio import EmbeddingAudio
 
-def test_feature_engineering_split_features_and_target():    
+def test_func_create_feature_pandas():  
+
+    targets = ['choice', 'brahms', 'fishin']
     data = {'path_sound':[], 'target':[]}
-    for arq in ['choice', 'brahms']:
-        filename = librosa.example(arq)
+    for target in targets:
+        filename = librosa.example(target)
         data['path_sound'].append(filename)
-        data['target'].append('target')
+        data['target'].append(target)
     
     df = pd.DataFrame(data)
     
@@ -21,40 +23,43 @@ def test_feature_engineering_split_features_and_target():
     df_embedding = embedding.create_feature_pandas(data_dir_target=df)
 
     assert type(df_embedding) == type(pd.DataFrame())
-    assert df_embedding.shape[0] == 2
+    assert df_embedding.shape[0] == len(targets)
     assert df_embedding.shape[1] == 28
+    assert np.all(df_embedding['target'].values == targets)
 
-def test_shape_numpy_array():  
+def test_func_create_feature():  
     
     audio_list = []
-    for arq in ['choice', 'brahms']:
-        filename = librosa.example(arq)
+    targets = ['choice', 'brahms', 'fishin'] 
+    for target in targets:
+        filename = librosa.example(target)
         audio, _ = librosa.load(filename)
         audio_list.append(audio)
 
     embedding = EmbeddingAudio()
     audio_embedding = embedding.create_feature(audio=audio_list, sr=22050)
 
-    assert audio_embedding.shape[0] == 2
+    assert audio_embedding.shape[0] == len(targets)
     assert audio_embedding.shape[1] == 26
 
-def test_reshape_sound_and_target():
+def test_func_reshape_sound_and_target():
+
     count_segments = 0    
     segment_size_t = 0.5
     targets = ['choice', 'brahms', 'fishin']    
     
-    filename_list = []
+    audio_list = []
     for target in targets:
-        filename = librosa.example(target)
-        filename_list.append(filename)
-
+        filename = librosa.example(target)        
         audio, sr = librosa.load(filename)
         count_segments += np.ceil((audio.shape[0] / sr)/segment_size_t)
+        audio_list.append(audio)
 
     embedding = EmbeddingAudio()
-    segments_sound, segments_target, sr = embedding.reshape_sound_and_target(
-        path_sound = filename_list,
-        targets = targets,
+    segments_sound, segments_target = embedding.reshape_sound_and_target(
+        sound_list = audio_list,
+        targets_list = targets,
+        sr = sr,
         segment_size_t = segment_size_t
     )
 

@@ -99,28 +99,42 @@ class EmbeddingAudio(object):
         features_segmentation = np.array(features_segmentation)
         return features_segmentation
     
-    def reshape_sound_and_target(self, path_sound, targets, segment_size_t=1):
+    def reshape_sound_and_target(self, sound_list, targets_list, sr, segment_size_t=1.0):
         """        
         Parameters:
-        path_sound, 
-        targets, 
+        sound_list, 
+        targets_list, 
         segment_size_t: segment size in seconds
         """
         segments_sound, segments_target = [], []
         
-        for i in range(len(path_sound)):
-            # load
-            y, sr = load(path_sound[i])
-
+        if type(sound_list) == type([]):
+            if len(sound_list) == 1:
+                sound_list = [sound_list]
+        elif type(sound_list) == type(np.array([1])):
+            if type(sound_list[0]) not in [type(np.array([1])), type([])]:
+                sound_list = [sound_list]
+        
+        range_ = range(len(sound_list))
+        
+        if type(sr) in [type(1), type(1.0)]:
+            sr = [sr for _ in range_]
+        elif len(sr) != len(sound_list):
+            sr = [sr[0] for _ in range_]
+        
+        for i in range_:
+            
+            y = sound_list[i]
+            # Signal size
             signal_len = len(y) 
             # segment size in samples
-            segment_size = int(segment_size_t * sr)  
+            segment_size = int(segment_size_t * sr[i])  
             # Break signal into list of segments in a single-line Python code
             segments = [
                 y[x:x + segment_size] for x in np.arange(0, signal_len, segment_size)
             ]
-
-            target = [targets[i] for _ in range(len(segments))]
+            # Reshaping the target list according to the segmented audio 
+            target = [targets_list[i] for _ in range(len(segments))]
 
             segments_sound.extend(segments)
             segments_target.extend(target)
@@ -128,5 +142,5 @@ class EmbeddingAudio(object):
         segments_sound = np.array(segments_sound)
         segments_target = np.array(segments_target)
         
-        return segments_sound, segments_target, sr
+        return segments_sound, segments_target
 
