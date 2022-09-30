@@ -98,42 +98,6 @@ def test_checkpointflow_with_params_checkpoint(fixture_checkpointflow):
   cp.run(initial_state, checkpoint=2)
   assert initial_state['b'] == 5.5
   
-# def test_checkpointflow_with_params_load_policy(fixture_checkpointflow):
-#   cp, initial_state = fixture_checkpointflow
-#   initial_state['break_f2'] = False
-#   initial_state['break_f3'] = True
-  
-#   def loader3(state):
-#     print("loader3")
-#     return {'z': ['A', 'B', 'C']}
-
-#   def saver3(state, data):
-#     print(f"saver3 printing data={data}")
-
-#   @cp.add_step()
-#   def f2(state, data):
-#     if state['break_f2']:
-#       raise StepException("f2 fail")
-  
-#   @cp.add_step(load=loader3, save=saver3)
-#   def f3(state, data):
-#     if state['break_f3']:
-#       raise StepException("f3 fail")
-#   with pytest.raises(StepException) as ex:
-#     cp.run(initial_state, load_policy='first only') 
-#   assert str(ex.value) == "f3 fail"
-#   cp_state = cp.handler.read()
-  
-  
-#   cp_state['break_f2'] = True
-#   cp_state['break_f3'] = False
-
-#   cp.handler.write(cp_state)
-
-#   with pytest.raises(StepException) as ex:
-#     cp.run(initial_state, load_policy= 'always')
-#   assert str(ex.value) == "f2 fail"
-  
 
 def test_checkpointflow_with_params_load_policy():
   
