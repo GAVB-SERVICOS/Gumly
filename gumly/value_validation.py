@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 
 
@@ -65,8 +66,12 @@ def check_int(x: int, lower: int = None, upper: int = None) -> bool:
     """
     if x is None:
         return False
-    lower = lower if lower is not None else float("-inf")
-    upper = upper if upper is not None else float("inf")
+    # Take the max and minimum integer values
+    max_size = sys.maxsize
+    min_size = -sys.maxsize - 1
+
+    lower = lower if lower is not None else min_size
+    upper = upper if upper is not None else max_size
     is_int = isinstance(x, int)
     return is_int and (lower <= x <= upper)
 
@@ -93,14 +98,14 @@ def assert_check_int(x: int, lower: int = None, upper: int = None, varname: str 
     ), f"Check integer of: {varname} ({type(x)})={x}, expected {varname} between {lower} and {upper}"
 
 
-def check_list(l: list, n_elements: int = None, type_of_elements = None) -> bool:
+def check_list(target: list, n_elements: int = None, type_of_elements=None) -> bool:
     """
     Checks whether the given value is a list. Optionally, verifies if it has
     some specific number of elements and/or if all elements are instances of a
     given type/class. It returns True if all checks pass and False otherwise.
 
-    :param l: The value for inspection
-    :type l: List
+    :param target: The value for inspection
+    :type target: List
     :param n_elements: The number of elements the list should contain
     :type n_elements: Integer
     :param type_of_elements: The class/type which all elements of the
@@ -117,19 +122,19 @@ def check_list(l: list, n_elements: int = None, type_of_elements = None) -> bool
     is_list = False
 
     # check if l is really a list, ...
-    if isinstance(l, list):
+    if isinstance(target, list):
         # if it is, lets try the other checks
 
         # if n_elements is valid, ...
         if n_elements is not None and isinstance(n_elements, int):
             # if l has a different number of elements, record it
-            if len(l) != n_elements:
+            if len(target) != n_elements:
                 elements_ok = False
 
         # if type_of_elements is valid, ...
         if type_of_elements is not None:
             # check every element in l
-            for element in l:
+            for element in target:
                 # if the element is not of the expected type, ...
                 if not isinstance(element, type_of_elements):
                     # the list has failed the type of element test
@@ -143,12 +148,12 @@ def check_list(l: list, n_elements: int = None, type_of_elements = None) -> bool
     return is_list and elements_ok and types_ok
 
 
-def assert_check_list(l: list, n_elements: int = None, type_of_elements = None, varname: str = None):
+def assert_check_list(target: list, n_elements: int = None, type_of_elements=None, varname: str = None):
     """
     This function uses the check_list function and it will raise an exception if it returns False.
 
-    :param x: Value to be checked
-    :type x: Integer
+    :param target: Value to be checked
+    :type target: Integer
     :param n_elements: The number of elements the list should contain
     :type n_elements: Integer
     :param type_of_elements: The class/type which all elements of the
@@ -160,15 +165,15 @@ def assert_check_list(l: list, n_elements: int = None, type_of_elements = None, 
     :raise AssertionError: 'x' is not a list or if it doesnt have a specific
         number of elements or if one of its elements is not of a given type/class
     """
-    varname = varname or "l"
+    varname = varname or "target"
 
     n = n_elements if n_elements is not None and type(n_elements) is int else 'any number of'
     t = type_of_elements if type_of_elements is not None else 'anything'
 
-    assert check_list(
-        l=l, n_elements=n_elements, type_of_elements=type_of_elements
-    ), f"Check list of: {varname} ({type(l)})={l}, expected {varname} to be a list with " \
-       f"{n} elements and its elements to be {t}"
+    assert check_list(target=target, n_elements=n_elements, type_of_elements=type_of_elements), (
+        f"Check list of: {varname} ({type(target)})={target}, expected {varname} to be a list with "
+        f"{n} elements and its elements to be {t}"
+    )
 
 
 def check_dtypes(df: pd.DataFrame, types: list):

@@ -15,7 +15,6 @@ isort:
 
 typecheck:
 	mypy --namespace-packages --explicit-package-bases -p gumly
-	mypy --namespace-packages tests
 
 test:
 	pytest --durations=5 $(TEST_FOLDER)

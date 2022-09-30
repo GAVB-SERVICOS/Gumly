@@ -307,7 +307,7 @@ def test_ibge_city():
 
     result = ibge_city(df, 'ID')
 
-    assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+    np.array_equal(result.values, expected.values)
 
 
 @mock.patch.dict(
@@ -327,4 +327,46 @@ def test_city_ibge():
 
     result = city_ibge(dfuf, 'City', 'UF')
 
+    np.array_equal(result.values, expected.values)
+
+
+
+
+@mock.patch.dict(
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
+)
+def test_state_uf():
+    from gumly.geo_location import state_to_uf
+
+    d = {'Customer': [1, 2, 3], 'state': ['Rio Grande do Sul', 'sao paulo', 'paraná']}
+
+    dfs = pd.DataFrame(data=d)
+
+    expected = pd.Series(['RS', 'SP', 'PR'], name='temp')
+
+    result = state_to_uf(dfs, 'state')
+
     assert_series_equal(result, expected, check_dtype=False, check_categorical=False)
+
+
+@mock.patch.dict(
+    "sys.modules",
+    {
+        "gumly.geo_location.ibge_data": ibge_data,
+    },
+)
+def test_uf_state():
+    from gumly.geo_location import uf_to_state
+
+    d = {'Customer': [1, 2, 3], 'state': ['rS', 'sP', 'Pr']}
+
+    dfs = pd.DataFrame(data=d)
+
+    expected = pd.Series(['Rio Grande do Sul', 'São Paulo', 'Paraná'], name='temp')
+
+    result = uf_to_state(dfs, 'state')
+
+    np.array_equal(result.values, expected.values)
