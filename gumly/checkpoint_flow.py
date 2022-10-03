@@ -1,7 +1,9 @@
 import functools
 import types
+from typing import Dict, List, Any, Union, cast
 import dill as pickle
-from gumly.value_validation import check_list, check_int
+
+from gumly.value_validation import check_int, check_list
 
 
 class LocalStateHandler:
@@ -72,9 +74,7 @@ class CheckpointFlow:
     """
 
     # global variable that tells which state handlers are implemented
-    state_handler_constructors = {
-        'local': LocalStateHandler
-    }
+    state_handler_constructors = {'local': LocalStateHandler}
 
     def __init__(self, state_path: str, handler: str = 'local'):
         """
@@ -98,7 +98,7 @@ class CheckpointFlow:
         """
 
         # initialize the list of functions
-        self.fs = list()
+        self.fs: List[Any] = list()
         # initialize the checkpoint index
         self.ckp_index = 0
 
@@ -148,8 +148,8 @@ class CheckpointFlow:
         :rtype: Decorator
 
         """
-        def decorator(f):
 
+        def decorator(f):
             @functools.wraps(f)
             def wrapper(state: dict, should_load: bool = False, data: dict = dict()):
                 """
@@ -192,6 +192,7 @@ class CheckpointFlow:
             # add the wrapped function in the list of main functions
             self.fs.append(wrapper)
             return wrapper
+
         return decorator
 
     def check_point(self) -> dict:
@@ -212,7 +213,7 @@ class CheckpointFlow:
         # return the state itself
         return state
 
-    def run(self, state: dict = None, load_policy: str = 'first only', checkpoint: int = None):
+    def run(self, state: dict = None, load_policy: Union[str, List[Any]] = 'first only', checkpoint: int = None):
         """
         Runs the sequence of main functions, managing the checkpoints and
         the large data.
@@ -242,17 +243,16 @@ class CheckpointFlow:
         # use the state form the file if there's no given state, or
         # if there is a checkpoint from the file somewhere in the middle of the sequence
         # otherwise, use the given state
-        state = temp_state \
-            if state is None or (
-                'checkpoint_index' in temp_state and
-                temp_state['checkpoint_index'] > 0
-            ) \
+        state = (
+            temp_state
+            if state is None or ('checkpoint_index' in temp_state and temp_state['checkpoint_index'] > 0)
             else state
+        )
         # initialize the data as None, it will be loaded from a load function
-        data = dict()
+        data: Dict[str, Any] = dict()
 
         # use the given checkpoint index, if any valid value is given
-        if check_int(checkpoint, lower=0, upper=len(self.fs)-1):
+        if check_int(checkpoint, lower=0, upper=len(self.fs) - 1):
             # from now on, use the given value
             self.ckp_index = checkpoint
 
@@ -276,24 +276,22 @@ class CheckpointFlow:
                 policy = [True for i in range(len(self.fs))]
 
         # if a list was given with the correct size and type of elements, ...
-        elif check_list(load_policy, n_elements=len(self.fs), type_of_elements=bool):
+        elif check_list(cast(List[Any], load_policy), n_elements=len(self.fs), type_of_elements=bool):
             # use the given list
-            policy = load_policy
+            policy = cast(List[Any], load_policy)
         else:
             # if the policy is neither a string nor a list, raise an error
-            raise TypeError("load_policy must be either a string or a list of booleans with the"
-                            " same number of elements as the number of main functions.")
+            raise TypeError(
+                "load_policy must be either a string or a list of booleans with the"
+                " same number of elements as the number of main functions."
+            )
 
         # for each index, starting by the checkpoint, ...
         for i in range(self.ckp_index, len(self.fs)):
             # run the wrapped main function
-            data = self.fs[i](
-                state,
-                should_load=policy[i],
-                data=data
-            )
+            data = self.fs[i](state, should_load=policy[i], data=data)
             # update the checkpoint index
-            state['checkpoint_index'] = i+1
+            state['checkpoint_index'] = i + 1
             # save the checkpoint state
             self.handler.write(state)
 
@@ -302,4 +300,3 @@ class CheckpointFlow:
         state['checkpoint_index'] = 0
         # save the final checkpoint
         self.handler.write(state)
-
