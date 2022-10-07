@@ -41,4 +41,4 @@ pip install gumly
 
 ## **Release Notes**
 
-[v1.0.0](https://github.com/GAVB-SERVICOS/Gumly/blob/main/CHANGELOG.md)
+Check the [CHANGELOG](https://github.com/GAVB-SERVICOS/Gumly/blob/main/CHANGELOG.md) file to keep track the release features.

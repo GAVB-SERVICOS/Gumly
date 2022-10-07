@@ -43,17 +43,17 @@ The general format is:
 
 ### Features
 
-- module geo location
-  - city to region
-  - city to microregion
-  - city to mesoregion
-  - city to immediate region
-  - city_to_intermediary_region
-  - state to region
-  - cep to state
-  - cep to region
-  - ibge to city
-  - city to ibge
+- module geo_location.py
+  - city_to_region: Fill the region through the city returning a pd.series.
+  - city_to_microregion: Fill the microregion through the city returning a pd.series.
+  - city_to_mesoregion: Fill the mesoregion through the city returning a pd.series.
+  - city_to_immediate_region: Fill the immediate region through the city returning a pd.series.
+  - city_to_intermediary_region:  Fill the intermediary region through the city returning a pd.series.
+  - state_to_region: Fill the region through the state returning a pd.series.
+  - cep_to_state: Fill the state through the cep returning a pd.series.
+  - cep_to_region: Fill the region through the cep returning a pd.series.
+  - ibge_to_city: Fill the city through ibge id returning a pd.series.
+  - city_to_ibge: Fill the ibge id through the city returning a pd.series.
 
 # 1.0.0 - DATE (01/02/2022)
 
