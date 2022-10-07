@@ -1,4 +1,5 @@
 import sys
+
 import pandas as pd
 
 
@@ -66,7 +67,6 @@ def check_int(x: int, lower: int = None, upper: int = None) -> bool:
     """
     if x is None:
         return False
-
     # Take the max and minimum integer values
     max_size = sys.maxsize
     min_size = -sys.maxsize - 1

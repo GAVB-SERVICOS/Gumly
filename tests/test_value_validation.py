@@ -3,13 +3,13 @@ import pytest
 
 from gumly.value_validation import (
     assert_check_dtypes,
-    assert_check_number,
     assert_check_int,
     assert_check_list,
+    assert_check_number,
     check_dtypes,
-    check_number,
     check_int,
     check_list,
+    check_number,
 )
 
 
