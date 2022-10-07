@@ -31,6 +31,10 @@ Thus, it is possible to work with this framework that brings basically two main 
 
 [Geo Location](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/geo_location.ipynb)
 
+[Imbalanced](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/imbalanced.ipynb)
+
+[Check Point Flow](https://github.com/GAVB-SERVICOS/Gumly/blob/main/exercises/checkpoint_flow.ipynb)
+
 
 ## **How to install**
 
@@ -41,4 +45,4 @@ pip install gumly
 
 ## **Release Notes**
 
-[v1.0.0](https://github.com/GAVB-SERVICOS/Gumly/blob/main/CHANGELOG.md)
+Check the [CHANGELOG](https://github.com/GAVB-SERVICOS/Gumly/blob/main/CHANGELOG.md) file to keep track the release features.

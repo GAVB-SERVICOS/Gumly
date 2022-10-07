@@ -39,21 +39,59 @@ The general format is:
 
 ```
 
+# 1.2.0 - DATE (07/10/2022)
+
+### Features
+
+- module geo_location.py
+  - state_to_uf: Fill the region through the state returning a pd.series.
+  - uf_to_state: Fill the region through the state returning a pd.series.
+
+- module imbalanced.py
+  - oversampler: Runs the chosen method of Over-sampling at imbalanced data
+        and returns the balanced tuple with two arrays at index 0
+        the values of input "X" transformed and at index 1 the values of "y".
+  - undersampler: Runs the chosen method of Under-sampling at imbalanced data
+        and returns the balanced tuple with two arrays at index 0
+        the values of input "X" transformed and at index 1 the values of "y".
+  - combine: Runs the chosen method Combination of over-and undersampling at imbalanced data
+        and returns the balanced tuple with two arrays at index 0
+        the values of input "X" transformed and at index 1 the values of "y".
+
+- module value_validation.py
+  - check_int: This function returns True if the first argument is an integer and it
+    lies between the next two arguments. Otherwise, returns False.
+  - assert_check_int: This function uses the check_int function and it will raise an exception if it returns False.
+  - check_list: Checks whether the given value is a list. Optionally, verifies if it has
+    some specific number of elements and/or if all elements are instances of a
+    given type/class. It returns True if all checks pass and False otherwise.
+  - assert_check_list: This function uses the check_list function and it will raise an exception if it returns False.
+
+- module checkpoint_flow.py
+  - LocalStateHandler: his class is responsible for writing and reading the contents of the state of
+    a program (i.e. a set of small variables) into and from a file in the local
+    filesystem. The state is defined as a dictionary and it is serialized in
+    the file with the Dill library.
+  - CheckpointFlow: This class is responsible for creating and running a series of functions
+    while checkpoint along the way, so that if something goes wrong in any
+    function, when re-running the series, it can start from the function which
+    raised the error, instead of running everything all over again.  
+
 # 1.1.0 - DATE (05/07/2022)
 
 ### Features
 
-- module geo location
-  - city to region
-  - city to microregion
-  - city to mesoregion
-  - city to immediate region
-  - city_to_intermediary_region
-  - state to region
-  - cep to state
-  - cep to region
-  - ibge to city
-  - city to ibge
+- module geo_location.py
+  - city_to_region: Fill the region through the city returning a pd.series.
+  - city_to_microregion: Fill the microregion through the city returning a pd.series.
+  - city_to_mesoregion: Fill the mesoregion through the city returning a pd.series.
+  - city_to_immediate_region: Fill the immediate region through the city returning a pd.series.
+  - city_to_intermediary_region:  Fill the intermediary region through the city returning a pd.series.
+  - state_to_region: Fill the region through the state returning a pd.series.
+  - cep_to_state: Fill the state through the cep returning a pd.series.
+  - cep_to_region: Fill the region through the cep returning a pd.series.
+  - ibge_to_city: Fill the city through ibge id returning a pd.series.
+  - city_to_ibge: Fill the ibge id through the city returning a pd.series.
 
 # 1.0.0 - DATE (01/02/2022)
 
