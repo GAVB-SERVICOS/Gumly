@@ -284,3 +284,25 @@ def ordering_filter(
             set(new_data[(new_data["__index__"] <= index_lower) | (new_data["__index__"] >= index_upper)].index)
         )
     return list(rows_to_drop)
+
+def drop_columns_with_null_threshold(df: pd.DataFrame, threshold_perc: float) -> pd.DataFrame:
+    """Drop all the columns that have a percentage of nulls higher than `threshold_perc`.
+
+    :param df : input pandas DataFrame
+    :type: pd.DataFrame
+
+    :threshold_perc: percentage mininum threshold of nulls to drop column
+    :type: float
+
+    """
+    df_out = df.copy()
+
+    threshold_complement = 1-threshold_perc
+
+    number_of_rows = df_out.shape[0]
+
+    threshold_abs =  int(threshold_complement * number_of_rows + 1)
+
+    df_out = df_out.dropna( axis=1, thresh=threshold_abs)
+    
+    return df_out
