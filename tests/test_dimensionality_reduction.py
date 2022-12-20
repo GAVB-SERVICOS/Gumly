@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 from numpy.testing import assert_almost_equal
 
-from gumly.dimensionality_reduction import *
+from gumly.dimensionality_reduction import PCA, dimensionality_reduction, svds
 
 
 def test_dimensionality_reduction_svd():

@@ -1,14 +1,22 @@
 import numpy as np
 import pandas as pd
-import pytest
 from sklearn import datasets
 
-from gumly.feature_engineering import *
+from gumly.feature_engineering import (
+    feature_selection_embedded,
+    feature_selection_f_regression,
+    feature_selection_filter,
+    feature_selection_mutual_information,
+    feature_selection_stepwise,
+    feature_selection_wrapper,
+    ordering_filter,
+    split_features_and_target,
+)
 
 
 def test_feature_engineering_split_features_and_target():
 
-    boston_data = datasets.load_boston()
+    boston_data = datasets.load_iris()
     df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
     df_boston["target"] = boston_data.target
 
@@ -54,45 +62,36 @@ def test_feature_engineering_feature_selection_embedded():
 # regression
 def test_feature_engineering_feature_selection_stepwise():
 
-    boston_data = datasets.load_boston()
-    df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
-    df_boston["target"] = boston_data.target
+    diabetes_data = datasets.load_diabetes()
+    df_diabetes = pd.DataFrame(diabetes_data.data, columns=diabetes_data.feature_names)
+    df_diabetes["bp"] = diabetes_data.target
 
-    assert feature_selection_stepwise(df_boston, "target", 0.01, 0.05, False) == [
-        "LSTAT",
-        "RM",
-        "PTRATIO",
-        "DIS",
-        "NOX",
-        "CHAS",
-        "B",
-        "ZN",
-    ]
+    assert feature_selection_stepwise(df_diabetes, "bp", 0.01, 0.05, False) == ["bmi", "s5", "s1"]
 
 
 def test_feature_engineering_feature_selection_f_regression():
 
-    boston_data = datasets.load_boston()
-    df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
-    df_boston["target"] = boston_data.target
+    diabetes_data = datasets.load_diabetes()
+    df_diabetes = pd.DataFrame(diabetes_data.data, columns=diabetes_data.feature_names)
+    df_diabetes["bp"] = diabetes_data.target
 
-    assert feature_selection_f_regression(df_boston, "target", 3) == [
-        "RM",
-        "PTRATIO",
-        "LSTAT",
+    assert feature_selection_f_regression(df_diabetes, "bp", 3) == [
+        "bmi",
+        "s4",
+        "s5",
     ]
 
 
 def test_feature_engineering_feature_selection_mutual_information():
 
-    boston_data = datasets.load_boston()
-    df_boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
-    df_boston["target"] = boston_data.target
+    diabetes_data = datasets.load_diabetes()
+    df_diabetes = pd.DataFrame(diabetes_data.data, columns=diabetes_data.feature_names)
+    df_diabetes["bp"] = diabetes_data.target
 
-    assert feature_selection_mutual_information(df_boston, "target", 3) == [
-        "INDUS",
-        "RM",
-        "LSTAT",
+    assert feature_selection_mutual_information(df_diabetes, "bp", 3) == [
+        "bmi",
+        "s5",
+        "s6",
     ]
 
 

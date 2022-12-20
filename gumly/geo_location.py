@@ -1,8 +1,9 @@
-import pandas as pd
-from ibge.localidades import Estados, Municipios
-import unidecode
 import re
 import warnings
+
+import pandas as pd
+import unidecode
+from ibge.localidades import Estados, Municipios
 
 
 def fetch():

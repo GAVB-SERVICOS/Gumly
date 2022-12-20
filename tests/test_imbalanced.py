@@ -1,7 +1,9 @@
+from collections import Counter
+
 import pandas as pd
 from sklearn.datasets import make_classification
-from collections import Counter
-from gumly.imbalanced import oversampler, undersampler, combine
+
+from gumly.imbalanced import combine, oversampler, undersampler
 
 
 def create_dataset(

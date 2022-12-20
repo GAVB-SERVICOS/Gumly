@@ -1,10 +1,6 @@
-from imblearn.over_sampling import RandomOverSampler
-from imblearn.over_sampling import SMOTE
-from imblearn.over_sampling import ADASYN
-from imblearn.under_sampling import RandomUnderSampler
-from imblearn.under_sampling import NearMiss
-from imblearn.combine import SMOTEENN
-from imblearn.combine import SMOTETomek
+from imblearn.combine import SMOTEENN, SMOTETomek
+from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
+from imblearn.under_sampling import NearMiss, RandomUnderSampler
 
 
 def oversampler(

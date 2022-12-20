@@ -19,6 +19,6 @@ setup(
     author="GAVB Servicos de Informatica LTDA",
     install_requires=reqs,
     setup_requires=["pytest_runner"],
-    tests_require=["pytest== 6.2.4"],
+    tests_require=["pytest== 7.2.0"],
     tests_suite="tests",
 )

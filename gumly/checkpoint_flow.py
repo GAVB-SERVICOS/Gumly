@@ -1,6 +1,7 @@
 import functools
 import types
-from typing import Dict, List, Any, Union, cast
+from typing import Any, Dict, List, Union, cast
+
 import dill as pickle
 
 from gumly.value_validation import check_int, check_list

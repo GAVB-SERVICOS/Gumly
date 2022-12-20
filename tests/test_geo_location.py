@@ -1,8 +1,7 @@
 import mock
+import numpy as np
 import pandas as pd
 from pandas.testing import assert_series_equal
-import numpy as np
-
 
 ibge_data = mock.Mock()
 ibge_data.return_value = {'municipios_regiao': {'saopaulo': 'Sudeste'}}
@@ -328,8 +327,6 @@ def test_city_ibge():
     result = city_ibge(dfuf, 'City', 'UF')
 
     np.array_equal(result.values, expected.values)
-
-
 
 
 @mock.patch.dict(
