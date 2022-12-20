@@ -1,6 +1,6 @@
 # **Gumly**
 
-[![APM](https://img.shields.io/apm/l/python?style=plastic)](./LICENSE)
+[![APM](https://img.shields.io/hexpm/l/apa?style=plastic)](./LICENSE)
 
 
 GAVB Utilities for Machine Learning Yum
