@@ -4,6 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def find_best_k(X, max_clusters=10):  
+    """
+    Function to test a range of clusters and return the best number of cluster based
+    on Kalinski-Harabasz, Davies-Bouldin and Silhouette metric.
+    
+    X: receive the dataset
+    max_clusters: Receive the number of clusters to test    
+    """
     # Criar lista para armazenar valores de métricas
     ch_scores = []
     db_scores = []
